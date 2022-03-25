@@ -33,4 +33,12 @@ public class Item {
 
     @ManyToOne
     private Member member;
+
+    public Item(String itemName, String itemCode, int price, double weight, String locale) {
+        this.itemName = itemName;
+        this.itemCode = itemCode;
+        this.price = price;
+        this.weight = weight;
+        this.locale = locale;
+    }
 }

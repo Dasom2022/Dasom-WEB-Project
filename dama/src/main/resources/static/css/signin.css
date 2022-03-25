@@ -1,0 +1,35 @@
+#LoginLogo{
+    width: 300px;
+    height: 150px;
+    margin-left: 400px;
+}
+
+form{
+    padding-top: 10px;
+    padding-left: 10px;
+    border: black 1px solid;
+    width: 33%;
+    align-content: center;
+    position: relative;
+    left : 33%;
+}
+
+#username{
+    margin-left: 16px;
+}
+
+
+input{
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+button {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.buttonSignup{
+    float: right;
+    margin-right: 10px;
+}

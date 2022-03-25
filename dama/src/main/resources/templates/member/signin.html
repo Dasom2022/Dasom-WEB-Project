@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/signin.css}">
+    <title>Join Us,Da-in</title>
+</head>
+<body>
+<img th:src="@{/img/logo.png}" alt="로고" id="LoginLogo" width="300px" height="150px"></a>
+
+<div th:if="${param.error}">
+    <p th:text="옳바른 로그인 정보가 아닙니다" class="alert alert-danger"/>
+</div>
+
+<form th:action="@{/member/signin}" method="post">
+    <section id="main_content">
+        <h1 style="text-align: center">Join Us,Da-in</h1>
+        <form name="Login">
+            ID :<input id="username" name="username" type="text"/><br>
+            PW :<input id="password" name="password" type="password"/><br>
+            <button type="submit" class="btn btn-primary">로그인</button>
+            <button type="button" class="buttonSignup"><a th:href="@{/member/signup}">회원가입</a></button>
+            <hr>
+        </form>
+
+
+    </section>
+    <div class="clear"></div>
+    </section> <!-- section main -->
+</form>
+</body>
+</html>

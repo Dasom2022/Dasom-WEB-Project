@@ -1,0 +1,78 @@
+body {
+    min-height: 100vh;
+    background: -webkit-gradient(linear, left bottom, right top, from(#EFFBFB),
+    to(#E0F8F7));
+    background: -webkit-linear-gradient(bottom left, #EFFBFB 0%, #E0F8F7 100%);
+    background: -moz-linear-gradient(bottom left, #EFFBFB 0%, #E0F8F7 100%);
+    background: -o-linear-gradient(bottom left, #EFFBFB 0%, #E0F8F7 100%);
+    background: linear-gradient(to top right, #EFFBFB 0%, #E0F8F7 100%);
+}
+
+.sibal{
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.input-form {
+    max-width: 680px;
+    margin-top: 80px;
+    padding: 32px;
+    background: #fff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+}
+.buttonCheckId{
+    display: block;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #FFFFFF;
+    background-color: #007bff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    margin-top: 32px;
+    border-radius: 0.25rem;
+}
+/*커밋용주석*/
+.custom-selected {
+    display: inline-block;
+    width: 150px;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    vertical-align: middle;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.custom-selected2 {
+    display: inline-block;
+    width: 100px;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    vertical-align: middle;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}

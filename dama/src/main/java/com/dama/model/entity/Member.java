@@ -7,7 +7,6 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity
 public class Member {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,4 +36,17 @@ public class Member {
 
     @OneToOne
     private Kart kart;
+
+    @Builder
+    public Member(Long id, String username, String password, String role, String nickname, int age, String email, List<Item> itemList, Kart kart) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.nickname = nickname;
+        this.age = age;
+        this.email = email;
+        this.itemList = itemList;
+        this.kart = kart;
+    }
 }
