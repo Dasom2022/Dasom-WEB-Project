@@ -1,0 +1,55 @@
+spring:
+  devtools: #여기부터
+    livereload:
+      enabled: true
+    restart:
+      enabled: false
+  freemarker:
+    cache: false # 여기까지 웹재실행안하기위한 yml파일설정
+  data:
+    maria:
+      jdbc-url: jdbc:mariadb://rds-mariadb.cbzlltnphevs.us-east-1.rds.amazonaws.com:3306/dama-aws?useUnicode=yes&characterEncoding=UTF-8
+      driver-class-name: org.mariadb.jdbc.Driver
+      username: admin
+      password: lsh6451217
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      temp:
+        use_jdbc_metadata_defaults: false
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+        #      show_sql: true
+        format_sql: true
+        open-in-view: true
+        profiles:
+        active: local
+
+  thymeleaf:
+    cache: false
+
+  servlet:
+    multipart:
+      enabled: true
+      location: C://upload
+      max-file-size: 30MB
+      max-request-size: 30MB
+  config:
+    import: classpath:/mail.yml
+logging:
+  level:
+    org.hibernate.SQL: debug
+
+
+file:
+  path: C:/upload/
+
+server:
+  port: 3333
+
+
+
+
