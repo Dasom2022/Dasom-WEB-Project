@@ -31,8 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/doLogout");
 
         http.authorizeRequests()
-                .antMatchers("/")
-                .authenticated()
+                .antMatchers("/").permitAll()
                 .anyRequest()
                 .permitAll()
                 .and()
