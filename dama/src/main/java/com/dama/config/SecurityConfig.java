@@ -28,15 +28,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.logout()
-                .logoutUrl("/doLogout");
+                .logoutUrl("doLogout");
 
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/")
+                .authenticated()
                 .anyRequest()
                 .permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/member/signin")
+                .loginPage("member/signin")
                 .loginProcessingUrl("/member/signin")
                 .defaultSuccessUrl("/");
     }

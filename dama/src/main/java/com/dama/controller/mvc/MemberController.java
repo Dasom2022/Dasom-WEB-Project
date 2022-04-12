@@ -59,16 +59,16 @@ public class MemberController {
             } catch (Exception e) {
                 log.error(e.getMessage());
                 log.info("여기서에러가나나요?");
-                return "redirect:/member/signup";
+                return "redirect:member/signup";
             }
-            return "redirect:/member/signin";
+            return "redirect:member/signin";
         }
     }
 
     @GetMapping("/signin")
     public String signinForm(){
 
-        return "/member/signin";
+        return "member/signin";
     }
 
     /*@GetMapping("/myprofile")
