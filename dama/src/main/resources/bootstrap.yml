@@ -1,0 +1,7 @@
+aws:
+  secretsmanager:
+    name: dama
+cloud:
+  aws:
+    region:
+      static: us-east-1

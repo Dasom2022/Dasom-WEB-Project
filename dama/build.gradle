@@ -54,6 +54,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
 
+    // aws secrets
+    implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:3.1.0'
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws-secrets-manager-config:2.2.6.RELEASE'
+    implementation 'commons-io:commons-io:2.5'
 }
 
 test {

@@ -8,10 +8,10 @@ spring:
     cache: false # 여기까지 웹재실행안하기위한 yml파일설정
   data:
     maria:
-      jdbc-url: jdbc:mariadb://rds-mariadb.cbzlltnphevs.us-east-1.rds.amazonaws.com:3306/dama-aws?useUnicode=yes&characterEncoding=UTF-8
+      jdbc-url: ${jdbc-url}
       driver-class-name: org.mariadb.jdbc.Driver
-      username: admin
-      password: lsh6451217
+      username: ${username}
+      password: ${password}
 
   jpa:
     generate-ddl: true
