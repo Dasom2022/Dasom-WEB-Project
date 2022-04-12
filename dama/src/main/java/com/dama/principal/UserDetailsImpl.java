@@ -14,7 +14,6 @@ public class UserDetailsImpl implements UserDetails {
     public UserDetailsImpl(Member member) {
         this.member=member;
     }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(this.member.getRole()));
