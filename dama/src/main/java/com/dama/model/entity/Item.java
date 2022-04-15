@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity
 public class Item {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,5 +39,15 @@ public class Item {
         this.price = price;
         this.weight = weight;
         this.locale = locale;
+    }
+    @Builder
+    public Item(Long id, String itemName, String itemCode, int price, double weight, String locale, Category category) {
+        this.id = id;
+        this.itemName = itemName;
+        this.itemCode = itemCode;
+        this.price = price;
+        this.weight = weight;
+        this.locale = locale;
+        this.category = category;
     }
 }

@@ -1,5 +1,6 @@
 package com.dama.controller.mvc;
 
+import com.dama.model.dto.ItemDto;
 import com.dama.model.entity.Item;
 import com.dama.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +17,9 @@ public class MainController {
 
     @GetMapping("/")
     public String index(){
-        Item item=new Item("고구마","abc123",20000,35.6,"신선코너");
+        /*ItemDto item=new ItemDto("고구마","abc123",abc123,35.6,"신선코너");
         itemService.saveItem(item);
-        return "index";
+        */return "index";
     }
 
     /*@GetMapping("/chat/chat")
