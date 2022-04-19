@@ -1,9 +1,8 @@
-package com.dama.service;
+/*package com.dama.service;
 
 
 import com.dama.model.dto.MemberDto;
 import com.dama.model.entity.Member;
-import com.dama.principal.UserDetailsImpl;
 import com.dama.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -24,9 +23,9 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Log4j2
-public class MemberService /*implements UserDetailsService*/ {
+public class MemberService *//*implements UserDetailsService*//* {
 
-    private final MemberRepository memberRepository;
+    private final MemberRepository memberRepository;*/
 
 
    /* @Transactional
@@ -123,4 +122,4 @@ public class MemberService /*implements UserDetailsService*/ {
         memberRepository.delete(member);
         return new ResponseEntity<>(1,HttpStatus.OK);
     }*/
-}
+/*}*/
