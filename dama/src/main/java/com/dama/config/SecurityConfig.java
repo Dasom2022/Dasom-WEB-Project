@@ -1,6 +1,8 @@
 package com.dama.config;
 
+/*
 import com.dama.service.MemberService;
+*/
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final MemberService memberService;
+    /*private final MemberService memberService;*/
     //커밋용주석
     @Bean
     public PasswordEncoder encoder(){

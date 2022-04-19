@@ -1,3 +1,4 @@
+/*
 package com.dama.controller.api;
 
 
@@ -34,3 +35,4 @@ public class SignupApiController {
         return memberService.checkexistemail(email);
     }
 }
+*/
