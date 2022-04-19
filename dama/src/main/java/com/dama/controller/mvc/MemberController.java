@@ -1,4 +1,4 @@
-package com.dama.controller.mvc;
+/*package com.dama.controller.mvc;
 
 
 import com.dama.model.dto.MemberDto;
@@ -69,7 +69,7 @@ public class MemberController {
     public String signinForm(){
 
         return "member/signin";
-    }
+    }*/
 
     /*@GetMapping("/myprofile")
     public String myprofileForm(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails){
@@ -101,8 +101,9 @@ public class MemberController {
     }*/
 
 
+/*
 
-    @PostMapping("/mail")
+@PostMapping("/mail")
     @ResponseBody
     public void emailConfirm(String email)throws Exception{
         log.info("userId={}", email);
@@ -128,4 +129,4 @@ public class MemberController {
         return result;
     }
 
-}
+}*/

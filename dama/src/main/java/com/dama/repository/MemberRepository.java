@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface MemberRepository extends JpaRepository<Member,Long> {
 
-    Optional<Member> findByUsername (String username) throws UsernameNotFoundException;
+   /* Optional<Member> findByUsername (String username) throws UsernameNotFoundException;
 
 
 
@@ -18,5 +18,5 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
 
     Optional<Member> findByEmail (String email);
 
-    Optional<Member> findByPassword (String password);
+    Optional<Member> findByPassword (String password);*/
 }

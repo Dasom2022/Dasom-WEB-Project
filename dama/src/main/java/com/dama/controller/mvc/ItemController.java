@@ -1,3 +1,4 @@
+/*
 package com.dama.controller.mvc;
 
 
@@ -37,3 +38,4 @@ public class ItemController {
         return "redirect:/item/register";
     }
 }
+*/

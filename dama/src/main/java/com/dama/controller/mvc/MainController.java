@@ -7,8 +7,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @Log4j2
 @RequiredArgsConstructor
 public class MainController {
@@ -19,7 +20,7 @@ public class MainController {
     public String index(){
         /*ItemDto item=new ItemDto("고구마","abc123",abc123,35.6,"신선코너");
         itemService.saveItem(item);
-        */return "index";
+        */return "<H1>스프링 서버 메인홈페이지</H1>";
     }
 
     /*@GetMapping("/chat/chat")

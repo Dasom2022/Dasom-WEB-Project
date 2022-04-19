@@ -27,22 +27,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
-        http.logout()
-                .logoutUrl("/doLogout");
+       /* http.logout()
+                .logoutUrl("/doLogout");*/
 
         http.authorizeRequests()
                 .antMatchers("/")
                 .permitAll()
                 .anyRequest()
-                .permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/member/signin")
+                .permitAll();
+                /*.and()*/
+                /*.formLogin()*/
+                /*.loginPage("/member/signin")
                 .loginProcessingUrl("/member/signin")
-                .defaultSuccessUrl("/");
+                .defaultSuccessUrl("/");*/
     }
 
-    @Override
+    /*@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("admin")
@@ -51,6 +51,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         auth.userDetailsService(memberService).passwordEncoder(encoder());
 
-    }
+    }*/
 }
 

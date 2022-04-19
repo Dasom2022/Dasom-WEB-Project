@@ -24,12 +24,12 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Log4j2
-public class MemberService implements UserDetailsService {
+public class MemberService /*implements UserDetailsService*/ {
 
     private final MemberRepository memberRepository;
 
 
-    @Transactional
+   /* @Transactional
     public Long createUser (MemberDto dto) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         dto.setPassword(passwordEncoder.encode(dto.getPassword()));
@@ -87,7 +87,7 @@ public class MemberService implements UserDetailsService {
         }else {
             return new ResponseEntity<>(0, HttpStatus.OK);//커밋용 주석
         }
-    }
+    }*/
 
     /*@Transactional
     public ResponseEntity<?> memberUpdate(Long id, String nickname, String local){

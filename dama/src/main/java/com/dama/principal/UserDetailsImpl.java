@@ -1,3 +1,4 @@
+/*
 package com.dama.principal;
 
 import com.dama.model.entity.Member;
@@ -59,4 +60,4 @@ public class UserDetailsImpl implements UserDetails {
 
         return buildMember;
     }
-}
+}*/
