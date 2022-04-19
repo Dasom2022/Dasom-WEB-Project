@@ -1,3 +1,4 @@
+/*
 package com.dama.service;
 
 import com.dama.model.entity.Member;
@@ -14,11 +15,14 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if ("user_id".equals(username)) {
-            /*return new Member("user_id", "$2a$10$m/enYHaLsCwH2dKMUAtQp.ksGOA6lq7Fd2pnMb4L.yT4GyeAPRPyS",
-                    new ArrayList<>());*/
+            */
+/*return new Member("user_id", "$2a$10$m/enYHaLsCwH2dKMUAtQp.ksGOA6lq7Fd2pnMb4L.yT4GyeAPRPyS",
+                    new ArrayList<>());*//*
+
             return null;
         } else {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
     }
 }
+*/

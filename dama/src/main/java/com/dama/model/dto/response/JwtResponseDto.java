@@ -1,3 +1,4 @@
+/*
 package com.dama.model.dto.response;
 
 import lombok.RequiredArgsConstructor;
@@ -16,3 +17,4 @@ public class JwtResponseDto implements Serializable {
         return this.jwttoken;
     }
 }
+*/
