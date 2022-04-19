@@ -47,6 +47,9 @@ logging:
 file:
   path: C:/upload/
 
+jwt:
+  secret: jwtsecretkey
+
 server:
   port: 3333
 
