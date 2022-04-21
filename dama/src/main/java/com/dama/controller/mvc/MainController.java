@@ -20,8 +20,9 @@ public class MainController {
     public String index(){
         /*ItemDto item=new ItemDto("고구마","abc123",abc123,35.6,"신선코너");
         itemService.saveItem(item);
-        */return "<H1>스프링 서버 메인홈페이지</H1>";
+        */return "react Connected?";
     }
+
 
     /*@GetMapping("/chat/chat")
     public String chatForm(){
