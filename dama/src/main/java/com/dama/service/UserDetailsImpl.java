@@ -1,5 +1,4 @@
-/*
-package com.dama.principal;
+package com.dama.service;
 
 import com.dama.model.entity.Member;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,9 +11,11 @@ import java.util.Collections;
 public class UserDetailsImpl implements UserDetails {
 
     private Member member;
+
     public UserDetailsImpl(Member member) {
-        this.member=member;
+        this.member = member;
     }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(this.member.getRole()));
@@ -49,15 +50,4 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    public Member returnProfile(){
-        Member buildMember= Member.builder()
-                .id(this.member.getId())
-                .username(this.member.getUsername())
-                .nickname(this.member.getNickname())
-                .age(this.member.getAge())
-                .build();
-
-        return buildMember;
-    }
-}*/
+}
