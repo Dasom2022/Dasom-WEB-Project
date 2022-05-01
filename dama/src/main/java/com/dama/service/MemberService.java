@@ -20,10 +20,10 @@ public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
-    public ResponseEntity<?> signUpMember(SignupDto signupDto){
+    public Member signUpMember(SignupDto signupDto){
         BCryptPasswordEncoder passwordEncoder= new BCryptPasswordEncoder();
         Member saveMember = memberRepository.save(signupDto.toEntity());
-        return new ResponseEntity<>(saveMember,HttpStatus.OK);
+        return saveMember;
     }
 
     @Override
