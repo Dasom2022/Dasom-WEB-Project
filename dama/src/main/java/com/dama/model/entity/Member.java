@@ -34,8 +34,15 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Item> itemList;
 
+    @Column(name = "socialType")
+    @Enumerated(EnumType.STRING)
+    private SocialType socialType;
+
     @OneToOne
     private Kart kart;
+
+    @Column(name = "socialId",nullable = false)
+    private String socialId;
 
     @Builder
     public Member(Long id, String username, String password, String role, String nickname, int age, String email, List<Item> itemList, Kart kart) {

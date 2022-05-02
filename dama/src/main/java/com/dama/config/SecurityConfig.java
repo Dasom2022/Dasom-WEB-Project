@@ -36,12 +36,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/")
                 .permitAll()
                 .anyRequest()
-                .permitAll();
-                /*.and()*/
-                /*.formLogin()*/
-                /*.loginPage("/member/signin")
+                .permitAll()
+                .and()
+                .formLogin()
+                .loginPage("/member/signin")
                 .loginProcessingUrl("/member/signin")
-                .defaultSuccessUrl("/");*/
+                .defaultSuccessUrl("/");
     }
 
     /*@Override
