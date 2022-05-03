@@ -51,6 +51,8 @@ public class KakaoService {
             JsonElement element = parser.parse(result);
 
             String kakaoId = element.getAsJsonObject().get("id").getAsString();
+            System.out.println(kakaoId);
+
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 

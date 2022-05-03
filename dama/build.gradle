@@ -66,12 +66,14 @@ dependencies {
     // https://mvnrepository.com/artifact/com.github.eirslett/frontend-maven-plugin
     implementation group: 'com.github.eirslett', name: 'frontend-maven-plugin', version: '1.12.0'
 
+    // springfox-swagger-ui
+    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
 }
 
 test {
     useJUnitPlatform()
 }
-def frontendDir = "$projectDir/frontend"
+/*def frontendDir = "$projectDir/frontend"
 sourceSets {
     main {
     resources {
@@ -109,5 +111,5 @@ task copyReactBuildFiles(type: Copy) {
     dependsOn "buildReact"
     from "$frontendDir/build"
     into "$projectDir/src/main/resources/static"
-}
+}*/
 

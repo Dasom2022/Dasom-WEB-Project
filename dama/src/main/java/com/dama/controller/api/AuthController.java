@@ -5,6 +5,8 @@ import com.dama.model.dto.response.UserResponseDto;
 import com.dama.model.entity.Member;
 import com.dama.service.MemberService;
 import com.dama.service.social.KakaoService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,8 @@ public class AuthController {
 
     private final KakaoService kakaoService;
 
+    @ApiOperation(value = "카카오톡 로그인 유저 정보", notes = "토큰 값을받아 로그인 한 유저의 정보를 반환받는다")
+    @ApiImplicitParam(name = "token",value = "카카오톡 소셜로그인 시 발생하는 토큰값")
     @PostMapping(value = "/kakao")
     public ResponseEntity<UserResponseDto> giveToken(@RequestParam("token") String accessToken) {
         System.out.println("accessToken = " + accessToken);

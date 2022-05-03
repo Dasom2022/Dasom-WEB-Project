@@ -20,7 +20,8 @@ public class Member {
     private String password;
 
     @Column(name = "member_role")
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(name = "member_nickname")
     private String nickname;
@@ -34,26 +35,34 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Item> itemList;
 
-    @Column(name = "socialType")
+    @Column(name = "member_socialType")
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
     @OneToOne
     private Kart kart;
 
-    @Column(name = "socialId",nullable = false)
+    @Column(name = "member_socialId",nullable = false)
     private String socialId;
 
-    @Builder
-    public Member(Long id, String username, String password, String role, String nickname, int age, String email, List<Item> itemList, Kart kart) {
-        this.id = id;
+    @Column(name = "member_imgUrl")
+    private String imgUrl;
+
+
+    public Member(String username, String email, String socialId, Role role, String imgURL, SocialType socialType) {
         this.username = username;
         this.password = password;
         this.role = role;
-        this.nickname = nickname;
-        this.age = age;
         this.email = email;
-        this.itemList = itemList;
-        this.kart = kart;
+        this.socialType = socialType;
+        this.socialId = socialId;
+    }
+
+    @Builder
+    public Member(Long id, String username, String password, int age) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.age = age;
     }
 }
