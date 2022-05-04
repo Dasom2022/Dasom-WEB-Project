@@ -5,6 +5,7 @@ import com.dama.model.dto.response.UserResponseDto;
 import com.dama.model.entity.Member;
 import com.dama.service.MemberService;
 import com.dama.service.social.KakaoService;
+import com.dama.service.social.NaverService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,8 @@ public class AuthController {
 
     private final KakaoService kakaoService;
 
+    private final NaverService naverService;
+
     @ApiOperation(value = "카카오톡 로그인 유저 정보", notes = "토큰 값을받아 로그인 한 유저의 정보를 반환받는다")
     @ApiImplicitParam(name = "token",value = "카카오톡 소셜로그인 시 발생하는 토큰값")
     @PostMapping(value = "/kakao")
@@ -53,4 +56,20 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/naver")
+    public ResponseEntity<UserResponseDto> getToken(@RequestParam("token") String accessToken, @RequestParam("fcmToken") String fcmToken){
+        System.out.println("accessToken = " + accessToken);
+        System.out.println("fcmToken = " + fcmToken);
+
+        UserRequestDto userInfo = naverService.getUserInfo(accessToken);
+        if(userInfo.getSocialId() != null){
+            memberService.insertOrUpdateUser(userInfo);
+
+            UserResponseDto userResponseDto = new UserResponseDto(userInfo.getUsername());
+
+            return ResponseEntity.ok(userResponseDto);
+        }else {
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+        }
+    }
 }

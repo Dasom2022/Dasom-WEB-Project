@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -18,6 +19,7 @@ import java.net.URL;
 //커밋용주석
 @RequiredArgsConstructor
 @Service
+@Log4j2
 public class KakaoService {
 
     //AccessToken으로 UserInfo 받기
@@ -51,20 +53,21 @@ public class KakaoService {
             JsonElement element = parser.parse(result);
 
             String kakaoId = element.getAsJsonObject().get("id").getAsString();
+
             System.out.println(kakaoId);
 
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-            String imgURL = properties.getAsJsonObject().get("profile_image").getAsString();
+//            String imgURL = properties.getAsJsonObject().get("profile_image").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
 
             //    UserRequestDto에 값 주입
             userInfo.setUsername(nickname);
             userInfo.setSocialId(kakaoId);
             userInfo.setEmail(email);
-            userInfo.setImgURL(imgURL);
+//            userInfo.setImgURL(imgURL);
             userInfo.setSocialType(SocialType.KAKAO);
 
 

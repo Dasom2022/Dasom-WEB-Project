@@ -15,4 +15,8 @@ public class UserResponseDto {
     private String username;
     @ApiModelProperty(example = "유저 사진 경로")
     private String imgUrl;
+
+    public UserResponseDto(String username) {
+
+    }
 }
