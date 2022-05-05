@@ -50,4 +50,14 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public Member returnMember(){
+        Member member= Member.builder()
+                .id(this.member.getId())
+                .role(this.member.getRole())
+                .username(this.member.getUsername())
+                .imgUrl(this.member.getImgUrl())
+                .build();
+        return member;
+    }
 }

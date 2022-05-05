@@ -3,6 +3,7 @@ package com.dama.controller.mvc;
 
 import com.dama.model.dto.SignupDto;
 import com.dama.model.entity.Member;
+import com.dama.model.entity.Role;
 import com.dama.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -39,6 +40,11 @@ public class MemberController {
         } else {
             try {
                 log.info(signupDto.toString());
+                if(signupDto.getUsername().equals("dongyangadmin")){
+                    signupDto.setRole(Role.ADMIN);
+                }else {
+                    signupDto.setRole(Role.USER);
+                }
                 memberService.signUpMember(signupDto);
             } catch (Exception e) {
                 log.error(e.getMessage());

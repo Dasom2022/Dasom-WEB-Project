@@ -48,7 +48,6 @@ public class Member {
     @Column(name = "member_imgUrl")
     private String imgUrl;
 
-
     public Member(String username, String email, String socialId, Role role, String imgURL, SocialType socialType) {
         this.username = username;
         this.password = password;
@@ -59,10 +58,11 @@ public class Member {
     }
 
     @Builder
-    public Member(Long id, String username, String password, int age) {
+    public Member(Long id, String username, String password, String imgUrl,Role role) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.age = age;
+        this.imgUrl=imgUrl;
+        this.role=role;
     }
 }

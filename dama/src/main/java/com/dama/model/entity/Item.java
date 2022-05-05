@@ -33,13 +33,13 @@ public class Item {
     @ManyToOne
     private Member member;
 
-    public Item(String itemName, String itemCode, int price, double weight, String locale) {
+    /*public Item(String itemName, String itemCode, int price, double weight, String locale) {
         this.itemName = itemName;
         this.itemCode = itemCode;
         this.price = price;
         this.weight = weight;
         this.locale = locale;
-    }
+    }*/
     @Builder
     public Item(Long id, String itemName, String itemCode, int price, double weight, String locale, Category category) {
         this.id = id;
@@ -50,4 +50,5 @@ public class Item {
         this.locale = locale;
         this.category = category;
     }
+
 }
