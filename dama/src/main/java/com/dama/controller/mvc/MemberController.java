@@ -2,13 +2,17 @@ package com.dama.controller.mvc;
 
 
 import com.dama.model.dto.SignupDto;
+import com.dama.model.dto.request.PutItemRequestDto;
+import com.dama.model.entity.Item;
 import com.dama.model.entity.Member;
 import com.dama.model.entity.Role;
 import com.dama.service.MemberService;
+import com.dama.service.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +49,7 @@ public class MemberController {
                 }else {
                     signupDto.setRole(Role.USER);
                 }
+                signupDto.setSocialId("NotSocial");
                 memberService.signUpMember(signupDto);
             } catch (Exception e) {
                 log.error(e.getMessage());
@@ -56,8 +61,16 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/signin")
-    public ResponseEntity<?> signIn(@RequestBody Member member){
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PostMapping("/signin")
+    public ResponseEntity<?> signIn(@RequestParam("username") String username,@RequestParam("password") String password){
+        boolean signin = memberService.findMemberByPasswordAndUsername(username, password);
+        if (signin) return new ResponseEntity<>(HttpStatus.OK);
+        else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/putitem")
+    public void putItem(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody PutItemRequestDto putItemRequestDto){
+        Member byUsername = memberService.findByUsername(userDetails.getUsername());
+        byUsername.getItemList().add(putItemRequestDto.toEntity());
     }
 }

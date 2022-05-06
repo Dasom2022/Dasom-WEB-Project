@@ -11,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Entity
+@Table(name = "karts")
 public class Kart {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "kart_id")

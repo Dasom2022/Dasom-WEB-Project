@@ -8,12 +8,13 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Table(name = "Members")
 public class Member {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
 
-    @Column(name = "member_username")
+    @Column(name = "member_username",unique = true)
     private String username;
 
     @Column(name = "member_password")
@@ -42,7 +43,7 @@ public class Member {
     @OneToOne
     private Kart kart;
 
-    @Column(name = "member_socialId",nullable = false)
+    @Column(name = "member_socialId")
     private String socialId;
 
     @Column(name = "member_imgUrl")
@@ -55,14 +56,16 @@ public class Member {
         this.email = email;
         this.socialType = socialType;
         this.socialId = socialId;
+        this.imgUrl=imgURL;
     }
 
     @Builder
-    public Member(Long id, String username, String password, String imgUrl,Role role) {
+    public Member(Long id, String username,String socialId, String password, String imgUrl,Role role) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.imgUrl=imgUrl;
         this.role=role;
+        this.socialId=socialId;
     }
 }

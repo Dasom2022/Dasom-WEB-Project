@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="dama@localhost" uuid="993d516a-ef37-4e15-8e84-0e0c8ae48003">
+    <data-source source="LOCAL" name="dama-aws@rds-mariadb.cbzlltnphevs.us-east-1.rds.amazonaws.com" uuid="833c4aad-3f1b-4347-bc22-b0846ed63c64">
       <driver-ref>mariadb</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mariadb://localhost:3306/dama</jdbc-url>
+      <jdbc-url>jdbc:mariadb://rds-mariadb.cbzlltnphevs.us-east-1.rds.amazonaws.com:3306/dama-aws</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

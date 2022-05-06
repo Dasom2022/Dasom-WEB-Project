@@ -9,23 +9,28 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
 @Log4j2
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
+    @Transactional
     public Member signUpMember(SignupDto signupDto){
         BCryptPasswordEncoder passwordEncoder= new BCryptPasswordEncoder();
+        signupDto.setPassword(passwordEncoder.encode(signupDto.getPassword()));
         Member saveMember = memberRepository.save(signupDto.toEntity());
         return saveMember;
     }
@@ -36,6 +41,7 @@ public class MemberService implements UserDetailsService {
         return new UserDetailsImpl(member);
     }
 
+    @Transactional
     public void insertOrUpdateUser(UserRequestDto userInfo) {
         String socialId = userInfo.getSocialId();
         SocialType socialType = userInfo.getSocialType();
@@ -49,6 +55,8 @@ public class MemberService implements UserDetailsService {
     }
 
     public Optional<Member> findUserBySocial(String socialId, SocialType socialType) {
+        log.info("MS socialId={}",socialId);
+        log.info("MS socialType={}",socialType);
         Optional<Member> user = memberRepository.findBySocialIdAndSocialType(socialId, socialType);
         return user;
     }
@@ -60,5 +68,18 @@ public class MemberService implements UserDetailsService {
 
     public void updateUserBySocial(UserRequestDto userInfo) {
         memberRepository.updateUserBySocialIdAndSocialType(userInfo.getUsername(), userInfo.getEmail(), userInfo.getImgURL(), userInfo.getSocialId(), userInfo.getSocialType());
+    }
+
+    public boolean findMemberByPasswordAndUsername(String username, String password){
+        BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
+        Member member = memberRepository.findByPassword(password).get();
+        Optional<Member> findMemeberUsername = memberRepository.findByUsername(username);
+        boolean matches = passwordEncoder.matches(password, member.getPassword());
+        if(matches && findMemeberUsername!=null) return true;
+        else return false;
+    }
+
+    public Member findByUsername(String username){
+        return memberRepository.findByUsername(username).get();
     }
 }
