@@ -1,7 +1,9 @@
 package com.dama.service;
 
 import com.dama.model.dto.SignupDto;
+import com.dama.model.dto.request.PutItemRequestDto;
 import com.dama.model.dto.request.UserRequestDto;
+import com.dama.model.dto.response.PutItemResponseDto;
 import com.dama.model.entity.Member;
 import com.dama.model.entity.SocialType;
 import com.dama.repository.MemberRepository;
@@ -72,14 +74,62 @@ public class MemberService implements UserDetailsService {
 
     public boolean findMemberByPasswordAndUsername(String username, String password){
         BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
-        Member member = memberRepository.findByPassword(password).get();
         Optional<Member> findMemeberUsername = memberRepository.findByUsername(username);
-        boolean matches = passwordEncoder.matches(password, member.getPassword());
+        boolean matches = passwordEncoder.matches(password, findMemeberUsername.get().getPassword());
         if(matches && findMemeberUsername!=null) return true;
         else return false;
     }
 
     public Member findByUsername(String username){
         return memberRepository.findByUsername(username).get();
+    }
+
+    @Transactional
+    public PutItemResponseDto putItem(String username, PutItemRequestDto putItemRequestDto) {
+        Optional<Member> byUsername = memberRepository.findByUsername(username);
+        byUsername.get().toUpdateMemberItemList(putItemRequestDto.toEntity());
+        PutItemResponseDto putItemResponseDto=new PutItemResponseDto();
+        PutItemResponseDto returnDto = setPutResponseDto(putItemResponseDto, putItemRequestDto);
+        if (putItemRequestDto.getItemCode()==returnDto.getItemCode()) return returnDto;
+        else return null;
+    }
+
+    private PutItemResponseDto setPutResponseDto(PutItemResponseDto putItemResponseDto,PutItemRequestDto putItemRequestDto){
+        putItemResponseDto.setItemCode(putItemRequestDto.getItemCode());
+        putItemResponseDto.setItemName(putItemRequestDto.getItemName());
+        putItemResponseDto.setPrice(putItemRequestDto.getPrice());
+        putItemResponseDto.setLocale(putItemRequestDto.getLocale());
+        putItemResponseDto.setCategory(putItemRequestDto.getCategory());
+        putItemResponseDto.setWeight(putItemRequestDto.getWeight());
+        return putItemResponseDto;
+    }
+
+
+    public ResponseEntity<?> checkexistusername(String username) {
+        Optional<Member> findUsername = memberRepository.findByUsername(username);
+
+        if(!findUsername.isPresent()){
+            return new ResponseEntity<>(1, HttpStatus.OK);//커밋용 주석
+        }else {
+            return new ResponseEntity<>(0, HttpStatus.OK);//커밋용 주석
+        }
+    }
+
+    public String emailCheck(String email){
+        if(email!=null){
+            return email;
+        }else {
+            return null;
+        }
+    }
+
+    public ResponseEntity<?> checkexistemail(String email) {
+        Optional<Member> findEmail = memberRepository.findByEmail(email);
+
+        if(!findEmail.isPresent()){
+            return new ResponseEntity<>(1, HttpStatus.OK);//커밋용 주석
+        }else {
+            return new ResponseEntity<>(0, HttpStatus.OK);//커밋용 주석
+        }
     }
 }

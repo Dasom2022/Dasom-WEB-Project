@@ -22,4 +22,6 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
     void updateUserBySocialIdAndSocialType(String username, String email, String imgURL, String socialId, SocialType socialType);
 
     Optional<Member> findByPassword(String password);
+
+    Optional<Member> findByEmail(String email);
 }

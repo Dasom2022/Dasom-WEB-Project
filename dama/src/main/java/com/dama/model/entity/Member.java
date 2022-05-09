@@ -68,4 +68,8 @@ public class Member {
         this.role=role;
         this.socialId=socialId;
     }
+
+    public void toUpdateMemberItemList(Item item){
+        this.getItemList().add(item);
+    }
 }

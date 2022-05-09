@@ -3,6 +3,7 @@ package com.dama.controller.mvc;
 
 import com.dama.model.dto.SignupDto;
 import com.dama.model.dto.request.PutItemRequestDto;
+import com.dama.model.dto.response.PutItemResponseDto;
 import com.dama.model.entity.Item;
 import com.dama.model.entity.Member;
 import com.dama.model.entity.Role;
@@ -69,8 +70,8 @@ public class MemberController {
     }
 
     @PostMapping("/putitem")
-    public void putItem(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody PutItemRequestDto putItemRequestDto){
-        Member byUsername = memberService.findByUsername(userDetails.getUsername());
-        byUsername.getItemList().add(putItemRequestDto.toEntity());
+    public ResponseEntity<PutItemResponseDto> putItem(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody PutItemRequestDto putItemRequestDto){
+        PutItemResponseDto returnResponseDto = memberService.putItem(userDetails.getUsername(), putItemRequestDto);
+        return new ResponseEntity<>(returnResponseDto,HttpStatus.OK);
     }
 }

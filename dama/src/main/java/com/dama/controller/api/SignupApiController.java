@@ -1,4 +1,3 @@
-/*
 package com.dama.controller.api;
 
 
@@ -14,25 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("/api")
+@RequestMapping("/api/signup")
 public class SignupApiController {
 
     private final MemberService memberService;
 
-    @GetMapping("/signup/nickname/{nickname}/exist") //커밋용 주석
-    public ResponseEntity<?> existnickname(@PathVariable("nickname")String nickname){
-        log.info("===================");
-        return memberService.checkexistnickname(nickname);
-    }
 
-    @GetMapping("/signup/username/{username}/exist") //커밋용 주석
+    @GetMapping("/username/{username}/exist") //커밋용 주석
     public ResponseEntity<?> existusername(@PathVariable("username")String username){
         return memberService.checkexistusername(username);
     }
 
-    @GetMapping("/signup/email/{email}/exist") //커밋용 주석
+    @GetMapping("/email/{email}/exist") //커밋용 주석
     public ResponseEntity<?> existemail(@PathVariable("email")String email){
         return memberService.checkexistemail(email);
     }
 }
-*/

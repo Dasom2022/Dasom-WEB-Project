@@ -4,10 +4,12 @@ package com.dama.model.dto.request;
 import com.dama.model.entity.Category;
 import com.dama.model.entity.Item;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class PutItemRequestDto {
     private String itemName;
     private String itemCode;
