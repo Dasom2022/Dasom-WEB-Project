@@ -12,12 +12,16 @@ public class SignupDto {
     private String username;
     private String email;
     private String password;
+    private Role role;
+    private String socialId;
 
     public Member toEntity(){
         return Member.builder()
                 .username(username)
                 .password(password)
                 .email(email)
+                .role(role)
+                .socialId(socialId)
                 .build();
     }
 
