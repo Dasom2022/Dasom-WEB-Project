@@ -52,13 +52,17 @@ public class MemberController {
                 }
                 signupDto.setSocialId("NotSocial");
                 Member member = memberService.signUpMember(signupDto);
+                System.out.println("signupDto.getUsername() = " + signupDto.getUsername());
                 return new ResponseEntity(member,HttpStatus.OK);
             } catch (Exception e) {
                 log.error(e.getMessage());
                 log.info("여기서에러가나나요?");
+                System.out.println("signupDto.getUsername()2 = " + signupDto.getUsername());
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
+
         }
+
     }
 
     @PostMapping("/signin")
