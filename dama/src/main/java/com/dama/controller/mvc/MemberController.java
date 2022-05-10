@@ -3,6 +3,7 @@ package com.dama.controller.mvc;
 
 import com.dama.model.dto.SignupDto;
 import com.dama.model.dto.request.PutItemRequestDto;
+import com.dama.model.dto.request.SignInRequestDto;
 import com.dama.model.dto.response.PutItemResponseDto;
 import com.dama.model.entity.Item;
 import com.dama.model.entity.Member;
@@ -67,8 +68,8 @@ public class MemberController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<?> signIn(@RequestParam("username") String username,@RequestParam("password") String password){
-        boolean signin = memberService.findMemberByPasswordAndUsername(username, password);
+    public ResponseEntity<?> signIn(@RequestBody SignInRequestDto signInRequestDto){
+        boolean signin = memberService.findMemberByPasswordAndUsername(signInRequestDto.getUsername(),signInRequestDto.getPassword());
         if (signin) return new ResponseEntity<>(HttpStatus.OK);
         else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

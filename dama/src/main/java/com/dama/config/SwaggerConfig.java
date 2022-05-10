@@ -16,7 +16,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 public class SwaggerConfig {
 
     private static final String API_NAME = "DAMA Kart API";
-    private static final String API_VERSION = "0.0.1";
+    private static final String API_VERSION = "0.0.2";
     private static final String API_DESCRIPTION = "DAMA Kart API 명세서";
 
 
