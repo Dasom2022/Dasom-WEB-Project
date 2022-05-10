@@ -51,14 +51,13 @@ public class MemberController {
                     signupDto.setRole(Role.USER);
                 }
                 signupDto.setSocialId("NotSocial");
-                memberService.signUpMember(signupDto);
+                Member member = memberService.signUpMember(signupDto);
+                return new ResponseEntity(member,HttpStatus.OK);
             } catch (Exception e) {
                 log.error(e.getMessage());
                 log.info("여기서에러가나나요?");
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            Member member = memberService.signUpMember(signupDto);
-            return new ResponseEntity(member,HttpStatus.OK);
         }
     }
 
