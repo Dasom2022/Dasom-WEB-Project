@@ -14,7 +14,7 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    @Column(name = "member_username")
+    @Column(name = "member_username",unique = true)
     private String username;
 
     @Column(name = "member_password")
