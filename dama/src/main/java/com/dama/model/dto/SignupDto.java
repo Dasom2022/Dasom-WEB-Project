@@ -9,19 +9,15 @@ import lombok.Setter;
 
 @Getter @Setter
 public class SignupDto {
-    private Long id;
     private String username;
-    private Role role;
+    private String email;
     private String password;
-    private String socialId;
 
     public Member toEntity(){
         return Member.builder()
-                .id(id)
-                .socialId(socialId)
                 .username(username)
                 .password(password)
-                .role(role)
+                .email(email)
                 .build();
     }
 

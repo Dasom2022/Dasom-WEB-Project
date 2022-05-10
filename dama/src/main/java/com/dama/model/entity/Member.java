@@ -60,12 +60,13 @@ public class Member {
     }
 
     @Builder
-    public Member(Long id, String username,String socialId, String password, String imgUrl,Role role) {
+    public Member(Long id,Role role, String username,String socialId, String password, String imgUrl,String email) {
         this.id = id;
+        this.role=role;
         this.username = username;
         this.password = password;
         this.imgUrl=imgUrl;
-        this.role=role;
+        this.email=email;
         this.socialId=socialId;
     }
 

@@ -54,8 +54,9 @@ public class UserDetailsImpl implements UserDetails {
     public Member returnMember(){
         Member member= Member.builder()
                 .id(this.member.getId())
-                .role(this.member.getRole())
+                .email(this.member.getEmail())
                 .username(this.member.getUsername())
+                .role(this.member.getRole())
                 .imgUrl(this.member.getImgUrl())
                 .build();
         return member;
