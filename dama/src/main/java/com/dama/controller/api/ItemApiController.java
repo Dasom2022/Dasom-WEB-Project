@@ -2,6 +2,8 @@ package com.dama.controller.api;
 
 import com.dama.model.dto.ItemResponseDto;
 import com.dama.model.dto.request.ItemRequestDto;
+import com.dama.model.dto.response.ItemSearchResponseDto;
+import com.dama.model.entity.Item;
 import com.dama.service.ItemService;
 import com.dama.service.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +37,16 @@ public class ItemApiController {
     public ResponseEntity<?> registerItem(@RequestBody ItemRequestDto itemRequestDto){
         itemService.saveItem(itemRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<ItemSearchResponseDto> searchItem(@RequestParam("itemName")String itemName){
+        Item item = itemService.searchItem(itemName);
+        ItemSearchResponseDto itemSearchResponseDto=new ItemSearchResponseDto();
+        itemSearchResponseDto.setItemName(itemName);
+        itemSearchResponseDto.setLocale(item.getLocale());
+        itemSearchResponseDto.setPrice(item.getPrice());
+        itemSearchResponseDto.setWeight(item.getWeight());
+        return new ResponseEntity<>(itemSearchResponseDto,HttpStatus.OK);
     }
 }

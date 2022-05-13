@@ -23,4 +23,8 @@ public class ItemService {
         return itemResponseDto;
     }
 
+    public Item searchItem(String itemName){
+        Item item = itemRepository.findByItemName(itemName).get();
+        return item;
+    }
 }
