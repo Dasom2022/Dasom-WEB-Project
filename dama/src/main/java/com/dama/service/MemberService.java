@@ -134,4 +134,9 @@ public class MemberService implements UserDetailsService {
             return new ResponseEntity<>(0, HttpStatus.OK);//커밋용 주석
         }
     }
+
+    public boolean checkSamePssword(String password1, String password2) {
+        if (password1.equals(password2)) return true;
+        else return false;
+    }
 }

@@ -8,12 +8,15 @@ import com.dama.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class ItemService {
     private final ItemRepository itemRepository;
 
     public Long saveItem(ItemRequestDto item){
+        item.setItemCode(UUID.randomUUID().toString());
         return itemRepository.save(item.toEntity()).getId();
     }
 
