@@ -8,6 +8,7 @@ import com.dama.model.dto.response.PutItemResponseDto;
 import com.dama.model.entity.Item;
 import com.dama.model.entity.Member;
 import com.dama.model.entity.Role;
+import com.dama.service.EmailService;
 import com.dama.service.MemberService;
 import com.dama.service.UserDetailsImpl;
 import com.google.zxing.BarcodeFormat;
@@ -44,6 +45,8 @@ import java.util.Map;
 public class MemberController {
 
     private final MemberService memberService;
+
+    private final EmailService emailService;
 
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody SignupDto signupDto, BindingResult result){
@@ -138,5 +141,31 @@ public class MemberController {
         //리턴은 사용자가 원하는 값을 리턴한다.
         //작성자는 QRCode 파일의 이름을 넘겨주고 싶었음.
         return fileName+".png";
+    }
+
+    @PostMapping("/mail")
+    @ResponseBody
+    public void emailConfirm(String email)throws Exception{
+        log.info("userId={}", email);
+        log.info("post emailConfirm");
+        System.out.println("전달 받은 이메일 : "+email);
+        emailService.sendSimpleMessage(email);
+        memberService.emailCheck(email);
+    }
+
+    @PostMapping("/verifyCode")
+    @ResponseBody
+    public int verifyCode(String confirm_email) {
+
+        log.info("Post verifyCode");
+
+        int result = 0;
+        System.out.println("code : "+confirm_email);
+        System.out.println("code match : "+ EmailService.ePw.equals(confirm_email));
+        if(EmailService.ePw.equals(confirm_email)) {
+            result =1;
+            EmailService.ePw=EmailService.createKey();
+        }
+        return result;
     }
 }
