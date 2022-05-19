@@ -76,7 +76,7 @@ public class MemberService implements UserDetailsService {
 
     public boolean findMemberByPasswordAndUsername(String username, String password){
         BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
-        Optional<Member> findMemeberUsername = memberRepository.findByUsername(username);
+        Optional<Member> findMemeberUsername = Optional.ofNullable(memberRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("아이디가 DB에 없는 값입니다")));
         boolean matches = passwordEncoder.matches(password, findMemeberUsername.get().getPassword());
         if(matches && findMemeberUsername!=null) return true;
         else return false;

@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    include: jwt
   devtools: #여기부터
     livereload:
       enabled: true
@@ -46,9 +48,6 @@ logging:
 
 file:
   path: C:/upload/
-
-jwt:
-  secret: jwtsecretkey
 
 server:
   port: 3333

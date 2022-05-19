@@ -85,8 +85,8 @@ public class MemberController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<?> signIn(@RequestParam("username")String username,@RequestParam("password")String password){
-        boolean signin = memberService.findMemberByPasswordAndUsername(username,password);
+    public ResponseEntity<?> signIn(@RequestBody SignInRequestDto signInRequestDto){
+        boolean signin = memberService.findMemberByPasswordAndUsername(signInRequestDto.getUsername(),signInRequestDto.getPassword());
         if (signin) return new ResponseEntity<>(HttpStatus.OK);
         else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

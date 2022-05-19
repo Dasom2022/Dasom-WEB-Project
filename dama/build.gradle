@@ -82,7 +82,13 @@ dependencies {
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 
+
+    //qr code
     implementation group: 'com.google.zxing', name: 'javase', version: '3.1.0'
+
+    //jwt
+    implementation 'com.auth0:java-jwt:3.18.2'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
 }
 
 test {

@@ -1,6 +1,7 @@
 package com.dama.model.entity;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@AllArgsConstructor
 @Table(name = "Members")
 public class Member {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,12 +25,6 @@ public class Member {
     @Column(name = "member_role")
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @Column(name = "member_nickname")
-    private String nickname;
-
-    @Column(name = "member_age")
-    private int age;
 
     @Column(name = "member_email")
     private String email;
@@ -48,6 +44,9 @@ public class Member {
 
     @Column(name = "member_imgUrl")
     private String imgUrl;
+
+    @Column(name = "member_refreshToken",length = 1000)
+    private String refreshToken;
 
     public Member(String username, String email, String socialId, Role role, String imgURL, SocialType socialType) {
         this.username = username;
@@ -72,5 +71,13 @@ public class Member {
 
     public void toUpdateMemberItemList(Item item){
         this.getItemList().add(item);
+    }
+
+    public void updateRefreshToken(String refreshToken){
+        this.refreshToken=refreshToken;
+    }
+
+    public void destroyRefreshToken(){
+        this.refreshToken=null;
     }
 }
