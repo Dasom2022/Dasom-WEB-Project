@@ -4,9 +4,12 @@ package com.dama.config;
 import com.dama.service.MemberService;
 */
 import com.dama.config.custom.JsonUsernamePasswordAuthenticationFilter;
+import com.dama.config.custom.JwtAuthenticationProcessingFilter;
 import com.dama.handler.login.LoginFailureHandler;
 import com.dama.handler.login.LoginSuccessJWTProvideHandler;
+import com.dama.repository.MemberRepository;
 import com.dama.service.MemberService;
+import com.dama.service.jwt.JwtService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final MemberService memberService;
     private final ObjectMapper objectMapper;
+    private final JwtService jwtService;
+    private final MemberRepository memberRepository;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -53,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
 
         http.addFilterAfter(jsonUsernamePasswordLoginFilter(), LogoutFilter.class);
+        http.addFilterBefore(jwtAuthenticationProcessingFilter(), JsonUsernamePasswordAuthenticationFilter.class);
 
     }
 
@@ -71,7 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public LoginSuccessJWTProvideHandler loginSuccessJWTProvideHandler(){
-        return new LoginSuccessJWTProvideHandler();
+        return new LoginSuccessJWTProvideHandler(jwtService, memberRepository);//변경
     }
 
     @Bean
@@ -84,7 +90,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         JsonUsernamePasswordAuthenticationFilter jsonUsernamePasswordLoginFilter = new JsonUsernamePasswordAuthenticationFilter(objectMapper);
         jsonUsernamePasswordLoginFilter.setAuthenticationManager(authenticationManager());
         jsonUsernamePasswordLoginFilter.setAuthenticationSuccessHandler(loginSuccessJWTProvideHandler());
-        jsonUsernamePasswordLoginFilter.setAuthenticationFailureHandler(loginFailureHandler());
+        jsonUsernamePasswordLoginFilter.setAuthenticationFailureHandler(loginFailureHandler());//변경
+        return jsonUsernamePasswordLoginFilter;
+    }
+
+    @Bean
+    public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter(){
+        JwtAuthenticationProcessingFilter jsonUsernamePasswordLoginFilter = new JwtAuthenticationProcessingFilter(jwtService, memberRepository);
+
         return jsonUsernamePasswordLoginFilter;
     }
 }
