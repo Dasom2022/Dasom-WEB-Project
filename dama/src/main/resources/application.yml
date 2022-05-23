@@ -45,10 +45,6 @@ logging:
   level:
     org.hibernate.SQL: debug
 
-
-file:
-  path: C:/upload/
-
 server:
   port: 3333
 

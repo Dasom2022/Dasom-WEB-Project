@@ -45,7 +45,7 @@ public class Member {
     @Column(name = "member_imgUrl")
     private String imgUrl;
 
-    @Column(name = "member_refreshToken",length = 1000)
+    @Column(name = "member_refreshToken")
     private String refreshToken;
 
     public Member(String username, String email, String socialId, Role role, String imgURL, SocialType socialType) {
@@ -74,6 +74,7 @@ public class Member {
     }
 
     public void updateRefreshToken(String refreshToken){
+        System.out.println("refreshToken = " + refreshToken);
         this.refreshToken=refreshToken;
     }
 

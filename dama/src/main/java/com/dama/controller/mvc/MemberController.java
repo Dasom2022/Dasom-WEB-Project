@@ -63,15 +63,9 @@ public class MemberController {
         } else {
             try {
                 log.info(signupDto.toString());
-                if(signupDto.getUsername().equals("dongyangadmin")){
-                    signupDto.setRole(Role.ADMIN);
-                }else {
-                    signupDto.setRole(Role.USER);
-                }
-                signupDto.setSocialId("NotSocial");
-                Member member = memberService.signUpMember(signupDto);
+                memberService.signUpMember(signupDto);
                 System.out.println("signupDto.getUsername() = " + signupDto.getUsername());
-                return new ResponseEntity(member,HttpStatus.OK);
+                return new ResponseEntity(HttpStatus.OK);
             } catch (Exception e) {
                 log.error(e.getMessage());
                 System.out.println(e.getMessage());
@@ -84,12 +78,12 @@ public class MemberController {
 
     }
 
-    @PostMapping("/signin")
+    /*@PostMapping("/signin")
     public ResponseEntity<?> signIn(@RequestBody SignInRequestDto signInRequestDto){
         boolean signin = memberService.findMemberByPasswordAndUsername(signInRequestDto.getUsername(),signInRequestDto.getPassword());
         if (signin) return new ResponseEntity<>(HttpStatus.OK);
         else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
+    }*/
 
     @PostMapping("/putitem")
     public ResponseEntity<PutItemResponseDto> putItem(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody PutItemRequestDto putItemRequestDto){

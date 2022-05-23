@@ -5,10 +5,12 @@ import com.dama.model.dto.request.PutItemRequestDto;
 import com.dama.model.dto.request.UserRequestDto;
 import com.dama.model.dto.response.PutItemResponseDto;
 import com.dama.model.entity.Member;
+import com.dama.model.entity.Role;
 import com.dama.model.entity.SocialType;
 import com.dama.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,25 +28,30 @@ import java.util.Optional;
 @Log4j2
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class MemberService implements UserDetailsService {
+@Lazy
+public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Transactional
-    public Member signUpMember(SignupDto signupDto){
-        BCryptPasswordEncoder passwordEncoder= new BCryptPasswordEncoder();
+    public void signUpMember(SignupDto signupDto) throws Exception{
         signupDto.setPassword(passwordEncoder.encode(signupDto.getPassword()));
-        Member saveMember = memberRepository.save(signupDto.toEntity());
-        System.out.println("signupDto = " + signupDto.getUsername());
-        return saveMember;
+        if (memberRepository.findByUsername(signupDto.getUsername()).isPresent()){
+            throw new Exception("이미 존재하는 회원입니다!");
+        }else {
+            if(signupDto.getUsername().equals("dongyangadmin")){
+                signupDto.setRole(Role.ADMIN);
+            }else {
+                signupDto.setRole(Role.USER);
+            }
+            signupDto.setSocialId("NotSocial");
+            Member saveMember = memberRepository.save(signupDto.toEntity());
+            System.out.println("signupDto = " + signupDto.getUsername());
+        }
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("username = " + username);
-        Member member = memberRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("요청 아이디가 없는 값입니다!"));
-        return new UserDetailsImpl(member);
-    }
 
     @Transactional
     public void insertOrUpdateUser(UserRequestDto userInfo) {
