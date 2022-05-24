@@ -39,7 +39,10 @@ public class MainController {
         else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-
+    @PostMapping("/testUrl")
+    public ResponseEntity<String> test(){
+        return new ResponseEntity<>("테스트용",HttpStatus.OK);
+    }
 
 
     /*@GetMapping("/chat/chat")
