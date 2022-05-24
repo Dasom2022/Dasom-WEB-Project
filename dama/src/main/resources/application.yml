@@ -30,8 +30,6 @@ spring:
         profiles:
         active: local
 
-  thymeleaf:
-    cache: false
 
   servlet:
     multipart:
