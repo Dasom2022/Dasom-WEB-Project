@@ -1,5 +1,7 @@
 package com.dama.service.jwt;
 
+import org.springframework.http.ResponseEntity;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
@@ -16,6 +18,7 @@ public interface JwtService {
     void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken);
     void sendAccessToken(HttpServletResponse response, String accessToken);
 
+    ResponseEntity<String> sendSuccessStatusCode(String code);
 
     Optional<String> extractAccessToken(HttpServletRequest request);
 

@@ -9,7 +9,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -115,6 +118,11 @@ public class JwtServiceImpl implements JwtService{
         tokenMap.put(ACCESS_TOKEN_SUBJECT, accessToken);
     }
 
+    @Override
+    public @ResponseBody ResponseEntity<String> sendSuccessStatusCode(String code) {
+
+        return new ResponseEntity<>("Login Success", HttpStatus.OK);
+    }
 
 
     @Override

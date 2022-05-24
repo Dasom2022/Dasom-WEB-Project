@@ -5,6 +5,7 @@ import com.dama.repository.MemberRepository;
 import com.dama.service.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -26,11 +27,11 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
         String username = extractUsername(authentication);
+        String code=returnStatusCode();
         String accessToken = jwtService.createAccessToken(username);
         String refreshToken = jwtService.createRefreshToken();
-
         jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken);
-
+        jwtService.sendSuccessStatusCode(code);
         /*memberRepository.findByUsername(username).ifPresent(
                 member -> member.updateRefreshToken(refreshToken)
         );*/
@@ -50,5 +51,9 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
     private String extractUsername(Authentication authentication){
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         return userDetails.getUsername();
+    }
+
+    private String returnStatusCode(){
+        return "success";
     }
 }
