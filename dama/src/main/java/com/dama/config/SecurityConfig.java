@@ -32,7 +32,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final LoginService loginService;

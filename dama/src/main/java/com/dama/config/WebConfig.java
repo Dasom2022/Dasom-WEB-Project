@@ -1,6 +1,5 @@
 package com.dama.config;
 
-import com.amazonaws.HttpMethod;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
@@ -13,9 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("*")
                 .allowedMethods("*")
-                .allowCredentials(true)
-                .allowedHeaders("*")
-                .exposedHeaders("authorization");
+                .allowCredentials(true);
     }
 
     @Override
