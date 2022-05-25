@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -95,8 +96,9 @@ public class JwtServiceImpl implements JwtService{
 
     @Override
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken){
-        response.setStatus(HttpServletResponse.SC_OK);
-
+        response.setStatus(HttpStatus.OK.value());
+        Cookie cookie=new Cookie("login","success");
+        response.addCookie(cookie);
         setAccessTokenHeader(response, accessToken);
         setRefreshTokenHeader(response, refreshToken);
 
@@ -121,7 +123,7 @@ public class JwtServiceImpl implements JwtService{
     @Override
     public @ResponseBody ResponseEntity<String> sendSuccessStatusCode(String code) {
 
-        return new ResponseEntity<>("Login Success", HttpStatus.OK);
+        return new ResponseEntity<>(code, HttpStatus.OK);
     }
 
 
@@ -155,11 +157,13 @@ public class JwtServiceImpl implements JwtService{
 
     @Override
     public void setAccessTokenHeader(HttpServletResponse response, String accessToken) {
+        System.out.println("accessToken = " + accessToken);
         response.setHeader(accessHeader, accessToken);
     }
 
     @Override
     public void setRefreshTokenHeader(HttpServletResponse response, String refreshToken) {
+        System.out.println("refreshToken = " + refreshToken);
         response.setHeader(refreshHeader, refreshToken);
     }
     @Override

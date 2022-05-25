@@ -46,6 +46,7 @@ logging:
 server:
   port: 3333
 
-
-
+datasource:
+  hikari:
+    leak-detection-threshold: 2000
 
