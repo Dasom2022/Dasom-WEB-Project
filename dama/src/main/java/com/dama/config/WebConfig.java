@@ -11,18 +11,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("*")
+                .allowedOrigins("/**")
                 .allowedHeaders("Access-Control-Allow-Origin")
                 .exposedHeaders("Access-Control-Allow-Origin")
                 .allowCredentials(false).maxAge(3600)
-                .allowedMethods(
-                        HttpMethod.GET.name(),
-                        HttpMethod.POST.name(),
-                        HttpMethod.PUT.name(),
-                        HttpMethod.DELETE.name(),
-                        HttpMethod.OPTIONS.name()
-                );
+                .allowedMethods("OPTIONS","GET","POST","PUT","DELETE");
     }
 
     @Override
