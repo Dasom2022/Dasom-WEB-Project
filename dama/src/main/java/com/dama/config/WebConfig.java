@@ -1,8 +1,8 @@
 package com.dama.config;
 
-import com.amazonaws.HttpMethod;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.http.HttpMethod;
 
 @Configuration
 @EnableWebMvc
@@ -14,13 +14,14 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("*")
                 .allowedMethods("*")
                 .allowedHeaders("Access-Control-Allow-Origin")
-                /*.exposedHeaders("Authorization","Access-Control-Allow-Origin")
+                .exposedHeaders("Access-Control-Allow-Origin")
                 .allowCredentials(false).maxAge(3600)
-                */.allowedMethods(
+                .allowedMethods(
                         HttpMethod.GET.name(),
                         HttpMethod.POST.name(),
                         HttpMethod.PUT.name(),
-                        HttpMethod.DELETE.name()
+                        HttpMethod.DELETE.name(),
+                        HttpMethod.OPTIONS.name()
                 );
     }
 
