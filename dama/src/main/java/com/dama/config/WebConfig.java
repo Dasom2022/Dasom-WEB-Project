@@ -13,8 +13,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("*")
                 .allowedMethods("*")
-                /*.allowedHeaders("Access-Control-Allow-Origin")
-                .exposedHeaders("Authorization","Access-Control-Allow-Origin")
+                .allowedHeaders("Access-Control-Allow-Origin")
+                /*.exposedHeaders("Authorization","Access-Control-Allow-Origin")
                 .allowCredentials(false).maxAge(3600)
                 */.allowedMethods(
                         HttpMethod.GET.name(),
