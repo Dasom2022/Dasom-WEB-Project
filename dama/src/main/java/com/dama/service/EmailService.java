@@ -25,7 +25,7 @@ public class EmailService {
         MimeMessage  message = emailSender.createMimeMessage();
 
         message.addRecipients(RecipientType.TO, to);//보내는 대상
-        message.setSubject("Da-in 인증번호가 도착했습니다.");//제목
+        message.setSubject("DAMA 인증번호가 도착했습니다.");//제목
 
         st.append("<div style='margin:100px;'>");
         st.append("<h1> 안녕하세요 DAMA 입니다. </h1>");
@@ -42,7 +42,7 @@ public class EmailService {
         st.append(ePw).append("</strong><div><br/> ");
         st.append("</div>");
         message.setText(st.toString(), "utf-8", "html");//내용
-        message.setFrom(new InternetAddress("lsh6451217@gmail.com","Dain"));//보내는 사람
+        message.setFrom(new InternetAddress("lsh6451217@gmail.com","DAMA"));//보내는 사람
 
         return message;
     }

@@ -139,9 +139,7 @@ public class MemberController {
 
     @PostMapping("/mail")
     @ResponseBody
-    public void emailConfirm(String email)throws Exception{
-        log.info("userId={}", email);
-        log.info("post emailConfirm");
+    public void emailConfirm(@RequestParam("email") String email)throws Exception{
         System.out.println("전달 받은 이메일 : "+email);
         emailService.sendSimpleMessage(email);
         memberService.emailCheck(email);
