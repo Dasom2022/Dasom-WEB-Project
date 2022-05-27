@@ -1,15 +1,15 @@
 package com.dama.controller.mvc;
 
-import com.dama.model.dto.ItemDto;
 import com.dama.model.dto.request.SignInRequestDto;
-import com.dama.model.entity.Item;
+import com.dama.model.dto.response.IndexResponseUserDto;
 import com.dama.service.ItemService;
 import com.dama.service.MemberService;
+import com.dama.principal.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,12 +23,11 @@ public class MainController {
     private final MemberService memberService;
 
     @GetMapping("/")
-    public String index(){
-        /*ItemDto item=new ItemDto("고구마","abc123",abc123,35.6,"신선코너");
-        itemService.saveItem(item);
-        */
+    public ResponseEntity<IndexResponseUserDto> index(@AuthenticationPrincipal UserDetailsImpl userDetails){
         System.out.println("인덱스들어옴");
-        return "react Connected?";
+        IndexResponseUserDto indexResponseUserDto=new IndexResponseUserDto();
+        indexResponseUserDto.setUsername(userDetails.getUsername());
+        return new ResponseEntity<>(indexResponseUserDto,HttpStatus.OK);
     }
 
     @PostMapping("/login")

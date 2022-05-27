@@ -2,7 +2,7 @@ package com.dama.service.login;
 
 import com.dama.model.entity.Member;
 import com.dama.repository.MemberRepository;
-import com.dama.service.UserDetailsImpl;
+import com.dama.principal.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

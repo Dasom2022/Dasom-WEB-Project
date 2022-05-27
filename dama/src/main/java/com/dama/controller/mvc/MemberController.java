@@ -3,14 +3,10 @@ package com.dama.controller.mvc;
 
 import com.dama.model.dto.SignupDto;
 import com.dama.model.dto.request.PutItemRequestDto;
-import com.dama.model.dto.request.SignInRequestDto;
 import com.dama.model.dto.response.PutItemResponseDto;
-import com.dama.model.entity.Item;
-import com.dama.model.entity.Member;
-import com.dama.model.entity.Role;
 import com.dama.service.EmailService;
 import com.dama.service.MemberService;
-import com.dama.service.UserDetailsImpl;
+import com.dama.principal.UserDetailsImpl;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageConfig;

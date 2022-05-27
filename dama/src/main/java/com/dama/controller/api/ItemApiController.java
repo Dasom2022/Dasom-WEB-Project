@@ -5,7 +5,7 @@ import com.dama.model.dto.request.ItemRequestDto;
 import com.dama.model.dto.response.ItemSearchResponseDto;
 import com.dama.model.entity.Item;
 import com.dama.service.ItemService;
-import com.dama.service.UserDetailsImpl;
+import com.dama.principal.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;

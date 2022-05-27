@@ -1,4 +1,4 @@
-package com.dama.service;
+package com.dama.principal;
 
 import com.dama.model.entity.Member;
 import org.springframework.security.core.GrantedAuthority;
