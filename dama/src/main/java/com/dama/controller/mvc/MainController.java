@@ -23,10 +23,12 @@ public class MainController {
     private final MemberService memberService;
 
     @GetMapping("/main")
-    public ResponseEntity<IndexResponseUserDto> index(@AuthenticationPrincipal UserDetailsImpl userDetails){
+    public ResponseEntity<IndexResponseUserDto> index(){
         System.out.println("인덱스들어옴");
         IndexResponseUserDto indexResponseUserDto=new IndexResponseUserDto();
+/*
         indexResponseUserDto.setUsername(userDetails.getUsername());
+*/
         return new ResponseEntity<>(indexResponseUserDto,HttpStatus.OK);
     }
 

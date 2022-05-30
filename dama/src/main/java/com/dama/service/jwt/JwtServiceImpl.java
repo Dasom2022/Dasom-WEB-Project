@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.dama.repository.MemberRepository;
 import com.dama.service.MemberService;
+import com.dama.service.login.LoginService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -56,7 +57,6 @@ public class JwtServiceImpl implements JwtService{
     private final MemberRepository memberRepository;
 
 
-
     @Override
     public String createAccessToken(String username) {
         return JWT.create()
@@ -98,7 +98,9 @@ public class JwtServiceImpl implements JwtService{
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken){
         response.setStatus(HttpStatus.OK.value());
         Cookie cookie=new Cookie("login","success");
+        Cookie cookie2=new Cookie("username",USERNAME_CLAIM);
         response.addCookie(cookie);
+        response.addCookie(cookie2);
         setAccessTokenHeader(response, accessToken);
         setRefreshTokenHeader(response, refreshToken);
 

@@ -21,4 +21,9 @@ public class LoginService implements UserDetailsService {
         Member member = memberRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("요청 아이디가 없는 값입니다!"));
         return new UserDetailsImpl(member);
     }
+
+    public String ReturnUsername(String username){
+
+        return username;
+    }
 }
