@@ -3,6 +3,7 @@ package com.dama.handler.login;
 import com.dama.model.entity.Member;
 import com.dama.repository.MemberRepository;
 import com.dama.service.jwt.JwtService;
+import com.dama.service.login.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,6 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
             findMember.get().updateRefreshToken(refreshToken);
             log.info("member entity에 update query RefreshToken ={}",refreshToken);
         }
-
 
         log.info( "로그인에 성공합니다. username: {}" ,username);
         log.info( "AccessToken 을 발급합니다. AccessToken: {}" ,accessToken);

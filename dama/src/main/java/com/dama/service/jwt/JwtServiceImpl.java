@@ -52,13 +52,14 @@ public class JwtServiceImpl implements JwtService{
     private static final String REFRESH_TOKEN_SUBJECT = "RefreshToken";
     private static final String USERNAME_CLAIM = "username";
     private static final String BEARER = "Bearer ";
-
+    private static String USERNAME="";
 
     private final MemberRepository memberRepository;
 
 
     @Override
     public String createAccessToken(String username) {
+        USERNAME=username;
         return JWT.create()
                 .withSubject(ACCESS_TOKEN_SUBJECT)
                 .withExpiresAt(new Date(System.currentTimeMillis() + accessTokenValidityInSeconds * 1000))
@@ -98,7 +99,7 @@ public class JwtServiceImpl implements JwtService{
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken){
         response.setStatus(HttpStatus.OK.value());
         Cookie cookie=new Cookie("login","success");
-        Cookie cookie2=new Cookie("username",USERNAME_CLAIM);
+        Cookie cookie2=new Cookie("username",USERNAME);
         response.addCookie(cookie);
         response.addCookie(cookie2);
         setAccessTokenHeader(response, accessToken);

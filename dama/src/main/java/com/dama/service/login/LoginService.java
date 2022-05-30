@@ -17,13 +17,13 @@ public class LoginService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("username = " + username);
+        System.out.println("username loadUserBy = " + username);
         Member member = memberRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("요청 아이디가 없는 값입니다!"));
+        ReturnUsername(username);
         return new UserDetailsImpl(member);
     }
 
     public String ReturnUsername(String username){
-
         return username;
     }
 }
