@@ -1,4 +1,6 @@
 spring:
+  mail:
+    password: kktusbyaxgadyxtd
   profiles:
     include: jwt
   devtools: #여기부터
