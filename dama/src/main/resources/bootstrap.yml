@@ -4,4 +4,4 @@ aws:
 cloud:
   aws:
     region:
-      static: us-east-1
+      static: ap-northeast-2

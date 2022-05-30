@@ -2,7 +2,6 @@ package com.dama.service.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.dama.model.entity.Member;
 import com.dama.repository.MemberRepository;
 import com.dama.service.MemberService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -56,7 +55,6 @@ public class JwtServiceImpl implements JwtService{
 
     private final MemberRepository memberRepository;
 
-    private final MemberService memberService;
 
 
     @Override
