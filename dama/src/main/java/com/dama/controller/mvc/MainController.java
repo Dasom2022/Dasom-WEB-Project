@@ -22,7 +22,7 @@ public class MainController {
 
     private final MemberService memberService;
 
-    @GetMapping("/")
+    @GetMapping("/main")
     public ResponseEntity<IndexResponseUserDto> index(@AuthenticationPrincipal UserDetailsImpl userDetails){
         System.out.println("인덱스들어옴");
         IndexResponseUserDto indexResponseUserDto=new IndexResponseUserDto();
