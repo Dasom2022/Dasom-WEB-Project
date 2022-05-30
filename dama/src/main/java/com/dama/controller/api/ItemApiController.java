@@ -2,6 +2,7 @@ package com.dama.controller.api;
 
 import com.dama.model.dto.ItemResponseDto;
 import com.dama.model.dto.request.ItemRequestDto;
+import com.dama.model.dto.response.ItemListResponseDto;
 import com.dama.model.dto.response.ItemSearchResponseDto;
 import com.dama.model.entity.Item;
 import com.dama.service.ItemService;
@@ -12,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @Log4j2
@@ -48,5 +51,11 @@ public class ItemApiController {
         itemSearchResponseDto.setPrice(item.getPrice());
         itemSearchResponseDto.setWeight(item.getWeight());
         return new ResponseEntity<>(itemSearchResponseDto,HttpStatus.OK);
+    }
+
+    @PostMapping("/itemList")
+    public ResponseEntity<List<Item>> returnItemList(){
+        List<Item> items = itemService.ReturnItemList();
+        return new ResponseEntity<>(items,HttpStatus.OK);
     }
 }

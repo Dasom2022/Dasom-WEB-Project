@@ -1,6 +1,5 @@
 package com.dama.service;
 
-import com.dama.model.dto.ItemDto;
 import com.dama.model.dto.ItemResponseDto;
 import com.dama.model.dto.request.ItemRequestDto;
 import com.dama.model.entity.Item;
@@ -8,7 +7,10 @@ import com.dama.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,5 +31,11 @@ public class ItemService {
     public Item searchItem(String itemName){
         Item item = itemRepository.findByItemName(itemName).get();
         return item;
+    }
+
+    public List<Item> ReturnItemList(){
+        List<Item> all = itemRepository.findAll();
+        Collections.reverse(all);
+        return all;
     }
 }

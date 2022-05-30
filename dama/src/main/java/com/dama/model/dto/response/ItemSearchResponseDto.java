@@ -12,3 +12,5 @@ public class ItemSearchResponseDto {
     private int price;
     private double weight;
 }
+
+
