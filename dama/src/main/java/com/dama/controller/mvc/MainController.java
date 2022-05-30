@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,10 +25,12 @@ public class MainController {
     private final MemberService memberService;
 
     @GetMapping("/main")
-    public ResponseEntity<IndexResponseUserDto> index(){
+    public ResponseEntity<IndexResponseUserDto> index(Authentication authentication){
         System.out.println("인덱스들어옴");
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         IndexResponseUserDto indexResponseUserDto=new IndexResponseUserDto();
-/*
+        indexResponseUserDto.setUsername(userDetails.getUsername());
+        /*
         indexResponseUserDto.setUsername(userDetails.getUsername());
 */
         return new ResponseEntity<>(indexResponseUserDto,HttpStatus.OK);
