@@ -142,7 +142,7 @@ public class MemberController {
 
     @PostMapping("/verifyCode")
     @ResponseBody
-    public int verifyCode(String confirm_email) {
+    public int verifyCode(@RequestParam ("confirm_email") String confirm_email) {
 
         log.info("Post verifyCode");
 
