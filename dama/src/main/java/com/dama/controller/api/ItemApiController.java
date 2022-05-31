@@ -53,7 +53,7 @@ public class ItemApiController {
         return new ResponseEntity<>(itemSearchResponseDto,HttpStatus.OK);
     }
 
-    @PostMapping("/itemList")
+    @GetMapping("/itemList")
     public ResponseEntity<List<Item>> returnItemList(){
         List<Item> items = itemService.ReturnItemList();
         return new ResponseEntity<>(items,HttpStatus.OK);
