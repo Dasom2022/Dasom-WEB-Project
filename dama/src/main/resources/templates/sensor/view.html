@@ -12,5 +12,18 @@
     <h3>버튼을 누를때 마다 최신화된다.</h3>
     <button onclick="ajax()">조회</button>
     <div id="result"></div>
+<script>
+    function ajax(){
+        $.ajax({
+            type:"post",
+            url:"/api/sensor/allValueList",
+            dataType:"json"
+        }).done(res=>{
+            console.log(res);
+        }).fail(err=>{
+            console.log("api안됨");
+        })
+    }
+</script>
 </body>
 </html>

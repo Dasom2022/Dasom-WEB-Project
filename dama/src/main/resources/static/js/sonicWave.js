@@ -1,3 +1,4 @@
+/*
 function ajax(){
     $.ajax({
         type:"post",
@@ -8,4 +9,4 @@ function ajax(){
     }).fail(err=>{
         console.log("api안됨");
     })
-}
+}*/
