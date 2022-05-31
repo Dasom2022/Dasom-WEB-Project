@@ -59,4 +59,10 @@ public class MainController {
 
         return "/chat/chat";
     }*/
+
+    @PostMapping("/raspi")
+    public void raspi(@RequestParam("id") String id,@RequestParam("d")String d){
+        System.out.println("id = " + id);
+        System.out.println("id = " + d);
+    }
 }
