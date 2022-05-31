@@ -70,4 +70,9 @@ public class MainController {
         sonicWave.setDistance(d);
         sonicWaveRepository.save(sonicWave);
     }
+
+    @GetMapping("/view")
+    public String viewHtml(){
+        return "view";
+    }
 }

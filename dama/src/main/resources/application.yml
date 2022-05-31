@@ -1,4 +1,6 @@
 spring:
+  thymeleaf:
+    prefix: classpath:/templates/
   profiles:
     include: jwt
   devtools: #여기부터
