@@ -19,6 +19,7 @@ public class SignupApiController {
 
     @PostMapping("/username/exist") //커밋용 주석
     public ResponseEntity<?> existusername(@RequestParam("username")String username){
+        System.out.println("exist username = " + username);
         return memberService.checkexistusername(username);
     }
 
