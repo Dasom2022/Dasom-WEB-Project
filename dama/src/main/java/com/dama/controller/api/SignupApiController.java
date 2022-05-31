@@ -17,7 +17,7 @@ public class SignupApiController {
     private final MemberService memberService;
 
 
-    @GetMapping("/username/exist") //커밋용 주석
+    @PostMapping("/username/exist") //커밋용 주석
     public ResponseEntity<?> existusername(@RequestParam("username")String username){
         return memberService.checkexistusername(username);
     }
