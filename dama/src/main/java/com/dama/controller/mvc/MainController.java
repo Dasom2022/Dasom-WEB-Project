@@ -2,6 +2,8 @@ package com.dama.controller.mvc;
 
 import com.dama.model.dto.request.SignInRequestDto;
 import com.dama.model.dto.response.IndexResponseUserDto;
+import com.dama.model.entity.SonicWave;
+import com.dama.repository.SonicWaveRepository;
 import com.dama.service.ItemService;
 import com.dama.service.MemberService;
 import com.dama.principal.UserDetailsImpl;
@@ -24,6 +26,7 @@ public class MainController {
 
     private final MemberService memberService;
 
+    private final SonicWaveRepository sonicWaveRepository;
     @GetMapping("/main")
     public ResponseEntity<IndexResponseUserDto> index(){
         System.out.println("인덱스들어옴");
@@ -62,7 +65,9 @@ public class MainController {
 
     @PostMapping("/raspi")
     public void raspi(@RequestParam("id") String id,@RequestParam("d")String d){
-        System.out.println("id = " + id);
-        System.out.println("id = " + d);
+        SonicWave sonicWave=new SonicWave();
+        sonicWave.setSensor_user(id);
+        sonicWave.setDistance(d);
+        sonicWaveRepository.save(sonicWave);
     }
 }
