@@ -71,8 +71,5 @@ public class MainController {
         sonicWaveRepository.save(sonicWave);
     }
 
-    @GetMapping("/view")
-    public String viewHtml(){
-        return "view";
-    }
+
 }
