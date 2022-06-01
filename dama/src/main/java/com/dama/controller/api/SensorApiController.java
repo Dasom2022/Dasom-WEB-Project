@@ -22,7 +22,7 @@ public class SensorApiController {
 
     @PostMapping("/allValueList")
     public ResponseEntity<List<?>> sensorValueList(){
-        List<SonicWave> all = sonicWaveRepository.findAll();
+        List<SonicWave> all = sonicWaveRepository.findAllList();
         return (ResponseEntity<List<?>>) all;
     }
 }

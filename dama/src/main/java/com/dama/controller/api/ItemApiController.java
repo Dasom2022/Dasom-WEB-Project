@@ -38,6 +38,7 @@ public class ItemApiController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerItem(@RequestBody ItemRequestDto itemRequestDto){
+        System.out.println("itemRequestDto = " + itemRequestDto.getItemName());
         itemService.saveItem(itemRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }

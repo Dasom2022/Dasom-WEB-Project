@@ -56,13 +56,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/**","/api/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .anyRequest().authenticated();
 
-        http.addFilterAfter(jsonUsernamePasswordLoginFilter(), LogoutFilter.class);
+        /*http.addFilterAfter(jsonUsernamePasswordLoginFilter(), LogoutFilter.class);
         http.addFilterBefore(jwtAuthenticationProcessingFilter(), JsonUsernamePasswordAuthenticationFilter.class);
-
+*/
     }
 
     @Bean
