@@ -4,6 +4,7 @@ package com.dama.controller.mvc;
 import com.dama.model.dto.SignupDto;
 import com.dama.model.dto.request.PutItemRequestDto;
 import com.dama.model.dto.response.PutItemResponseDto;
+import com.dama.model.entity.Member;
 import com.dama.service.EmailService;
 import com.dama.service.MemberService;
 import com.dama.principal.UserDetailsImpl;
@@ -32,6 +33,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -154,5 +156,11 @@ public class MemberController {
             EmailService.ePw=EmailService.createKey();
         }
         return result;
+    }
+
+    @GetMapping("/memberList")
+    public ResponseEntity<List<Member>> returnMemberList(){
+        List<Member> members = memberService.returnMemberList();
+        return new ResponseEntity<>(members,HttpStatus.OK);
     }
 }

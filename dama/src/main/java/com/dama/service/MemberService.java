@@ -22,7 +22,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -146,5 +149,12 @@ public class MemberService {
     public boolean checkSamePssword(String password1, String password2) {
         if (password1.equals(password2)) return true;
         else return false;
+    }
+
+    public List<Member> returnMemberList(){
+        List<Member> returnList = memberRepository.findAll().stream().filter(r ->
+                r.getRole().equals("ROLE_USER")).collect(Collectors.toList());
+
+        return returnList;
     }
 }
