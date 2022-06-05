@@ -152,9 +152,11 @@ public class MemberService {
     }
 
     public List<Member> returnMemberList(){
-        List<Member> returnList = memberRepository.findAll().stream().filter(r ->
-                r.getRole().equals("ROLE_USER")).collect(Collectors.toList());
-
-        return returnList;
+        List<Member> returnList = memberRepository.findAll();
+        /*System.out.println("memberRepository = " + memberRepository.findAll());*/
+        /*List<Member> returnList = memberRepository.findAll().stream().filter(r ->
+                r.getRole().equals("USER")).collect(Collectors.toList());
+        System.out.println("returnList = " + returnList);
+        */return returnList;
     }
 }
