@@ -28,7 +28,7 @@ spring:
         default_batch_fetch_size: 100
         #      show_sql: true
         format_sql: true
-        open-in-view: true
+        open-in-view: false
         profiles:
         active: local
 
