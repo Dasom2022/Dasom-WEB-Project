@@ -15,7 +15,7 @@ import static com.dama.model.entity.QItem.item;
 import static com.dama.model.entity.QCategory.category;
 
 
-@Repository
+/*@Repository
 public class CustomItemRepositoryImpl implements CustomItemRepository {
 
     @Override
@@ -27,4 +27,4 @@ public class CustomItemRepositoryImpl implements CustomItemRepository {
     private BooleanExpression categorySR(Category category){
         return category != null ? item.category.eq(category): null;
     }
-}
+}*/
