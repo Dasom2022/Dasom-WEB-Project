@@ -79,8 +79,8 @@ public class AuthController {
         UserRequestDto userInfo = naverService.getUserInfo(accessToken);
         if(userInfo.getSocialId() != null){
             memberService.insertOrUpdateUser(userInfo);
-
-            UserResponseDto userResponseDto = new UserResponseDto(userInfo.getUsername());
+            Member returnMember = memberService.findUserBySocial(userInfo.getSocialId(), userInfo.getSocialType()).get();
+            UserResponseDto userResponseDto = new UserResponseDto(returnMember.getId(), userInfo.getUsername(), userInfo.getImgURL());
 
             return new ResponseEntity<>(userResponseDto,HttpStatus.OK);
         }else {
