@@ -6,6 +6,7 @@ import com.dama.model.entity.Member;
 import com.dama.service.MemberService;
 import com.dama.service.social.KakaoService;
 import com.dama.service.social.NaverService;
+import com.dama.service.social.TokenService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -34,15 +35,24 @@ import java.util.Optional;
 @Log4j2
 public class AuthController {
 
+    private static String KAKAO_TOKEN_URI="https://kauth.kakao.com/oauth/token";
+
+    private static String REDIRECT_URL="http://localhost:3000/auth/kakao";
+
+    private static String GRANTTYPE="authorization_code";
+
+    private static String CLIENT_ID="176524165c843feb986d73a645bd3cb5";
+
     private final MemberService memberService;
 
     private final KakaoService kakaoService;
 
     private final NaverService naverService;
 
+    private final TokenService tokenService;
+
     @ApiOperation(value = "카카오톡 로그인 유저 정보", notes = "토큰 값을받아 로그인 한 유저의 정보를 반환받는다")
     @ApiImplicitParam(name = "token",value = "카카오톡 소셜로그인 시 발생하는 토큰값")
-    @PostMapping(value = "/kakao")
     public ResponseEntity<UserResponseDto> giveToken(@RequestParam("token") String accessToken) {
         System.out.println("accessToken = " + accessToken);
 
@@ -77,25 +87,28 @@ public class AuthController {
             return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
         }
     }
-
-    @PostMapping("/returnAccessToken")
-    public ResponseEntity<String> accessTokenParams(@RequestParam("grantType") String grantType,@RequestParam("clientId") String clientId, @RequestParam("code")String code, @RequestParam("redirect_uri")String redirect_uri) {
+    @ApiOperation(value = "카카오톡 로그인 액세스토큰", notes = "인자코드 값을받아 액세스토큰을 반환받는다")
+    @ApiImplicitParam(name = "code",value = "카카오톡 인자코드")
+    @PostMapping("/kakaoLogin")
+    public ResponseEntity<?> accessTokenParams(@RequestParam("code")String code) {
         RestTemplate rt = new RestTemplate();
         MultiValueMap<String, String> accessTokenParams = new LinkedMultiValueMap<>();
         HttpHeaders headers = new HttpHeaders();
-        accessTokenParams.add("grant_type", grantType);
-        accessTokenParams.add("client_id", clientId);
+        accessTokenParams.add("grant_type", GRANTTYPE);
+        accessTokenParams.add("client_id", CLIENT_ID);
         accessTokenParams.add("code", code);
-        accessTokenParams.add("redirect_uri", redirect_uri);
+        accessTokenParams.add("redirect_uri", REDIRECT_URL);
         HttpEntity<MultiValueMap<String, String>> accessTokenRequest = new HttpEntity<>(accessTokenParams, headers);
         ResponseEntity<String> accessTokenResponse = rt.exchange(
-                "https://kauth.kakao.com/oauth/token",
+                KAKAO_TOKEN_URI,
                 HttpMethod.POST,
                 accessTokenRequest,
                 String.class
         );
-
-        return accessTokenResponse;
+        System.out.println("accessTokenResponse = " + accessTokenResponse);
+        String accees_token = tokenService.tokenReturn(accessTokenResponse);
+        ResponseEntity<UserResponseDto> userResponseDtoResponseEntity = giveToken(accees_token);
+        return userResponseDtoResponseEntity;
     }
 
     /*public void kakaoToken(String code, HttpServletResponse res, HttpSession session) {
