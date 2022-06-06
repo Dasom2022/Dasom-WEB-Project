@@ -64,11 +64,9 @@ public class MainController {
     }*/
 
     @PostMapping("/raspi")
-    public void raspi(@RequestParam("id") String id,@RequestParam("d")String d){
-        SonicWave sonicWave=new SonicWave();
-        sonicWave.setSensor_user(id);
-        sonicWave.setDistance(d);
-        sonicWaveRepository.save(sonicWave);
+    public void raspi(@RequestParam("ob_name") String ob_name,@RequestParam("beacon")String beacon){
+        System.out.println("ob_name = " + ob_name);
+        System.out.println("beacon = " + beacon);
     }
 
 
