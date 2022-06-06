@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Log4j2
@@ -152,11 +153,11 @@ public class MemberService {
     }
 
     public List<Member> returnMemberList(){
+/*
         List<Member> returnList = memberRepository.findAll();
+*/
         /*System.out.println("memberRepository = " + memberRepository.findAll());*/
-        /*List<Member> returnList = memberRepository.findAll().stream().filter(r ->
-                r.getRole().equals("USER")).collect(Collectors.toList());
-        System.out.println("returnList = " + returnList);
-        */return returnList;
+        List<Member> returnList = memberRepository.findAll().stream().filter(member -> member.getRole().equals(Role.USER)).collect(Collectors.toList());
+        return returnList;
     }
 }

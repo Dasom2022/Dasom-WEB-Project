@@ -58,7 +58,7 @@ public class KakaoService {
 
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-
+            System.out.println("kakao_account = " + kakao_account);
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String imgURL = properties.getAsJsonObject().get("profile_image").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
