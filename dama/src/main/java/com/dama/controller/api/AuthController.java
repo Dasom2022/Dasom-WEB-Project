@@ -82,7 +82,7 @@ public class AuthController {
 
             UserResponseDto userResponseDto = new UserResponseDto(userInfo.getUsername());
 
-            return ResponseEntity.ok(userResponseDto);
+            return new ResponseEntity<>(userResponseDto,HttpStatus.OK);
         }else {
             return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
         }
