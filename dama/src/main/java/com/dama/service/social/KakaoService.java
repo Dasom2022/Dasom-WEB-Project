@@ -61,12 +61,16 @@ public class KakaoService {
             System.out.println("kakao_account = " + kakao_account);
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String imgURL = properties.getAsJsonObject().get("profile_image").getAsString();
+/*
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
+*/
 
             //    UserRequestDto에 값 주입
             userInfo.setUsername(nickname);
             userInfo.setSocialId(kakaoId);
+/*
             userInfo.setEmail(email);
+*/
             userInfo.setImgURL(imgURL);
             userInfo.setSocialType(SocialType.KAKAO);
 
