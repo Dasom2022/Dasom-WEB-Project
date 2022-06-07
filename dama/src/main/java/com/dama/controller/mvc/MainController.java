@@ -67,7 +67,7 @@ public class MainController {
         System.out.println("beacon = " + beacon);
         BeaconDto beaconDto=new BeaconDto();
         beaconDto.setOb_name(ob_name);
-        beaconDto.setOb_name(beacon);
+        beaconDto.setBeacon(beacon);
         beaconService.insertionOrUpdate(beaconDto);
     }
 
