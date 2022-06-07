@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Beacon extends BaseEntity{
+public class Beacon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,7 +19,7 @@ public class Beacon extends BaseEntity{
     @Column(name = "beacon_object_name")
     private String obname;
 
-    @Column(name = "beacon_distance")
+    @Column(name = "beacon_code")
     private String beacon;
 
     @Column(name = "beacon_count")
