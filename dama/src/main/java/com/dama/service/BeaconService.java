@@ -22,7 +22,7 @@ public class BeaconService {
         if(findObject.isEmpty()){
             beaconRepository.save(beaconDto.toEntity());
         }else {
-            beaconDto.toEntity().UpdateBeacon(beaconDto.getOb_name(), beaconDto.getBeacon());
+            findObject.get().UpdateBeacon(beaconDto.getOb_name(), beaconDto.getBeacon());
         }
     }
 }
