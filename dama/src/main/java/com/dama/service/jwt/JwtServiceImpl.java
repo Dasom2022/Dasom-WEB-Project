@@ -102,13 +102,15 @@ public class JwtServiceImpl implements JwtService{
     @Override
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken){
         response.setStatus(HttpStatus.OK.value());
-        Cookie cookie=new Cookie("login","success");
+        /*Cookie cookie=new Cookie("login","success");
         Cookie cookie2=new Cookie("username",USERNAME);
-        response.getWriter().write(USERNAME);
+        */response.getWriter().write(USERNAME);
         String social = userDescriptionService.returnMemberSocialType(USERNAME);
         response.getWriter().write(social);
-        response.addCookie(cookie);
-        response.addCookie(cookie2);
+        response.setHeader("username",USERNAME);
+        response.setHeader("socialType",social);
+        /*response.addCookie(cookie);
+        response.addCookie(cookie2);*/
         setAccessTokenHeader(response, accessToken);
         setRefreshTokenHeader(response, refreshToken);
 

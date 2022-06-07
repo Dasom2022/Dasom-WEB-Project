@@ -15,6 +15,6 @@ public class UserDescriptionService {
     public String returnMemberSocialType (String username){
         Optional<Member> byUsername = memberRepository.findByUsername(username);
 
-        return byUsername.get().getRole().toString();
+        return byUsername.get().getSocialType().toString();
     }
 }
