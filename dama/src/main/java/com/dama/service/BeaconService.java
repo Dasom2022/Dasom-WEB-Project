@@ -16,6 +16,8 @@ public class BeaconService {
     private final BeaconRepository beaconRepository;
 
     public void insertionOrUpdate(BeaconDto beaconDto){
+        System.out.println("beaconDto.getOb_name() = " + beaconDto.getOb_name());
+        System.out.println("beaconDto = " + beaconDto.getBeacon());
         Optional<Beacon> findObject = beaconRepository.findByObname(beaconDto.getOb_name());
         if(findObject.isEmpty()){
             beaconRepository.save(beaconDto.toEntity());
