@@ -1,7 +1,9 @@
 package com.dama.controller.mvc;
 
+import com.dama.model.dto.BeaconDto;
 import com.dama.model.dto.request.SignInRequestDto;
 import com.dama.model.dto.response.IndexResponseUserDto;
+import com.dama.service.BeaconService;
 import com.dama.service.ItemService;
 import com.dama.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,8 @@ public class MainController {
     private final ItemService itemService;
 
     private final MemberService memberService;
+
+    private final BeaconService beaconService;
 
     @GetMapping("/main")
     public ResponseEntity<IndexResponseUserDto> index(){
@@ -61,6 +65,10 @@ public class MainController {
     public void raspi(@RequestParam("ob_name") String ob_name,@RequestParam("beacon")String beacon){
         System.out.println("ob_name = " + ob_name);
         System.out.println("beacon = " + beacon);
+        BeaconDto beaconDto=new BeaconDto();
+        beaconDto.setOb_name(ob_name);
+        beaconDto.setOb_name(beacon);
+        beaconService.insertionOrUpdate(beaconDto);
     }
 
 
