@@ -59,7 +59,7 @@ public class Member {
     }
 
     @Builder
-    public Member(Long id,Role role, String username,String socialId, String password, String imgUrl,String email) {
+    public Member(Long id,Role role, String username,String socialId, String password, String imgUrl,String email,SocialType socialType) {
         this.id = id;
         this.role=role;
         this.username = username;
@@ -67,6 +67,7 @@ public class Member {
         this.imgUrl=imgUrl;
         this.email=email;
         this.socialId=socialId;
+        this.socialType=socialType;
     }
 
     public void toUpdateMemberItemList(Item item){

@@ -50,7 +50,7 @@ public class MemberService {
             }else {
                 signupDto.setRole(Role.USER);
             }
-            signupDto.setSocialId("NotSocial");
+            signupDto.setSocialType(SocialType.NOT);
             Member saveMember = memberRepository.save(signupDto.toEntity());
             System.out.println("signupDto = " + signupDto.getUsername());
         }

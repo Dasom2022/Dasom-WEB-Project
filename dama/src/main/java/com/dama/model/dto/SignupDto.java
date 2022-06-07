@@ -3,6 +3,7 @@ package com.dama.model.dto;
 
 import com.dama.model.entity.Member;
 import com.dama.model.entity.Role;
+import com.dama.model.entity.SocialType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,7 @@ public class SignupDto {
     private String email;
     private String password;
     private Role role;
-    private String socialId;
+    private SocialType socialType;
 
     public Member toEntity(){
         return Member.builder()
@@ -21,7 +22,7 @@ public class SignupDto {
                 .password(password)
                 .email(email)
                 .role(role)
-                .socialId(socialId)
+                .socialType(socialType)
                 .build();
     }
 
