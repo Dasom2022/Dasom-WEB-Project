@@ -1,7 +1,7 @@
 package com.dama.controller.api;
 
 import com.dama.model.dto.request.UserRequestDto;
-import com.dama.model.dto.response.UserResponseDto;
+import com.dama.model.dto.response.KAKAOResponseDto;
 import com.dama.model.entity.Member;
 import com.dama.service.MemberService;
 import com.dama.service.social.KakaoService;
@@ -11,7 +11,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.json.simple.JSONObject;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -20,14 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RequestMapping("/auth")
@@ -53,7 +44,7 @@ public class AuthController {
 
     @ApiOperation(value = "카카오톡 로그인 유저 정보", notes = "토큰 값을받아 로그인 한 유저의 정보를 반환받는다")
     @ApiImplicitParam(name = "token",value = "카카오톡 소셜로그인 시 발생하는 토큰값")
-    public ResponseEntity<UserResponseDto> giveToken(@RequestParam("token") String accessToken) {
+    public ResponseEntity<KAKAOResponseDto> giveToken(@RequestParam("token") String accessToken) {
         System.out.println("accessToken = " + accessToken);
 
         UserRequestDto userInfo = kakaoService.getUserInfo(accessToken);   //accessToken으로 유저정보 받아오기
@@ -64,25 +55,25 @@ public class AuthController {
             memberService.insertOrUpdateUser(userInfo);
             Member returnMember = memberService.findUserBySocial(userInfo.getSocialId(), userInfo.getSocialType()).get();
             //UserResponseDto에 userId 추가
-            UserResponseDto userResponseDto = new UserResponseDto(returnMember.getId(), userInfo.getUsername(), userInfo.getImgURL());
+            KAKAOResponseDto KAKAOResponseDto = new KAKAOResponseDto(returnMember.getId(), userInfo.getUsername(), userInfo.getImgURL(), userInfo.getEmail(), userInfo.getSocialType());
 
-            return ResponseEntity.ok(userResponseDto);
+            return ResponseEntity.ok(KAKAOResponseDto);
         } else {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/naver")
-    public ResponseEntity<UserResponseDto> getToken(@RequestParam("token") String accessToken){
+    public ResponseEntity<KAKAOResponseDto> getToken(@RequestParam("token") String accessToken){
         System.out.println("accessToken = " + accessToken);
 
         UserRequestDto userInfo = naverService.getUserInfo(accessToken);
         if(userInfo.getSocialId() != null){
             memberService.insertOrUpdateUser(userInfo);
             Member returnMember = memberService.findUserBySocial(userInfo.getSocialId(), userInfo.getSocialType()).get();
-            UserResponseDto userResponseDto = new UserResponseDto(returnMember.getId(), userInfo.getUsername(), userInfo.getImgURL());
+            KAKAOResponseDto kakaoResponseDto = new KAKAOResponseDto(returnMember.getId(), userInfo.getUsername(), userInfo.getImgURL(),userInfo.getEmail(),userInfo.getSocialType());
 
-            return new ResponseEntity<>(userResponseDto,HttpStatus.OK);
+            return new ResponseEntity<>(kakaoResponseDto,HttpStatus.OK);
         }else {
             return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
         }
@@ -107,7 +98,7 @@ public class AuthController {
         );
         System.out.println("accessTokenResponse = " + accessTokenResponse);
         String accees_token = tokenService.tokenReturn(accessTokenResponse);
-        ResponseEntity<UserResponseDto> userResponseDtoResponseEntity = giveToken(accees_token);
+        ResponseEntity<KAKAOResponseDto> userResponseDtoResponseEntity = giveToken(accees_token);
         return userResponseDtoResponseEntity;
     }
 
