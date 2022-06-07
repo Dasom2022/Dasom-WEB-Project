@@ -5,10 +5,12 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.dama.repository.MemberRepository;
 import com.dama.service.MemberService;
 import com.dama.service.login.LoginService;
+import com.dama.service.login.UserDescriptionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -56,6 +58,7 @@ public class JwtServiceImpl implements JwtService{
 
     private final MemberRepository memberRepository;
 
+    private final UserDescriptionService userDescriptionService;
 
     @Override
     public String createAccessToken(String username) {
@@ -95,11 +98,15 @@ public class JwtServiceImpl implements JwtService{
                 );
     }
 
+    @SneakyThrows
     @Override
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken){
         response.setStatus(HttpStatus.OK.value());
         Cookie cookie=new Cookie("login","success");
         Cookie cookie2=new Cookie("username",USERNAME);
+        response.getWriter().write(USERNAME);
+        String social = userDescriptionService.returnMemberSocialType(USERNAME);
+        response.getWriter().write(social);
         response.addCookie(cookie);
         response.addCookie(cookie2);
         setAccessTokenHeader(response, accessToken);

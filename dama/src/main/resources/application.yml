@@ -3,13 +3,13 @@ spring:
     prefix: classpath:/templates/
   profiles:
     include: jwt
-  devtools: #여기부터
-    livereload:
-      enabled: true
-    restart:
-      enabled: false
-  freemarker:
-    cache: false # 여기까지 웹재실행안하기위한 yml파일설정
+  #devtools: 여기부터
+   # livereload:
+    #  enabled: true
+    #restart:
+     # enabled: false
+  #freemarker:
+   # cache: false  여기까지 웹재실행안하기위한 yml파일설정
   data:
     maria:
       jdbc-url: ${jdbc-url}
