@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -159,5 +160,39 @@ public class MemberService {
         /*System.out.println("memberRepository = " + memberRepository.findAll());*/
         List<Member> returnList = memberRepository.findAll().stream().filter(member -> member.getRole().equals(Role.USER)).collect(Collectors.toList());
         return returnList;
+    }
+
+    public String findPasswordByUsernameAndPhoneNumber(String username,String phoneNumber){
+        Optional<Member> findMember = memberRepository.findByUsernameAndPhoneNumber(username, phoneNumber);
+        findMember.get().toUpdatePassword(createNewPassword());
+        return createNewPassword();
+    }
+
+    public String findUsernameByPhoneNumber(String phoneNumber){
+        Optional<Member> findMember = memberRepository.findByPhoneNumber(phoneNumber);
+        return findMember.get().getUsername();
+    }
+
+
+    public static String createNewPassword(){
+        StringBuilder newPw= new StringBuilder();
+        Random rnd=new Random();
+
+        for (int i=0;i<8;i++){
+            int index = rnd.nextInt(3);
+
+            switch (index) {
+                case 0:
+                    newPw.append((char) ((int) (rnd.nextInt(26)) + 97));
+                    break;
+                case 1:
+                    newPw.append((char) ((int) (rnd.nextInt(26)) + 65));
+                    break;
+                case 2:
+                    newPw.append((rnd.nextInt(10)));
+                    break;
+            }
+        }
+        return newPw.toString();
     }
 }

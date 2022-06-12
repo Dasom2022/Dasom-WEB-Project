@@ -1,0 +1,5 @@
+coolms:
+  apikey: ${smsKey}
+  apisecret: ${smsSecret}
+  fromnumber: ${fromnumber}
+
