@@ -15,6 +15,8 @@ public class SignupDto {
     private String password;
     private Role role;
     private SocialType socialType;
+    private String nickname;
+    private String phoneNumber;
 
     public Member toEntity(){
         return Member.builder()
@@ -23,6 +25,8 @@ public class SignupDto {
                 .email(email)
                 .role(role)
                 .socialType(socialType)
+                .nickname(nickname)
+                .phoneNumber(phoneNumber)
                 .build();
     }
 

@@ -1,5 +1,6 @@
 package com.dama.service;
 
+import com.dama.model.dto.MemberUpdateInfoDto;
 import com.dama.model.dto.SignupDto;
 import com.dama.model.dto.request.PutItemRequestDto;
 import com.dama.model.dto.request.UserRequestDto;
@@ -171,6 +172,16 @@ public class MemberService {
     public String findUsernameByPhoneNumber(String phoneNumber){
         Optional<Member> findMember = memberRepository.findByPhoneNumber(phoneNumber);
         return findMember.get().getUsername();
+    }
+
+    public void memberDelete(String username){
+        Optional<Member> findMember = memberRepository.findByUsername(username);
+        memberRepository.delete(findMember.get());
+    }
+
+    public void memberInfoUpdate(MemberUpdateInfoDto memberUpdateInfoDto){
+        Member member = memberRepository.findByNickname(memberUpdateInfoDto.getNickname()).get();
+        member.toUpdateMemberInfo(memberUpdateInfoDto);
     }
 
 

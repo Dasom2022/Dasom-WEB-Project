@@ -1,6 +1,7 @@
 package com.dama.controller.mvc;
 
 
+import com.dama.model.dto.MemberUpdateInfoDto;
 import com.dama.model.dto.SignupDto;
 import com.dama.model.dto.request.PutItemRequestDto;
 import com.dama.model.dto.response.PutItemResponseDto;
@@ -23,6 +24,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -46,9 +50,7 @@ public class MemberController {
     private final MemberService memberService;
 
     private final EmailService emailService;
-
     private final SmsService smsService;
-
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody SignupDto signupDto, BindingResult result){
         if (result.hasErrors()) {
@@ -175,5 +177,17 @@ public class MemberController {
     @PostMapping("/smsPw")
     public void findLostPw(@RequestParam("username") String username,@RequestParam("phoneNumber") String phoneNumber){
         smsService.sendPassword(username,phoneNumber);
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<String> memberDelete(String username){
+        memberService.memberDelete(username);
+        return new ResponseEntity<>("member Deleted!",HttpStatus.OK);
+    }
+
+    @PostMapping("/InfoUpdate")
+    public ResponseEntity<String> memberInfoUpdate(MemberUpdateInfoDto memberUpdateInfoDto){
+        memberService.memberInfoUpdate(memberUpdateInfoDto);
+        return new ResponseEntity<>("member Info Updated!",HttpStatus.OK);
     }
 }

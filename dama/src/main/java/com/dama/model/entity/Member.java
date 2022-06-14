@@ -1,5 +1,6 @@
 package com.dama.model.entity;
 
+import com.dama.model.dto.MemberUpdateInfoDto;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -51,7 +52,10 @@ public class Member {
     @Column(name = "member_phoneNumber")
     private String phoneNumber;
 
-    public Member(String username, String email, String socialId, Role role, String imgURL, SocialType socialType,String phoneNumber) {
+    @Column(name = "member_nickname")
+    private String nickname;
+
+    public Member(String username, String email, String socialId, Role role, String imgURL, SocialType socialType,String phoneNumber,String nickname) {
         this.username = username;
         this.password = password;
         this.role = role;
@@ -63,7 +67,7 @@ public class Member {
     }
 
     @Builder
-    public Member(Long id,Role role, String username,String socialId, String password, String imgUrl,String email,SocialType socialType,String phoneNumber) {
+    public Member(Long id,Role role, String username,String socialId, String password, String imgUrl,String email,SocialType socialType,String phoneNumber,String nickname) {
         this.id = id;
         this.role=role;
         this.username = username;
@@ -73,6 +77,7 @@ public class Member {
         this.socialId=socialId;
         this.socialType=socialType;
         this.phoneNumber=phoneNumber;
+        this.nickname=nickname;
     }
 
     public void toUpdateMemberItemList(Item item){
@@ -90,5 +95,10 @@ public class Member {
 
     public void toUpdatePassword(String password){
         this.password=password;
+    }
+
+    public void toUpdateMemberInfo(MemberUpdateInfoDto memberUpdateInfoDto){
+        this.nickname=memberUpdateInfoDto.getNickname();
+        this.phoneNumber=memberUpdateInfoDto.getPhoneNumber();
     }
 }
