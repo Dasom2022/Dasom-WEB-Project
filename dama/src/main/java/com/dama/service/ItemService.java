@@ -6,9 +6,11 @@ import com.dama.model.entity.Item;
 import com.dama.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -37,5 +39,11 @@ public class ItemService {
         List<Item> all = itemRepository.findAll();
         Collections.reverse(all);
         return all;
+    }
+
+    @Transactional
+    public void returnApiDeleteItem(Long id){
+        Optional<Item> findItem = itemRepository.findById(id);
+        itemRepository.delete(findItem.get());
     }
 }

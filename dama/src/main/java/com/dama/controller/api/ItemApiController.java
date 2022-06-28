@@ -59,4 +59,11 @@ public class ItemApiController {
         List<Item> items = itemService.ReturnItemList();
         return new ResponseEntity<>(items,HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> returnApiItemDelete(@RequestParam("id") Long id){
+        itemService.returnApiDeleteItem(id);
+        return new ResponseEntity<>("아이템 삭제 API 성공!",HttpStatus.OK);
+    }
+
 }
