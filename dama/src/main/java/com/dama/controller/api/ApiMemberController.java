@@ -6,10 +6,7 @@ import com.dama.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/member/auth")
@@ -26,6 +23,13 @@ public class ApiMemberController {
         return new ResponseEntity<>(returnDto, HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> returnApiMemberDelete(@RequestParam("username") String username){
+        memberService.memberDelete(username);
+        return new ResponseEntity<>("회원삭제 API 성공!",HttpStatus.OK);
+    }
+
+
     private ApiMemberStateResponseDto setApiMemberStateResponseDto(Member member,ApiMemberStateResponseDto apiMemberStateResponseDto){
         apiMemberStateResponseDto.setId(member.getId());
         apiMemberStateResponseDto.setUsername(member.getUsername());
@@ -37,4 +41,6 @@ public class ApiMemberController {
         apiMemberStateResponseDto.setNickname(member.getNickname());
         return apiMemberStateResponseDto;
     }
+
+
 }
