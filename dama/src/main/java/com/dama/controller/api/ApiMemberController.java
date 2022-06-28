@@ -28,6 +28,7 @@ public class ApiMemberController {
     @DeleteMapping("/delete")
     public ResponseEntity<String> returnApiMemberDelete(@RequestParam("username") String username){
         log.info("deleteMapping 성공");
+        System.out.println("username deleteMapping!! = " + username);
         memberService.memberDelete(username);
         return new ResponseEntity<>("회원삭제 API 성공!",HttpStatus.OK);
     }

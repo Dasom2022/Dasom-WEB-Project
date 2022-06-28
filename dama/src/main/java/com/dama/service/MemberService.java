@@ -174,6 +174,7 @@ public class MemberService {
         return findMember.get().getUsername();
     }
 
+    @Transactional
     public void memberDelete(String username){
         Optional<Member> findMember = memberRepository.findByUsername(username);
         memberRepository.delete(findMember.get());
