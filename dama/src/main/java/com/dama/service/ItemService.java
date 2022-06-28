@@ -20,7 +20,6 @@ public class ItemService {
     private final ItemRepository itemRepository;
 
     public Long saveItem(ItemRequestDto item){
-        item.setItemCode(UUID.randomUUID().toString());
         return itemRepository.save(item.toEntity()).getId();
     }
 
