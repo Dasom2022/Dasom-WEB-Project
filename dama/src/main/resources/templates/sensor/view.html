@@ -12,20 +12,70 @@
 <body>
     <h1>센서값 조회하기</h1>
     <h3>버튼을 누를때 마다 최신화된다.</h3>
-    <button onclick="ajax()">조회</button>
+    <button onclick="listapi()">조회</button>
     <div id="result"></div>
 <script>
-    function ajax(){
-        $.ajax({
-            type:"post",
-            url:"/api/sensor/allValueList",
-            dataType:"json"
-        }).done(res=>{
-            console.log(res);
-        }).fail(err=>{
-            console.log("api안됨");
-        })
+    var listapi = function () {
+        console.log("자스 로그");
+        var data = new FormData();
+        var api='http://rpi.allof.fun/s01.php';
+        POST(api, data, function(resp) {
+            console.log(resp.status + ': ' + resp.data);
+            test(resp);
+            for (i=0;i<resp.data.length;i++) {
+                console.log(resp.data[i].sid)
+                //$rt{$i}{"sid"}=resp.data[i].sid;
+            }
+        });
     }
+    var POST = function (api, data, func ) {
+        var request = new XMLHttpRequest();
+        console.log("api="+api);
+        console.log("data="+data);
+        console.log("func="+func);
+        request.onreadystatechange = function() {
+            if(request.readyState == 4) {
+                try {
+                    var resp = JSON.parse(request.response);
+                    test(resp);
+                } catch (e) {
+                    var resp = {
+                        status: 'error',
+                        data: 'Unknown error : ['
+                            + request.responseText + ']'
+                    };
+                    alert(request.responseText)
+                }
+                func(resp)
+            }
+        };
+        request.open('POST', api );
+
+        request.send(data);
+        return request
+    }
+
+    var test=function (resp){
+        console.log(resp);
+        var data2 = new FormData();
+        console.log(data2);
+    }
+
+    var test2=function (){
+        $.ajaxPrefilter('json',function (options,orig,jqXHR){
+            return 'jsonp';
+        });
+        $.ajax({
+            type:"POST",
+            url:"http://rpi.allof.fun/s01.php",
+            dataType:"json"
+        })
+            .done(res=>{
+                console.log(res);
+            })
+    }
+
+    test2();
 </script>
 </body>
 </html>

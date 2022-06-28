@@ -184,6 +184,10 @@ public class MemberService {
         member.toUpdateMemberInfo(memberUpdateInfoDto);
     }
 
+    public Member returnApiMemberState(String refreshToken){
+        return memberRepository.findByRefreshToken(refreshToken).get();
+    }
+
 
     public static String createNewPassword(){
         StringBuilder newPw= new StringBuilder();

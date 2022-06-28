@@ -18,11 +18,13 @@ public class UserRequestDto {
     private String socialId;
     private SocialType socialType;
     private String imgURL;
+    private String phoneNumber;
+    private String nickname;
 
     //커밋용주석
     //UserRequestDto를 User Entity로 변환하여 return
     public Member toEntity(){
-        Member member = new Member(this.username, this.email, this.socialId, Role.USER, this.imgURL, this.socialType);
+        Member member = new Member(this.username, this.email, this.socialId, Role.USER, this.imgURL, this.socialType,this.phoneNumber,this.nickname);
         return member;
     }
 

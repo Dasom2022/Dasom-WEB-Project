@@ -1,0 +1,40 @@
+package com.dama.controller.api;
+
+import com.dama.model.dto.response.ApiMemberStateResponseDto;
+import com.dama.model.entity.Member;
+import com.dama.service.MemberService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/member/auth")
+@RequiredArgsConstructor
+public class ApiMemberController {
+
+    private final MemberService memberService;
+
+    @PostMapping("/state")
+    public ResponseEntity<ApiMemberStateResponseDto> returnApiMemberState(@RequestParam("refreshToken")String refreshToken){
+        Member member = memberService.returnApiMemberState(refreshToken);
+        ApiMemberStateResponseDto apiMemberStateResponseDto=new ApiMemberStateResponseDto();
+        ApiMemberStateResponseDto returnDto = setApiMemberStateResponseDto(member, apiMemberStateResponseDto);
+        return new ResponseEntity<>(returnDto, HttpStatus.OK);
+    }
+
+    private ApiMemberStateResponseDto setApiMemberStateResponseDto(Member member,ApiMemberStateResponseDto apiMemberStateResponseDto){
+        apiMemberStateResponseDto.setId(member.getId());
+        apiMemberStateResponseDto.setUsername(member.getUsername());
+        apiMemberStateResponseDto.setPassword(member.getPassword());
+        apiMemberStateResponseDto.setEmail(member.getEmail());
+        apiMemberStateResponseDto.setRole(member.getRole());
+        apiMemberStateResponseDto.setImgUrl(member.getImgUrl());
+        apiMemberStateResponseDto.setSocialType(member.getSocialType());
+        apiMemberStateResponseDto.setNickname(member.getNickname());
+        return apiMemberStateResponseDto;
+    }
+}
