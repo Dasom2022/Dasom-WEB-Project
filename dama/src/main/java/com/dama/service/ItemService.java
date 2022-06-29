@@ -20,8 +20,6 @@ public class ItemService {
     private final ItemRepository itemRepository;
 
     public Long saveItem(ItemRequestDto item){
-        item.setPrice(item.getPrice());
-        item.setWeight(item.getWeight());
         return itemRepository.save(item.toEntity()).getId();
     }
 
