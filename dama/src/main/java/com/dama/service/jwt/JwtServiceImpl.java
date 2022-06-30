@@ -108,8 +108,8 @@ public class JwtServiceImpl implements JwtService{
         */response.getWriter().write(USERNAME);
         String social = userDescriptionService.returnMemberSocialType(USERNAME);
         response.getWriter().write(social);
-        response.setHeader("username",USERNAME);
-        response.setHeader("socialType",social);
+        response.getWriter().write(USERNAME);
+        response.getWriter().write(social);
         /*response.addCookie(cookie);
         response.addCookie(cookie2);*/
         setAccessTokenHeader(response, accessToken);

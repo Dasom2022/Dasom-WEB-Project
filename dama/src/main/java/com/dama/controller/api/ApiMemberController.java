@@ -20,17 +20,11 @@ public class ApiMemberController {
     private final MemberService memberService;
 
     @PostMapping("/state")
-    public HttpServletResponse returnApiMemberState(@RequestParam("refreshToken")String refreshToken, HttpServletResponse response){
+    public ResponseEntity<ApiMemberStateResponseDto> returnApiMemberState(@RequestParam("refreshToken")String refreshToken){
         Member member = memberService.returnApiMemberState(refreshToken);
         ApiMemberStateResponseDto apiMemberStateResponseDto=new ApiMemberStateResponseDto();
         ApiMemberStateResponseDto returnDto = setApiMemberStateResponseDto(member, apiMemberStateResponseDto);
-        response.setHeader("username",returnDto.getUsername());
-        response.setHeader("email",returnDto.getEmail());
-        response.setHeader("id",returnDto.getId().toString());
-        response.setHeader("imgUrl",returnDto.getImgUrl());
-        response.setHeader("user_ROLE",returnDto.getRole().toString());
-        response.setHeader("socialType",returnDto.getSocialType().toString());
-        return response;
+        return new ResponseEntity<>(returnDto,HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
