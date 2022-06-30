@@ -54,11 +54,11 @@ public class Item {
         this.category = category;
     }
 
-    public void returnApiUpdateItemState(ItemRequestDto itemRequestDto){
-        this.itemCode=itemRequestDto.getItemCode();
-        this.itemName=itemRequestDto.getItemName();
-        this.price= itemRequestDto.getPrice();
-        this.weight=itemRequestDto.getWeight();
-        this.locale=itemRequestDto.getLocale();
+    public void returnApiUpdateItemState(String itemCode,String itemName,int price,double weight,String locale){
+        this.itemCode=itemCode;
+        this.itemName=itemName;
+        this.price=price;
+        this.weight=weight;
+        this.locale=locale;
     }
 }
