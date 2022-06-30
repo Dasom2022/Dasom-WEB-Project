@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 @RequestMapping("/api/member/auth")
 @RequiredArgsConstructor
@@ -18,11 +20,17 @@ public class ApiMemberController {
     private final MemberService memberService;
 
     @PostMapping("/state")
-    public ResponseEntity<ApiMemberStateResponseDto> returnApiMemberState(@RequestParam("refreshToken")String refreshToken){
+    public HttpServletResponse returnApiMemberState(@RequestParam("refreshToken")String refreshToken, HttpServletResponse response){
         Member member = memberService.returnApiMemberState(refreshToken);
         ApiMemberStateResponseDto apiMemberStateResponseDto=new ApiMemberStateResponseDto();
         ApiMemberStateResponseDto returnDto = setApiMemberStateResponseDto(member, apiMemberStateResponseDto);
-        return new ResponseEntity<>(returnDto, HttpStatus.OK);
+        response.setHeader("username",returnDto.getUsername());
+        response.setHeader("email",returnDto.getEmail());
+        response.setHeader("id",returnDto.getId().toString());
+        response.setHeader("imgUrl",returnDto.getImgUrl());
+        response.setHeader("user_ROLE",returnDto.getRole().toString());
+        response.setHeader("socialType",returnDto.getSocialType().toString());
+        return response;
     }
 
     @DeleteMapping("/delete")
