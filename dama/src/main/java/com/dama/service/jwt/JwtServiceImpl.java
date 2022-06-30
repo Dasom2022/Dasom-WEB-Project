@@ -107,9 +107,8 @@ public class JwtServiceImpl implements JwtService{
         Cookie cookie2=new Cookie("username",USERNAME);
         */response.getWriter().write(USERNAME);
         String social = userDescriptionService.returnMemberSocialType(USERNAME);
-        response.getWriter().write(social);
-        response.getWriter().write(USERNAME);
-        response.getWriter().write(social);
+        response.getWriter().println(USERNAME);
+        response.getWriter().println(social);
         /*response.addCookie(cookie);
         response.addCookie(cookie2);*/
         setAccessTokenHeader(response, accessToken);
