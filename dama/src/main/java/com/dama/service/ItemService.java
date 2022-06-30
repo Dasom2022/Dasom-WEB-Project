@@ -16,9 +16,11 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ItemService {
     private final ItemRepository itemRepository;
 
+    @Transactional
     public Long saveItem(ItemRequestDto item){
         return itemRepository.save(item.toEntity()).getId();
     }
@@ -48,8 +50,8 @@ public class ItemService {
 
     @Transactional
     public void returnApiUpdateItemState(ItemRequestDto itemRequestDto) {
-        Optional<Item> findItem = itemRepository.findByItemCode(itemRequestDto.getItemCode());
+        Item findItem = itemRepository.findById(itemRequestDto.getId()).get();
         System.out.println("findItem = " + findItem);
-        findItem.get().returnApiUpdateItemState(itemRequestDto);
+        findItem.returnApiUpdateItemState(itemRequestDto);
     }
 }

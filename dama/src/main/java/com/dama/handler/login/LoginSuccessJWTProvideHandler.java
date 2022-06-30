@@ -2,6 +2,7 @@ package com.dama.handler.login;
 
 import com.dama.model.entity.Member;
 import com.dama.repository.MemberRepository;
+import com.dama.service.MemberService;
 import com.dama.service.jwt.JwtService;
 import com.dama.service.login.LoginService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ import java.util.Optional;
 public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JwtService jwtService;
     private final MemberRepository memberRepository;
-
+    private final MemberService memberService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -36,11 +37,8 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
         /*memberRepository.findByUsername(username).ifPresent(
                 member -> member.updateRefreshToken(refreshToken)
         );*/
-        Optional<Member> findMember = memberRepository.findByUsername(username);
-        if (findMember.isPresent()){
-            findMember.get().updateRefreshToken(refreshToken);
-            log.info("member entity에 update query RefreshToken ={}",refreshToken);
-        }
+        memberService.returnApiUpdateRefreshToken(username,refreshToken);
+
 
         log.info( "로그인에 성공합니다. username: {}" ,username);
         log.info( "AccessToken 을 발급합니다. AccessToken: {}" ,accessToken);

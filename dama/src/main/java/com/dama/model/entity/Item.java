@@ -2,6 +2,7 @@ package com.dama.model.entity;
 
 import com.dama.model.dto.request.ItemRequestDto;
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 
