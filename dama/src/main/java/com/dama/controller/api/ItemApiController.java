@@ -68,4 +68,10 @@ public class ItemApiController {
         return new ResponseEntity<>("아이템 삭제 API 성공!",HttpStatus.OK);
     }
 
+    @PutMapping("/UpdateItemState")
+    public  ResponseEntity<String> returnApiUpdateItemState(@RequestBody ItemRequestDto itemRequestDto){
+        itemService.returnApiUpdateItemState(itemRequestDto);
+        return new ResponseEntity<>("아이템 수정 API 성공!",HttpStatus.OK);
+    }
+
 }

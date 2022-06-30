@@ -45,4 +45,11 @@ public class ItemService {
         Optional<Item> findItem = itemRepository.findById(id);
         itemRepository.delete(findItem.get());
     }
+
+    @Transactional
+    public void returnApiUpdateItemState(ItemRequestDto itemRequestDto) {
+        Optional<Item> findItem = itemRepository.findByItemCode(itemRequestDto.getItemCode());
+        System.out.println("findItem = " + findItem);
+        findItem.get().returnApiUpdateItemState(itemRequestDto);
+    }
 }

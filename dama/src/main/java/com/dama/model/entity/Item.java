@@ -1,5 +1,6 @@
 package com.dama.model.entity;
 
+import com.dama.model.dto.request.ItemRequestDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -52,4 +53,11 @@ public class Item {
         this.category = category;
     }
 
+    public void returnApiUpdateItemState(ItemRequestDto itemRequestDto){
+        this.itemCode=itemRequestDto.getItemCode();
+        this.itemName=itemRequestDto.getItemName();
+        this.price= itemRequestDto.getPrice();
+        this.weight=itemRequestDto.getWeight();
+        this.locale=itemRequestDto.getLocale();
+    }
 }
