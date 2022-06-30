@@ -23,7 +23,6 @@ import java.util.Optional;
 public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JwtService jwtService;
     private final MemberRepository memberRepository;
-    private final MemberService memberService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -37,7 +36,7 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
         /*memberRepository.findByUsername(username).ifPresent(
                 member -> member.updateRefreshToken(refreshToken)
         );*/
-        memberService.returnApiUpdateRefreshToken(username,refreshToken);
+        jwtService.returnApiUpdateRefreshToken(username,refreshToken);
 
 
         log.info( "로그인에 성공합니다. username: {}" ,username);

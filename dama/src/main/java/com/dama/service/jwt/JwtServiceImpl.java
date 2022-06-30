@@ -2,6 +2,7 @@ package com.dama.service.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.dama.model.entity.Member;
 import com.dama.repository.MemberRepository;
 import com.dama.service.MemberService;
 import com.dama.service.login.LoginService;
@@ -187,5 +188,16 @@ public class JwtServiceImpl implements JwtService{
             log.error("유효하지 않은 Token입니다", e.getMessage());
             return false;
         }
+    }
+
+    @Override
+    @Transactional
+    public void returnApiUpdateRefreshToken(String username, String refreshToken) {
+        Optional<Member> findMember = memberRepository.findByUsername(username);
+        if (findMember.isPresent()){
+            findMember.get().updateRefreshToken(refreshToken);
+            log.info("member entity에 update query RefreshToken ={}",refreshToken);
+        }
+
     }
 }

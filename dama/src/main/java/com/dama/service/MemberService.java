@@ -212,12 +212,5 @@ public class MemberService {
         return newPw.toString();
     }
 
-    @Transactional
-    public void returnApiUpdateRefreshToken(String username,String refreshToken) {
-        Optional<Member> findMember = memberRepository.findByUsername(username);
-        if (findMember.isPresent()){
-            findMember.get().updateRefreshToken(refreshToken);
-            log.info("member entity에 update query RefreshToken ={}",refreshToken);
-        }
-    }
+
 }
