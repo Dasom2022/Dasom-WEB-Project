@@ -187,7 +187,8 @@ public class MemberService {
 
     public Member returnApiMemberState(String refreshToken){
         System.out.println("MemberStateRefreshToken = " + refreshToken);
-        return memberRepository.findByRefreshToken(refreshToken).get();
+        Member member = memberRepository.findByRefreshToken(refreshToken).get();
+        return member;
     }
 
 
