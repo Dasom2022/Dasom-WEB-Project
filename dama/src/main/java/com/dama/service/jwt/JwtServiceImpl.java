@@ -2,6 +2,7 @@ package com.dama.service.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.dama.model.dto.FirstLoginMemberDefaultValueDto;
 import com.dama.model.entity.Member;
 import com.dama.repository.MemberRepository;
 import com.dama.service.MemberService;
@@ -61,6 +62,8 @@ public class JwtServiceImpl implements JwtService{
 
     private final UserDescriptionService userDescriptionService;
 
+    private final ObjectMapper objectMapper;
+
     @Override
     public String createAccessToken(String username) {
         USERNAME=username;
@@ -103,14 +106,14 @@ public class JwtServiceImpl implements JwtService{
     @Override
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken){
         response.setStatus(HttpStatus.OK.value());
-        /*Cookie cookie=new Cookie("login","success");
-        Cookie cookie2=new Cookie("username",USERNAME);
-        */response.getWriter().write(USERNAME);
         String social = userDescriptionService.returnMemberSocialType(USERNAME);
-        response.getWriter().println(USERNAME);
-        response.getWriter().println(social);
-        /*response.addCookie(cookie);
-        response.addCookie(cookie2);*/
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        FirstLoginMemberDefaultValueDto f=new FirstLoginMemberDefaultValueDto();
+        f.setUsername(USERNAME);
+        f.setSocialType(social);
+        String result = objectMapper.writeValueAsString(f);
+        response.getOutputStream().println(result);
         setAccessTokenHeader(response, accessToken);
         setRefreshTokenHeader(response, refreshToken);
 
