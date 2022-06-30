@@ -51,7 +51,8 @@ public class ItemService {
     @Transactional
     public void returnApiUpdateItemState(ItemRequestDto itemRequestDto) {
         Item findItem = itemRepository.findById(itemRequestDto.getId()).get();
-        System.out.println("findItem = " + findItem);
+        System.out.println("findItem = " + findItem.getItemName());
+        System.out.println("findItem.getId() = " + findItem.getId());
         findItem.returnApiUpdateItemState(itemRequestDto.getItemCode(),itemRequestDto.getItemName(),itemRequestDto.getPrice(),itemRequestDto.getWeight(),itemRequestDto.getLocale());
     }
 }

@@ -71,6 +71,7 @@ public class ItemApiController {
     //커밋용 주석
     @PostMapping("/UpdateItemState")
     public  ResponseEntity<String> returnApiUpdateItemState(@RequestBody ItemRequestDto itemRequestDto){
+        System.out.println("itemRequestDto.getId() = " + itemRequestDto.getId());
         itemService.returnApiUpdateItemState(itemRequestDto);
         return new ResponseEntity<>("아이템 수정 API 성공!",HttpStatus.OK);
     }
