@@ -52,6 +52,6 @@ public class ItemService {
     public void returnApiUpdateItemState(ItemRequestDto itemRequestDto) {
         Item findItem = itemRepository.findById(itemRequestDto.getId()).get();
         System.out.println("findItem = " + findItem);
-        findItem.returnApiUpdateItemState(itemRequestDto);
+        findItem.returnApiUpdateItemState(itemRequestDto.getItemCode(),itemRequestDto.getItemName(),itemRequestDto.getPrice(),itemRequestDto.getWeight(),itemRequestDto.getLocale());
     }
 }
