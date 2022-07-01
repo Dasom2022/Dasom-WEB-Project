@@ -112,6 +112,8 @@ public class JwtServiceImpl implements JwtService{
         FirstLoginMemberDefaultValueDto f=new FirstLoginMemberDefaultValueDto();
         f.setUsername(USERNAME);
         f.setSocialType(social);
+        f.setAccessToken(accessToken);
+        f.setRefreshToken(refreshToken);
         String result = objectMapper.writeValueAsString(f);
         response.getOutputStream().println(result);
         setAccessTokenHeader(response, accessToken);

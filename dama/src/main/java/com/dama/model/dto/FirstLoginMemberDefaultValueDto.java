@@ -10,4 +10,6 @@ import lombok.Setter;
 public class FirstLoginMemberDefaultValueDto {
     private String username;
     private String socialType;
+    private String accessToken;
+    private String refreshToken;
 }
