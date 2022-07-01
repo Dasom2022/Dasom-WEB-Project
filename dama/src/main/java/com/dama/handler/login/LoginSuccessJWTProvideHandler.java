@@ -1,10 +1,12 @@
 package com.dama.handler.login;
 
+import com.dama.model.dto.FirstLoginMemberTokenValueDto;
 import com.dama.model.entity.Member;
 import com.dama.repository.MemberRepository;
 import com.dama.service.MemberService;
 import com.dama.service.jwt.JwtService;
 import com.dama.service.login.LoginService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +25,7 @@ import java.util.Optional;
 public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JwtService jwtService;
     private final MemberRepository memberRepository;
-
+    private final ObjectMapper objectMapper;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
@@ -37,9 +39,11 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
                 member -> member.updateRefreshToken(refreshToken)
         );*/
         jwtService.returnApiUpdateRefreshToken(username,refreshToken);
-
-        response.getOutputStream().println(accessToken);
-        response.getOutputStream().println(refreshToken);
+        FirstLoginMemberTokenValueDto f=new FirstLoginMemberTokenValueDto();
+        f.setRefreshToken(refreshToken);
+        f.setAccessToken(accessToken);
+        String result = objectMapper.writeValueAsString(f);
+        response.getOutputStream().println(result);
 
         log.info( "로그인에 성공합니다. username: {}" ,username);
         log.info( "AccessToken 을 발급합니다. AccessToken: {}" ,accessToken);

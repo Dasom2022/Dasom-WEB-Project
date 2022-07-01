@@ -80,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public LoginSuccessJWTProvideHandler loginSuccessJWTProvideHandler(){
-        return new LoginSuccessJWTProvideHandler(jwtService, memberRepository);//변경
+        return new LoginSuccessJWTProvideHandler(jwtService, memberRepository,objectMapper);//변경
     }
 
     @Bean
