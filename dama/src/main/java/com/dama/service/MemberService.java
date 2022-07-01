@@ -214,5 +214,9 @@ public class MemberService {
         return newPw.toString();
     }
 
-
+    @Transactional
+    public void destroyRefreshToken(String refreshToken) {
+        Optional<Member> findMember = memberRepository.findByRefreshToken(refreshToken);
+        findMember.get().destroyRefreshToken();
+    }
 }

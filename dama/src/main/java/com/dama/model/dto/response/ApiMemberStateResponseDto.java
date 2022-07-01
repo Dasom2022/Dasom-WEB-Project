@@ -19,5 +19,5 @@ public class ApiMemberStateResponseDto {
     private String imgUrl;
     private SocialType socialType;
     private String refreshToken;
-
+    private String accessToken;
 }
