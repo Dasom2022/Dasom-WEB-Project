@@ -38,6 +38,8 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
         );*/
         jwtService.returnApiUpdateRefreshToken(username,refreshToken);
 
+        response.getOutputStream().println(accessToken);
+        response.getOutputStream().println(refreshToken);
 
         log.info( "로그인에 성공합니다. username: {}" ,username);
         log.info( "AccessToken 을 발급합니다. AccessToken: {}" ,accessToken);
