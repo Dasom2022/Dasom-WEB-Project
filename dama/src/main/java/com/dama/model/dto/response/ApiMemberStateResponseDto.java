@@ -18,4 +18,6 @@ public class ApiMemberStateResponseDto {
     private String nickname;
     private String imgUrl;
     private SocialType socialType;
+    private String refreshToken;
+
 }

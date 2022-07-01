@@ -45,6 +45,7 @@ public class ApiMemberController {
         apiMemberStateResponseDto.setImgUrl(member.getImgUrl());
         apiMemberStateResponseDto.setSocialType(member.getSocialType());
         apiMemberStateResponseDto.setNickname(member.getNickname());
+        apiMemberStateResponseDto.setRefreshToken(member.getRefreshToken());
         return apiMemberStateResponseDto;
     }
 
