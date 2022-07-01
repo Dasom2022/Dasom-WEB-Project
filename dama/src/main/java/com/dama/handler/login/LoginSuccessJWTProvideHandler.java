@@ -1,6 +1,6 @@
 package com.dama.handler.login;
 
-import com.dama.model.dto.FirstLoginMemberTokenValueDto;
+import com.dama.model.dto.FirstLoginMemberDefaultValueDto;
 import com.dama.model.entity.Member;
 import com.dama.repository.MemberRepository;
 import com.dama.service.MemberService;
@@ -31,6 +31,7 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
 
         String username = extractUsername(authentication);
         String code=returnStatusCode();
+        String socialType=jwtService.returnMemberSocialType(username);
         String accessToken = jwtService.createAccessToken(username);
         String refreshToken = jwtService.createRefreshToken();
         jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken);
@@ -39,7 +40,11 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
                 member -> member.updateRefreshToken(refreshToken)
         );*/
         jwtService.returnApiUpdateRefreshToken(username,refreshToken);
-        FirstLoginMemberTokenValueDto f=new FirstLoginMemberTokenValueDto();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        FirstLoginMemberDefaultValueDto f=new FirstLoginMemberDefaultValueDto();
+        f.setUsername(username);
+        f.setSocialType(socialType);
         f.setRefreshToken(refreshToken);
         f.setAccessToken(accessToken);
         String result = objectMapper.writeValueAsString(f);

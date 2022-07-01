@@ -107,16 +107,6 @@ public class JwtServiceImpl implements JwtService{
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken){
         response.setStatus(HttpStatus.OK.value());
         String social = userDescriptionService.returnMemberSocialType(USERNAME);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-        FirstLoginMemberDefaultValueDto f=new FirstLoginMemberDefaultValueDto();
-        f.setUsername(USERNAME);
-        f.setSocialType(social);
-        String result = objectMapper.writeValueAsString(f);
-        response.getOutputStream().println(result);
-        setAccessTokenHeader(response, accessToken);
-        setRefreshTokenHeader(response, refreshToken);
-
 
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put(ACCESS_TOKEN_SUBJECT, accessToken);
@@ -201,5 +191,11 @@ public class JwtServiceImpl implements JwtService{
             log.info("member entity에 update query RefreshToken ={}",refreshToken);
         }
 
+    }
+
+    @Override
+    public String returnMemberSocialType(String username) {
+        Member member = memberRepository.findByUsername(username).get();
+        return member.getSocialType().toString();
     }
 }
