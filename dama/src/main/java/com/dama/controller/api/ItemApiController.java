@@ -7,6 +7,7 @@ import com.dama.model.dto.response.ItemSearchResponseDto;
 import com.dama.model.entity.Item;
 import com.dama.service.ItemService;
 import com.dama.principal.UserDetailsImpl;
+import com.dama.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,8 @@ public class ItemApiController {
 
     private final ItemService itemService;
 
+    private final MemberService memberService;
+
     @PostMapping("/state")
     public ResponseEntity<ItemResponseDto> returnItemState(@RequestParam("itemCode")String itemCode){
         System.out.println("itemCode = " + itemCode);
@@ -37,12 +40,13 @@ public class ItemApiController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerItem(@RequestBody ItemRequestDto itemRequestDto){
+    public ResponseEntity<?> registerItem(@RequestBody ItemRequestDto itemRequestDto,@RequestParam("refreshToken") String refreshToken){
         System.out.println("itemRequestDto = " + itemRequestDto.getItemName());
-        itemRequestDto.setWeight(itemRequestDto.getWeight());
-        itemRequestDto.setPrice(itemRequestDto.getPrice());
-        itemService.saveItem(itemRequestDto);
-        return new ResponseEntity<>(HttpStatus.OK);
+        String findMemberRole = memberService.returnMemberRole(refreshToken);
+        if (findMemberRole.equals("ROLE_ADMIN")){
+            itemService.saveItem(itemRequestDto);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else return new ResponseEntity<>("관리자가 아니면 물품을 등록할 수 없습니다",HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/search")
@@ -63,17 +67,23 @@ public class ItemApiController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> returnApiItemDelete(@RequestParam("id") Long id){
-        itemService.returnApiDeleteItem(id);
-        return new ResponseEntity<>("아이템 삭제 API 성공!",HttpStatus.OK);
+    public ResponseEntity<String> returnApiItemDelete(@RequestParam("id") Long id,@RequestParam("refreshToken") String refreshToken){
+        String findMemberRole = memberService.returnMemberRole(refreshToken);
+        if (findMemberRole.equals("ROLE_ADMIN")) {
+            itemService.returnApiDeleteItem(id);
+            return new ResponseEntity<>("아이템 삭제 API 성공!", HttpStatus.OK);
+        }else return new ResponseEntity<>("관리자가 아니라면 물품을 삭제할 수 없습니다",HttpStatus.BAD_REQUEST);
     }
 
     //커밋용 주석
     @PostMapping("/UpdateItemState")
-    public  ResponseEntity<String> returnApiUpdateItemState(@RequestBody ItemRequestDto itemRequestDto){
+    public  ResponseEntity<String> returnApiUpdateItemState(@RequestBody ItemRequestDto itemRequestDto,@RequestParam("refreshToken") String refreshToken){
         System.out.println("itemRequestDto.getId() = " + itemRequestDto.getId());
-        itemService.returnApiUpdateItemState(itemRequestDto);
-        return new ResponseEntity<>("아이템 수정 API 성공!",HttpStatus.OK);
+        String findMemberRole = memberService.returnMemberRole(refreshToken);
+        if (findMemberRole.equals("ROLE_ADMIN")) {
+            itemService.returnApiUpdateItemState(itemRequestDto);
+            return new ResponseEntity<>("아이템 수정 API 성공!", HttpStatus.OK);
+        }else return new ResponseEntity<>("관리자가 아니라면 물품을 수정할 수 없습니다",HttpStatus.BAD_REQUEST);
     }
 
 }

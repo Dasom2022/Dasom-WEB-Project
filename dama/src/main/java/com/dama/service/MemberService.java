@@ -219,4 +219,9 @@ public class MemberService {
         Optional<Member> findMember = memberRepository.findByRefreshToken(refreshToken);
         findMember.get().destroyRefreshToken();
     }
+
+    public String returnMemberRole(String refreshToken) {
+        Optional<Member> findMember = memberRepository.findByRefreshToken(refreshToken);
+        return findMember.get().getRole().toString();
+    }
 }
