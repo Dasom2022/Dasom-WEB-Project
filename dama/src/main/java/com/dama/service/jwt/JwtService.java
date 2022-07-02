@@ -36,4 +36,6 @@ public interface JwtService {
     void returnApiUpdateRefreshToken(String username,String refreshToken);
 
     String returnMemberSocialType(String username);
+
+    String returnMemberRole(String username);
 }

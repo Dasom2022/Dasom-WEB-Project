@@ -198,4 +198,10 @@ public class JwtServiceImpl implements JwtService{
         Member member = memberRepository.findByUsername(username).get();
         return member.getSocialType().toString();
     }
+
+    @Override
+    public String returnMemberRole(String username) {
+        Member member = memberRepository.findByUsername(username).get();
+        return member.getRole().toString();
+    }
 }

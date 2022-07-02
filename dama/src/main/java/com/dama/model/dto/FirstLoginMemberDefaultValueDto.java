@@ -12,4 +12,5 @@ public class FirstLoginMemberDefaultValueDto {
     private String socialType;
     private String accessToken;
     private String refreshToken;
+    private String role;
 }

@@ -34,6 +34,7 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
         String socialType=jwtService.returnMemberSocialType(username);
         String accessToken = jwtService.createAccessToken(username);
         String refreshToken = jwtService.createRefreshToken();
+        String role=jwtService.returnMemberRole(username);
         jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken);
         jwtService.sendSuccessStatusCode(code);
         /*memberRepository.findByUsername(username).ifPresent(
@@ -44,6 +45,7 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
         response.setCharacterEncoding("UTF-8");
         FirstLoginMemberDefaultValueDto f=new FirstLoginMemberDefaultValueDto();
         f.setUsername(username);
+        f.setRole(role);
         f.setSocialType(socialType);
         f.setRefreshToken(refreshToken);
         f.setAccessToken(accessToken);
