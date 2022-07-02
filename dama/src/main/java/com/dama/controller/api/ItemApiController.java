@@ -43,7 +43,7 @@ public class ItemApiController {
     public ResponseEntity<?> registerItem(@RequestBody ItemRequestDto itemRequestDto,@RequestParam("refreshToken") String refreshToken){
         System.out.println("itemRequestDto = " + itemRequestDto.getItemName());
         String findMemberRole = memberService.returnMemberRole(refreshToken);
-        if (findMemberRole.equals("ROLE_ADMIN")){
+        if (findMemberRole.equals("ADMIN")){
             itemService.saveItem(itemRequestDto);
             return new ResponseEntity<>(HttpStatus.OK);
         }else return new ResponseEntity<>("관리자가 아니면 물품을 등록할 수 없습니다",HttpStatus.BAD_REQUEST);
@@ -69,7 +69,7 @@ public class ItemApiController {
     @DeleteMapping("/delete")
     public ResponseEntity<String> returnApiItemDelete(@RequestParam("id") Long id,@RequestParam("refreshToken") String refreshToken){
         String findMemberRole = memberService.returnMemberRole(refreshToken);
-        if (findMemberRole.equals("ROLE_ADMIN")) {
+        if (findMemberRole.equals("ADMIN")) {
             itemService.returnApiDeleteItem(id);
             return new ResponseEntity<>("아이템 삭제 API 성공!", HttpStatus.OK);
         }else return new ResponseEntity<>("관리자가 아니라면 물품을 삭제할 수 없습니다",HttpStatus.BAD_REQUEST);
@@ -80,7 +80,7 @@ public class ItemApiController {
     public  ResponseEntity<String> returnApiUpdateItemState(@RequestBody ItemRequestDto itemRequestDto,@RequestParam("refreshToken") String refreshToken){
         System.out.println("itemRequestDto.getId() = " + itemRequestDto.getId());
         String findMemberRole = memberService.returnMemberRole(refreshToken);
-        if (findMemberRole.equals("ROLE_ADMIN")) {
+        if (findMemberRole.equals("ADMIN")) {
             itemService.returnApiUpdateItemState(itemRequestDto);
             return new ResponseEntity<>("아이템 수정 API 성공!", HttpStatus.OK);
         }else return new ResponseEntity<>("관리자가 아니라면 물품을 수정할 수 없습니다",HttpStatus.BAD_REQUEST);
