@@ -34,7 +34,7 @@ public interface JwtService {
     boolean isTokenValid(String token);
 
     void returnApiUpdateRefreshToken(String username,String refreshToken);
-
+    void returnApiUpdateAccessToken(String username,String accessToken);
     String returnMemberSocialType(String username);
 
     String returnMemberRole(String username);

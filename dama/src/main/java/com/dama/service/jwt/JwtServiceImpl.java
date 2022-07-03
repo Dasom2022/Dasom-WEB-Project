@@ -194,6 +194,17 @@ public class JwtServiceImpl implements JwtService{
     }
 
     @Override
+    @Transactional
+    public void returnApiUpdateAccessToken(String username, String accessToken) {
+        Optional<Member> findMember = memberRepository.findByUsername(username);
+        if (findMember.isPresent()){
+            findMember.get().updateAccessToken(accessToken);
+        }else {
+            findMember.get().updateAccessToken(null);
+        }
+    }
+
+    @Override
     public String returnMemberSocialType(String username) {
         Member member = memberRepository.findByUsername(username).get();
         return member.getSocialType().toString();

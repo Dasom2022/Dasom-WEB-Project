@@ -40,9 +40,9 @@ public class ItemApiController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerItem(@RequestBody ItemRequestDto itemRequestDto,@RequestParam("refreshToken") String refreshToken){
+    public ResponseEntity<?> registerItem(@RequestBody ItemRequestDto itemRequestDto,@RequestParam("accessToken") String accessToken){
         System.out.println("itemRequestDto = " + itemRequestDto.getItemName());
-        String findMemberRole = memberService.returnMemberRole(refreshToken);
+        String findMemberRole = memberService.returnMemberRole(accessToken);
         if (findMemberRole.equals("ADMIN")){
             itemService.saveItem(itemRequestDto);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -67,8 +67,8 @@ public class ItemApiController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> returnApiItemDelete(@RequestParam("id") Long id,@RequestParam("refreshToken") String refreshToken){
-        String findMemberRole = memberService.returnMemberRole(refreshToken);
+    public ResponseEntity<String> returnApiItemDelete(@RequestParam("id") Long id,@RequestParam("accessToken") String accessToken){
+        String findMemberRole = memberService.returnMemberRole(accessToken);
         if (findMemberRole.equals("ADMIN")) {
             itemService.returnApiDeleteItem(id);
             return new ResponseEntity<>("아이템 삭제 API 성공!", HttpStatus.OK);
@@ -77,9 +77,9 @@ public class ItemApiController {
 
     //커밋용 주석
     @PostMapping("/UpdateItemState")
-    public  ResponseEntity<String> returnApiUpdateItemState(@RequestBody ItemRequestDto itemRequestDto,@RequestParam("refreshToken") String refreshToken){
+    public  ResponseEntity<String> returnApiUpdateItemState(@RequestBody ItemRequestDto itemRequestDto,@RequestParam("accessToken") String accessToken){
         System.out.println("itemRequestDto.getId() = " + itemRequestDto.getId());
-        String findMemberRole = memberService.returnMemberRole(refreshToken);
+        String findMemberRole = memberService.returnMemberRole(accessToken);
         if (findMemberRole.equals("ADMIN")) {
             itemService.returnApiUpdateItemState(itemRequestDto);
             return new ResponseEntity<>("아이템 수정 API 성공!", HttpStatus.OK);

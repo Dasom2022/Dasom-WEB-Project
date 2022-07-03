@@ -50,9 +50,8 @@ public class ApiMemberController {
     }
 
     @GetMapping("/adminPage")
-    public ResponseEntity<String> accessToAdminPage(@RequestParam("refreshToken") String refreshToken){
-        System.out.println("refreshToken = " + refreshToken);
-        String findMemberRole = memberService.returnMemberRole(refreshToken);
+    public ResponseEntity<String> accessToAdminPage(@RequestParam("accessToken") String accessToken){
+        String findMemberRole = memberService.returnMemberRole(accessToken);
         if (findMemberRole.equals("ADMIN")) return new ResponseEntity<>("관리자가 맞습니다",HttpStatus.OK);
         else return new ResponseEntity<>("관리자가 아니면 접근할 수 없습니다!",HttpStatus.BAD_REQUEST);
     }

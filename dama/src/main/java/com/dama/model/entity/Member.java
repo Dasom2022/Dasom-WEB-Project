@@ -55,6 +55,9 @@ public class Member {
     @Column(name = "member_nickname")
     private String nickname;
 
+    @Column(name = "member_accessToken")
+    private String accessToken;
+
     public Member(String username, String email, String socialId, Role role, String imgURL, SocialType socialType,String phoneNumber,String nickname) {
         this.username = username;
         this.password = password;
@@ -67,7 +70,7 @@ public class Member {
     }
 
     @Builder
-    public Member(Long id,Role role, String username,String socialId, String password, String imgUrl,String email,SocialType socialType,String phoneNumber,String nickname) {
+    public Member(Long id,Role role, String username,String socialId, String password, String imgUrl,String email,SocialType socialType,String phoneNumber,String nickname,String accessToken) {
         this.id = id;
         this.role=role;
         this.username = username;
@@ -78,6 +81,7 @@ public class Member {
         this.socialType=socialType;
         this.phoneNumber=phoneNumber;
         this.nickname=nickname;
+        this.accessToken=accessToken;
     }
 
     public void toUpdateMemberItemList(Item item){
@@ -87,6 +91,10 @@ public class Member {
     public void updateRefreshToken(String refreshToken){
         System.out.println("refreshToken = " + refreshToken);
         this.refreshToken=refreshToken;
+    }
+
+    public void updateAccessToken(String accessToken){
+        this.accessToken=accessToken;
     }
 
     public void destroyRefreshToken(){
