@@ -41,7 +41,7 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
                 member -> member.updateRefreshToken(refreshToken)
         );*/
         jwtService.returnApiUpdateRefreshToken(username,refreshToken);
-
+        jwtService.returnApiUpdateAccessToken(username,accessToken);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         FirstLoginMemberDefaultValueDto f=new FirstLoginMemberDefaultValueDto();
