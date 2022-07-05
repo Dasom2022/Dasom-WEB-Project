@@ -1,7 +1,8 @@
-/*
 package com.dama.service;
 
 import lombok.RequiredArgsConstructor;
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ public class SmsService {
     private String fromNumber;
 
     public void sendPassword(String username,String toNumber) {
+        System.out.println("apiKey = " + apiKey);
+        System.out.println("fromNumber = " + fromNumber);
         Message coolsms = new Message(apiKey, apiSecret);
         HashMap<String, String> params = new HashMap<String, String>();
         String newPw = memberService.findPasswordByUsernameAndPhoneNumber(username, toNumber);
@@ -62,4 +65,3 @@ public class SmsService {
         }
     }
 }
-*/

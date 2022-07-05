@@ -10,6 +10,7 @@ import com.dama.model.entity.Role;
 import com.dama.model.entity.SocialType;
 import com.dama.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,8 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     private final PasswordEncoder passwordEncoder;
+
+    private final EmailService emailService;
 
     @Transactional
     public void signUpMember(SignupDto signupDto) throws Exception{
@@ -142,13 +145,16 @@ public class MemberService {
         }
     }
 
-    public ResponseEntity<?> checkexistemail(String email) {
+    @SneakyThrows
+    public ResponseEntity<String> checkexistemail(String email) {
         Optional<Member> findEmail = memberRepository.findByEmail(email);
 
-        if(!findEmail.isPresent()){
-            return new ResponseEntity<>(1, HttpStatus.OK);//커밋용 주석
+        if(findEmail.isEmpty()){
+            emailService.sendSimpleMessage(email);
+            emailCheck(email);
+            return new ResponseEntity<>("회원가입이 완료되었습니다.",HttpStatus.OK);
         }else {
-            return new ResponseEntity<>(0, HttpStatus.OK);//커밋용 주석
+            return new ResponseEntity<>("이메일을 다시한번확인하여 주세요",HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -23,10 +23,6 @@ public class SignupApiController {
         return memberService.checkexistusername(username);
     }
 
-    @GetMapping("/email/{email}/exist") //커밋용 주석
-    public ResponseEntity<?> existemail(@PathVariable("email")String email){
-        return memberService.checkexistemail(email);
-    }
 
     @GetMapping("/password/check")
     public ResponseEntity<?> samePassword(@RequestParam("password1")String password1,@RequestParam("password2")String password2){

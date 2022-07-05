@@ -1,5 +1,5 @@
 coolms:
-  apikey: ${smsKey}
-  apisecret: ${smsSecret}
-  fromnumber: ${fromnumber}
+  apikey: NCSH7UTI9EUOOA0K
+  apisecret: ZJ1X4VR3VHDBU7I6UOTBJCPX2H8YPELW
+  fromnumber: 07045561056
 

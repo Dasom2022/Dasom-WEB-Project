@@ -9,12 +9,7 @@ import com.dama.model.entity.Member;
 import com.dama.service.EmailService;
 import com.dama.service.MemberService;
 import com.dama.principal.UserDetailsImpl;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.client.j2se.MatrixToImageConfig;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
+import com.dama.service.SmsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -23,19 +18,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.ValidationException;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,9 +32,7 @@ public class MemberController {
     private final MemberService memberService;
 
     private final EmailService emailService;
-/*
     private final SmsService smsService;
-*/
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody SignupDto signupDto, BindingResult result){
         if (result.hasErrors()) {
@@ -95,7 +76,7 @@ public class MemberController {
         return new ResponseEntity<>(returnResponseDto,HttpStatus.OK);
     }
 
-    @RequestMapping("qr")
+    /*@RequestMapping("qr")
     public String makeqr(HttpServletRequest request, HttpSession session, String storeName) throws WriterException, IOException {
 
         String root = request.getSession().getServletContext().getRealPath("resources"); //현재 서비스가 돌아가고 있는 서블릿 경로의 resources 폴더 찾기
@@ -139,13 +120,13 @@ public class MemberController {
         //리턴은 사용자가 원하는 값을 리턴한다.
         //작성자는 QRCode 파일의 이름을 넘겨주고 싶었음.
         return fileName+".png";
-    }
+    }*/
 
     @PostMapping("/mail")
-    public void emailConfirm(@RequestParam("email") String email)throws Exception{
+    public ResponseEntity<String> emailConfirm(@RequestParam("email") String email)throws Exception{
         System.out.println("전달 받은 이메일 : "+email);
-        emailService.sendSimpleMessage(email);
-        memberService.emailCheck(email);
+        ResponseEntity<String> checkexistemail = memberService.checkexistemail(email);
+        return checkexistemail;
     }
 
     @PostMapping("/verifyCode")
@@ -170,7 +151,7 @@ public class MemberController {
         return new ResponseEntity<>(members,HttpStatus.OK);
     }
 
-    /*@PostMapping("/smsId")
+    @PostMapping("/smsId")
     public void findLostId(@RequestParam("phoneNumber") String phoneNumber){
         smsService.sendId(phoneNumber);
     }
@@ -178,7 +159,7 @@ public class MemberController {
     @PostMapping("/smsPw")
     public void findLostPw(@RequestParam("username") String username,@RequestParam("phoneNumber") String phoneNumber){
         smsService.sendPassword(username,phoneNumber);
-    }*/
+    }
 
     @PostMapping("/delete")
     public ResponseEntity<String> memberDelete(String username){
