@@ -172,6 +172,7 @@ public class MemberService {
         return returnList;
     }
 
+    @Transactional
     public String findPasswordByUsernameAndPhoneNumber(String username,String phoneNumber){
         Optional<Member> findMember = memberRepository.findByUsernameAndPhoneNumber(username, phoneNumber);
         findMember.get().toUpdatePassword(createNewPassword());
