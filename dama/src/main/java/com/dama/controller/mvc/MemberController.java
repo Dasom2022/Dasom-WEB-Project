@@ -172,4 +172,12 @@ public class MemberController {
         memberService.memberInfoUpdate(memberUpdateInfoDto);
         return new ResponseEntity<>("member Info Updated!",HttpStatus.OK);
     }
+
+    @PostMapping("/pwUpdate")
+    public ResponseEntity<String> passwordUpdate(@RequestParam("accessToken") String accessToken,@RequestParam("password") String password){
+        boolean b = memberService.updatePassword(accessToken, password);
+
+        if (b) return new ResponseEntity<>("비밀번호가 성공적으로 변경되었습니다",HttpStatus.OK);
+        else return new ResponseEntity<>("비밀번호 변경 API 실패",HttpStatus.BAD_REQUEST);
+    }
 }

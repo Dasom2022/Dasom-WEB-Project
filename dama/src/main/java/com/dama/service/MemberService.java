@@ -25,6 +25,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -240,5 +241,15 @@ public class MemberService {
     public String returnMemberRole(String accessToken) {
         Optional<Member> findMember = memberRepository.findByAccessToken(accessToken);
         return findMember.get().getRole().toString();
+    }
+
+    @Transactional
+    public boolean updatePassword(String accessToken,String password){
+        Optional<Member> findMember = memberRepository.findByAccessToken(accessToken);
+        String encodePw = passwordEncoder.encode(password);
+        findMember.get().toUpdatePassword(encodePw);
+        boolean matches = passwordEncoder.matches(password, encodePw);
+        if (matches) return true;
+        else return false;
     }
 }
