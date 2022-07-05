@@ -15,6 +15,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -44,8 +45,6 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     private final EmailService emailService;
-
-    private final PasswordEncoderFactories passwordEncoderFactories;
 
     @Transactional
     public void signUpMember(SignupDto signupDto) throws Exception{
@@ -178,9 +177,8 @@ public class MemberService {
     @Transactional
     public String findPasswordByUsernameAndPhoneNumber(String username,String phoneNumber){
         String newPassword = createNewPassword();
-        PasswordEncoder encodingPassowrd = passwordEncoderFactories.createDelegatingPasswordEncoder();
-        String encodePw = encodingPassowrd.encode(newPassword);
-        boolean matches = passwordEncoder.matches(newPassword, encodePw);
+        String encodePw = passwordEncoder.encode(newPassword);
+        boolean matches = passwordEncoder.matches(newPassword,encodePw);
         System.out.println("lost find PW matches = " + matches);
         Optional<Member> findMember = memberRepository.findByUsernameAndPhoneNumber(username, phoneNumber);
         findMember.get().toUpdatePassword(encodePw);
