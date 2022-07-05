@@ -123,9 +123,9 @@ public class MemberController {
     }*/
 
     @PostMapping("/mail")
-    public ResponseEntity<String> emailConfirm(@RequestParam("email") String email)throws Exception{
+    public ResponseEntity<?> emailConfirm(@RequestParam("email") String email)throws Exception{
         System.out.println("전달 받은 이메일 : "+email);
-        ResponseEntity<String> checkexistemail = memberService.checkexistemail(email);
+        ResponseEntity<?> checkexistemail = memberService.checkexistemail(email);
         return checkexistemail;
     }
 

@@ -146,15 +146,15 @@ public class MemberService {
     }
 
     @SneakyThrows
-    public ResponseEntity<String> checkexistemail(String email) {
+    public ResponseEntity<?> checkexistemail(String email) {
         Optional<Member> findEmail = memberRepository.findByEmail(email);
 
         if(findEmail.isEmpty()){
             emailService.sendSimpleMessage(email);
             emailCheck(email);
-            return new ResponseEntity<>("회원가입이 완료되었습니다.",HttpStatus.OK);
+            return new ResponseEntity<>(1,HttpStatus.OK);
         }else {
-            return new ResponseEntity<>("이메일을 다시한번확인하여 주세요",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(0,HttpStatus.OK);
         }
     }
 
