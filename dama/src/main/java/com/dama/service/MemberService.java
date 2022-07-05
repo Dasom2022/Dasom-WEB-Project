@@ -175,10 +175,13 @@ public class MemberService {
     @Transactional
     public String findPasswordByUsernameAndPhoneNumber(String username,String phoneNumber){
         BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
-        String encodingPassowrd = passwordEncoder.encode(createNewPassword());
+        String newPassword = createNewPassword();
+        String encodingPassowrd = passwordEncoder.encode(newPassword);
+        boolean matches = passwordEncoder.matches(newPassword, encodingPassowrd);
+        System.out.println("lost find PW matches = " + matches);
         Optional<Member> findMember = memberRepository.findByUsernameAndPhoneNumber(username, phoneNumber);
         findMember.get().toUpdatePassword(encodingPassowrd);
-        return createNewPassword();
+        return newPassword;
     }
 
     public String findUsernameByPhoneNumber(String phoneNumber){
