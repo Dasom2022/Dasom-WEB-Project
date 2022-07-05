@@ -44,6 +44,9 @@ public class MemberService {
     @Transactional
     public void signUpMember(SignupDto signupDto) throws Exception{
         signupDto.setPassword(passwordEncoder.encode(signupDto.getPassword()));
+        System.out.println(" ================================================= ");
+        System.out.println("signupDto.getEmail() = " + signupDto.getEmail());
+        System.out.println(" ================================================= ");
         if (memberRepository.findByUsername(signupDto.getUsername()).isPresent()){
             throw new Exception("이미 존재하는 회원입니다!");
         }else {
@@ -53,7 +56,7 @@ public class MemberService {
                 signupDto.setRole(Role.USER);
             }
             signupDto.setSocialType(SocialType.NOT);
-            Member saveMember = memberRepository.save(signupDto.toEntity());
+            memberRepository.save(signupDto.toEntity());
             System.out.println("signupDto = " + signupDto.getUsername());
         }
     }
