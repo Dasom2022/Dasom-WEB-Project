@@ -178,11 +178,12 @@ public class MemberService {
     @Transactional
     public String findPasswordByUsernameAndPhoneNumber(String username,String phoneNumber){
         String newPassword = createNewPassword();
-        String encodingPassowrd = passwordEncoderFactories.createDelegatingPasswordEncoder(newPassword);
-        boolean matches = passwordEncoder.matches(newPassword, encodingPassowrd);
+        PasswordEncoder encodingPassowrd = passwordEncoderFactories.createDelegatingPasswordEncoder();
+        String encodePw = encodingPassowrd.encode(newPassword);
+        boolean matches = passwordEncoder.matches(newPassword, encodePw);
         System.out.println("lost find PW matches = " + matches);
         Optional<Member> findMember = memberRepository.findByUsernameAndPhoneNumber(username, phoneNumber);
-        findMember.get().toUpdatePassword(encodingPassowrd);
+        findMember.get().toUpdatePassword(encodePw);
         return newPassword;
     }
 
