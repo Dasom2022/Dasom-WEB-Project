@@ -9,8 +9,6 @@ import com.dama.model.entity.Member;
 import com.dama.service.EmailService;
 import com.dama.service.MemberService;
 import com.dama.principal.UserDetailsImpl;
-/*import com.dama.service.SmsService;*/
-import com.dama.service.SmsService;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageConfig;
@@ -51,7 +49,9 @@ public class MemberController {
     private final MemberService memberService;
 
     private final EmailService emailService;
+/*
     private final SmsService smsService;
+*/
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody SignupDto signupDto, BindingResult result){
         if (result.hasErrors()) {
@@ -170,7 +170,7 @@ public class MemberController {
         return new ResponseEntity<>(members,HttpStatus.OK);
     }
 
-    @PostMapping("/smsId")
+    /*@PostMapping("/smsId")
     public void findLostId(@RequestParam("phoneNumber") String phoneNumber){
         smsService.sendId(phoneNumber);
     }
@@ -178,7 +178,7 @@ public class MemberController {
     @PostMapping("/smsPw")
     public void findLostPw(@RequestParam("username") String username,@RequestParam("phoneNumber") String phoneNumber){
         smsService.sendPassword(username,phoneNumber);
-    }
+    }*/
 
     @PostMapping("/delete")
     public ResponseEntity<String> memberDelete(String username){
