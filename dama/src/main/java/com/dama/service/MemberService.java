@@ -247,7 +247,7 @@ public class MemberService {
     public boolean updatePassword(String accessToken,String password){
         Optional<Member> findMember = memberRepository.findByAccessToken(accessToken);
         String encodePw = passwordEncoder.encode(password);
-        findMember.get().toUpdatePassword(encodePw);
+        findMember.get().toUpdatePassword(password);
         boolean matches = passwordEncoder.matches(password, encodePw);
         if (matches) return true;
         else return false;
