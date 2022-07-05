@@ -52,3 +52,7 @@ datasource:
   hikari:
     leak-detection-threshold: 2000
 
+coolsms:
+  apikey: NCSH7UTI9EUOOA0K
+  apisecret: ZJ1X4VR3VHDBU7I6UOTBJCPX2H8YPELW
+  fromnumber: 01062847384

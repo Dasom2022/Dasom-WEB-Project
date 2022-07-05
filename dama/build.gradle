@@ -4,6 +4,7 @@ buildscript {
     }
 }
 
+
 plugins {
     id 'org.springframework.boot' version '2.6.2'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -109,7 +110,9 @@ dependencies {
     //sms
     compile group: 'net.nurigo', name: 'javaSDK', version: '2.2'
     implementation files('libs/javaSDK-2.2.jar')
+/*
     implementation files('libs/json-simple-1.1.1.jar')
+*/
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 

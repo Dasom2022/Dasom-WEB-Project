@@ -180,6 +180,7 @@ public class MemberService {
 
     public String findUsernameByPhoneNumber(String phoneNumber){
         Optional<Member> findMember = memberRepository.findByPhoneNumber(phoneNumber);
+        System.out.println("findMember = " + findMember.get().getUsername());
         return findMember.get().getUsername();
     }
 
