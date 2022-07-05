@@ -174,8 +174,10 @@ public class MemberService {
 
     @Transactional
     public String findPasswordByUsernameAndPhoneNumber(String username,String phoneNumber){
+        BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
+        String encodingPassowrd = passwordEncoder.encode(createNewPassword());
         Optional<Member> findMember = memberRepository.findByUsernameAndPhoneNumber(username, phoneNumber);
-        findMember.get().toUpdatePassword(createNewPassword());
+        findMember.get().toUpdatePassword(encodingPassowrd);
         return createNewPassword();
     }
 

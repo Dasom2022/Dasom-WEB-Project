@@ -34,7 +34,7 @@ public class SmsService {
         params.put("to", toNumber);
         params.put("from", "01062847384");
         params.put("type", "SMS");
-        params.put("text", "[newPassword] 비밀번호 "+newPw+" 가 발급되었습니다.");
+        params.put("text", "[newPassword] 새로운 비밀번호 "+newPw+" 가 발급되었습니다.");
         params.put("app_version", "dama 1.0");
 
         try {
@@ -56,7 +56,7 @@ public class SmsService {
         params.put("to", toNumber);
         params.put("from", "01062847384");
         params.put("type", "SMS");
-        params.put("text", "[Id] 아이디 "+findId+" 를 입력하세요.");
+        params.put("text", "[Id] 아이디 찾기 결과: "+findId+" 입니다.");
         params.put("app_version", "dama 1.0"); // application name and version
 
         try {
