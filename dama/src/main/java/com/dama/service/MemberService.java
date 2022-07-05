@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +44,8 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     private final EmailService emailService;
+
+    private final PasswordEncoderFactories passwordEncoderFactories;
 
     @Transactional
     public void signUpMember(SignupDto signupDto) throws Exception{
@@ -174,9 +177,8 @@ public class MemberService {
 
     @Transactional
     public String findPasswordByUsernameAndPhoneNumber(String username,String phoneNumber){
-        BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
         String newPassword = createNewPassword();
-        String encodingPassowrd = passwordEncoder.encode(newPassword);
+        String encodingPassowrd = passwordEncoderFactories.createDelegatingPasswordEncoder(newPassword)
         boolean matches = passwordEncoder.matches(newPassword, encodingPassowrd);
         System.out.println("lost find PW matches = " + matches);
         Optional<Member> findMember = memberRepository.findByUsernameAndPhoneNumber(username, phoneNumber);
