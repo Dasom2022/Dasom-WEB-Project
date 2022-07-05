@@ -178,7 +178,7 @@ public class MemberService {
     @Transactional
     public String findPasswordByUsernameAndPhoneNumber(String username,String phoneNumber){
         String newPassword = createNewPassword();
-        String encodingPassowrd = passwordEncoderFactories.createDelegatingPasswordEncoder(newPassword)
+        String encodingPassowrd = passwordEncoderFactories.createDelegatingPasswordEncoder(newPassword);
         boolean matches = passwordEncoder.matches(newPassword, encodingPassowrd);
         System.out.println("lost find PW matches = " + matches);
         Optional<Member> findMember = memberRepository.findByUsernameAndPhoneNumber(username, phoneNumber);
