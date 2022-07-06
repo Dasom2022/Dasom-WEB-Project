@@ -37,7 +37,7 @@ public class KakaoPayService {
         parameters.add("quantity", String.valueOf(approveRequest.getQuantity()));
         parameters.add("total_amount", String.valueOf(approveRequest.getTotal_amount()));
         parameters.add("tax_free_amount", String.valueOf(approveRequest.getTax_free_amount()));
-        parameters.add("approval_url", "http://43.200.61.12:3333/credit/KakaoPay/completed"); // 결제승인시 넘어갈 url
+        parameters.add("approval_url", "http://localhost:3000/payresult"); // 결제승인시 넘어갈 url
         parameters.add("cancel_url", "http://43.200.61.12:3333/credit/KakaoPay/cancel"); // 결제취소시 넘어갈 url
         parameters.add("fail_url", "http://43.200.61.12:3333/credit/KakaoPay/fail"); // 결제 실패시 넘어갈 url
 
