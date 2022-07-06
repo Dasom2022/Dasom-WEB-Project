@@ -30,9 +30,9 @@ public class KakaoPayService {
 
         // 카카오가 요구한 결제요청request값을 담아줍니다.
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
-        parameters.add("cid", "TC0ONETIME");
+        parameters.add("cid", approveRequest.getCid());
         parameters.add("partner_order_id", approveRequest.getPartner_order_id());
-        parameters.add("partner_user_id", "inflearn");
+        parameters.add("partner_user_id", approveRequest.getPartner_user_id());
         parameters.add("item_name", approveRequest.getItem_name());
         parameters.add("quantity", String.valueOf(approveRequest.getQuantity()));
         parameters.add("total_amount", String.valueOf(approveRequest.getTotal_amount()));
@@ -71,6 +71,7 @@ public class KakaoPayService {
 
         // 외부url 통신
         RestTemplate template = new RestTemplate();
+        template.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
         String url = "https://kapi.kakao.com/v1/payment/approve";
         // 보낼 외부 url, 요청 메시지(header,parameter), 처리후 값을 받아올 클래스.
         ApproveResponse approveResponse = template.postForObject(url, requestEntity, ApproveResponse.class);
