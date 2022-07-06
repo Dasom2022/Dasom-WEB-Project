@@ -34,6 +34,7 @@ public class KakaoPayService {
         parameters.add("partner_order_id", approveRequest.getPartner_order_id());
         parameters.add("partner_user_id", approveRequest.getPartner_user_id());
         parameters.add("item_name", approveRequest.getItem_name());
+        parameters.add("item_code", approveRequest.getItem_code());
         parameters.add("quantity", String.valueOf(approveRequest.getQuantity()));
         parameters.add("total_amount", String.valueOf(approveRequest.getTotal_amount()));
         parameters.add("tax_free_amount", String.valueOf(approveRequest.getTax_free_amount()));
@@ -84,7 +85,6 @@ public class KakaoPayService {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "KakaoAK "+ ADMIN_KEY); //커밋용 주석
         headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-
         return headers;
     }
 }
