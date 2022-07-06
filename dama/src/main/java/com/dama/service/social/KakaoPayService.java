@@ -90,7 +90,7 @@ public class KakaoPayService {
     private HttpHeaders getHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "KakaoAK "+ ADMIN_KEY); //커밋용 주석
-        headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        headers.set("Content-type", "applicaetion/x-www-form-urlencoded;charset=utf-8");
 
         return headers;
     }

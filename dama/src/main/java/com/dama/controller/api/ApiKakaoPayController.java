@@ -22,8 +22,9 @@ public class ApiKakaoPayController {
 
     @PostMapping("/KakaoPay")
     public ResponseEntity<?> getKakaoPayInfo(@RequestBody ApproveRequest approveRequest){
-        kakaoPayService.payReady(approveRequest);
         System.out.println("approveRequest = " + approveRequest.getItem_name());
+        System.out.println("approveRequest.getPartner_order_id() = " + approveRequest.getPartner_order_id());
+        kakaoPayService.payReady(approveRequest);
         return new ResponseEntity<>(1, HttpStatus.OK);
     }
 }
