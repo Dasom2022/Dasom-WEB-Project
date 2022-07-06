@@ -161,7 +161,7 @@ public class MemberController {
         smsService.sendPassword(username,phoneNumber);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<String> memberDelete(String username){
         memberService/**/.memberDelete(username);
         return new ResponseEntity<>("member Deleted!",HttpStatus.OK);

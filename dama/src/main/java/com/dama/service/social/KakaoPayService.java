@@ -50,6 +50,8 @@ public class KakaoPayService {
         // template으로 값을 보내고 받아온 ReadyResponse값 readyResponse에 저장.
         ReadyResponse readyResponse = template.postForObject(url, requestEntity, ReadyResponse.class);
         log.info("결재준비 응답객체: " + readyResponse);
+
+        readyResponse.setPartner_order_id(approveRequest.getPartner_order_id());
         // 받아온 값 return
         return readyResponse;
     }
