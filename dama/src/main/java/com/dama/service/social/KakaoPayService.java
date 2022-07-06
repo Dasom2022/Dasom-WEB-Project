@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.catalina.manager.util.SessionUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -41,6 +42,7 @@ public class KakaoPayService {
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
         // 외부url요청 통로 열기.
         RestTemplate template = new RestTemplate();
+        template.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
         String url = "https://kapi.kakao.com/v1/payment/ready";
         // template으로 값을 보내고 받아온 ReadyResponse값 readyResponse에 저장.
         ReadyRequest readyResponse = template.postForObject(url, requestEntity, ReadyRequest.class);
