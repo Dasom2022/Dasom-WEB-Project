@@ -20,6 +20,8 @@ public class KakaoPayService {
 
     private final SecurityUtil securityUtil;
 
+    private final String ADMIN_KEY="75f98f6d6e46a32d16d274bd51d72eb4";
+
     public ReadyRequest payReady(ApproveRequest approveRequest) {
 
         // 카카오가 요구한 결제요청request값을 담아줍니다.
@@ -85,7 +87,7 @@ public class KakaoPayService {
     // header() 셋팅
     private HttpHeaders getHeaders() {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "KakaoAK 어드민키");
+        headers.set("Authorization", ADMIN_KEY);
         headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
         return headers;
