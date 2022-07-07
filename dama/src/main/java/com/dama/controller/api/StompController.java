@@ -22,6 +22,6 @@ public class StompController {
 
     @MessageMapping("/api/websocket/itemList")
     public void enter(ItemListResponseDto itemListResponseDto) {
-        template.convertAndSend("/sub/chat/read/",itemListResponseDto.getItemName());
+        template.convertAndSend("http://locathost:3000/sub/chat/read/",itemListResponseDto.getItemName());
     }
 }
