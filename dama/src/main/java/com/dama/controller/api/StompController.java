@@ -25,6 +25,6 @@ public class StompController {
     @MessageMapping("/api/websocket/itemList")
     public void enter(@Payload ItemListResponseDto itemListResponseDto) {
         System.out.println("itemListResponseDto = " + itemListResponseDto.getItemName());
-        template.convertAndSend("/sub/chat/read/",itemListResponseDto.getItemName());
+        template.convertAndSend("/sub/chat/read/",itemListResponseDto);
     }
 }
