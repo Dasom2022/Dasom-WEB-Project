@@ -11,6 +11,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,12 +25,20 @@ public class StompController {
 
     private final SimpMessagingTemplate template;
 
-    @MessageMapping("/api/websocket/itemList")
-    public void enter(@RequestParam("ob_name") String ob_name,@RequestParam("beacon")String beacon) {
-        System.out.println("ob_name = " + ob_name);
+
+    @PostMapping("/api/websocket/itemState")
+    public static BeaconDto state(@RequestParam("ob_name") String ob_name,@RequestParam("beacon")String beacon){
         BeaconDto dto=new BeaconDto();
         dto.setBeacon(beacon);
         dto.setOb_name(ob_name);
-        template.convertAndSend("/sub/chat/read/",dto);
+
+        return dto;
+    }
+
+
+    @MessageMapping("/api/websocket/itemList")
+    public void enter(@Payload BeaconDto beaconDto) {
+        System.out.println("ob_name = " + beaconDto.getBeacon());
+        template.convertAndSend("/sub/chat/read/",beaconDto);
     }
 }
