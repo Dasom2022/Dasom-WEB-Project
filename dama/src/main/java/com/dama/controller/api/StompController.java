@@ -43,6 +43,7 @@ public class StompController {
     public void enter(@DestinationVariable String username) {
         ItemResponseDto returnDto = itemService.returnItemState(itemCode);
         System.out.println("returnDto = " + returnDto.getItemName());
-        template.convertAndSend("/sub/chat/read/"+username,returnDto);
+
+        template.convertAndSend("/sub/chat/read/"+username,username);
     }
 }
