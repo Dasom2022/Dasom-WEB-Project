@@ -39,10 +39,10 @@ public class StompController {
         itemCode= beaconDto.getItemCode();
     }
 
-    @MessageMapping("/api/websocket/itemList")
-    public void enter() {
+    @MessageMapping("/api/websocket/itemList/{username}")
+    public void enter(@DestinationVariable String username) {
         ItemResponseDto returnDto = itemService.returnItemState(itemCode);
         System.out.println("returnDto = " + returnDto.getItemName());
-        template.convertAndSend("/sub/chat/read/",returnDto);
+        template.convertAndSend("/sub/chat/read/"+username,returnDto);
     }
 }
