@@ -60,7 +60,7 @@ public class MainController {
 
         return "/chat/chat";
     }*/
-
+/*
     @PostMapping("/raspi")
     public void raspi(@RequestParam("ob_name") String ob_name,@RequestParam("beacon")String beacon){
         System.out.println("ob_name = " + ob_name);
@@ -69,7 +69,7 @@ public class MainController {
         beaconDto.setOb_name(ob_name);
         beaconDto.setBeacon(beacon);
         beaconService.insertionOrUpdate(beaconDto);
-    }
+    }*/
 
 
 }
