@@ -30,10 +30,21 @@ public class StompController {
 
     private final ItemService itemService;
 
+    private static ItemResponseDto itemResponseDto;
+
+    @PostMapping("/api/websocket/state")
+    public void state(@Payload BeaconDto beaconDto){
+        System.out.println("ob_name = " + beaconDto.getItemCode());
+        ItemResponseDto returnDto = itemService.returnItemState(beaconDto.getItemCode());
+        itemResponseDto.setItemName(returnDto.getItemName());
+        itemResponseDto.setLocale(returnDto.getLocale());
+        itemResponseDto.setPrice(returnDto.getPrice());
+        itemResponseDto.setWeight(returnDto.getWeight());
+    }
+
     @MessageMapping("/api/websocket/itemList")
     public void enter(@Payload BeaconDto beaconDto) {
         System.out.println("ob_name = " + beaconDto.getItemCode());
-        ItemResponseDto itemResponseDto = itemService.returnItemState(beaconDto.getItemCode());
         template.convertAndSend("/sub/chat/read/",itemResponseDto);
     }
 }
