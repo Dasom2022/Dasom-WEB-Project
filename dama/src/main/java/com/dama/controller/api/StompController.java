@@ -42,6 +42,7 @@ public class StompController {
     @MessageMapping("/api/websocket/itemList")
     public void enter() {
         ItemResponseDto returnDto = itemService.returnItemState(itemCode);
+        System.out.println("returnDto = " + returnDto.getItemName());
         template.convertAndSend("/sub/chat/read/",returnDto);
     }
 }
