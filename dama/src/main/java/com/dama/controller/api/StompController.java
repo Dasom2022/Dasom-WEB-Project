@@ -1,9 +1,12 @@
 package com.dama.controller.api;
 
 import com.dama.model.dto.BeaconDto;
+import com.dama.model.dto.ItemResponseDto;
 import com.dama.model.dto.response.ItemListResponseDto;
 import com.dama.model.entity.Member;
+import com.dama.repository.ItemRepository;
 import com.dama.repository.MemberRepository;
+import com.dama.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -25,20 +28,12 @@ public class StompController {
 
     private final SimpMessagingTemplate template;
 
-
-    @PostMapping("/api/websocket/itemState")
-    public static BeaconDto state(@RequestParam("ob_name") String ob_name,@RequestParam("beacon")String beacon){
-        BeaconDto dto=new BeaconDto();
-        dto.setBeacon(beacon);
-        dto.setOb_name(ob_name);
-
-        return dto;
-    }
-
+    private final ItemService itemService;
 
     @MessageMapping("/api/websocket/itemList")
     public void enter(@Payload BeaconDto beaconDto) {
-        System.out.println("ob_name = " + beaconDto.getBeacon());
-        template.convertAndSend("/sub/chat/read/",beaconDto);
+        System.out.println("ob_name = " + beaconDto.getItemCode());
+        ItemResponseDto itemResponseDto = itemService.returnItemState(beaconDto.getItemCode());
+        template.convertAndSend("/sub/chat/read/",itemResponseDto);
     }
 }
