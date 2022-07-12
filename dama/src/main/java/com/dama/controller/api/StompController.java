@@ -37,6 +37,7 @@ public class StompController {
         System.out.println("ob_name = " + beaconDto.getItemCode());
         ItemResponseDto returnDto = itemService.returnItemState(beaconDto.getItemCode());
         itemResponseDto.setItemName(returnDto.getItemName());
+        System.out.println("returnDto.getItemName() = " + returnDto.getItemName());
         itemResponseDto.setLocale(returnDto.getLocale());
         itemResponseDto.setPrice(returnDto.getPrice());
         itemResponseDto.setWeight(returnDto.getWeight());
