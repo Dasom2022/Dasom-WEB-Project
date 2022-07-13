@@ -44,7 +44,9 @@ public class StompController {
     public void enter(@DestinationVariable String username) throws InterruptedException {
         ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode);
         System.out.println("username = " + username);
-        System.out.println("returnDto = " +returnRespEntity.getStatusCode() );
+        System.out.println("returnDto = " +returnRespEntity.getStatusCode());
         template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
+        itemCode=null;
+        Thread.sleep(3000);
     }
 }
