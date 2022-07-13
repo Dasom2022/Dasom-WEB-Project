@@ -9,6 +9,7 @@ import com.dama.repository.MemberRepository;
 import com.dama.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -40,11 +41,11 @@ public class StompController {
     }
 
     @MessageMapping("/api/websocket/itemList/{username}")
-    public void enter(@DestinationVariable String username) {
-        ItemResponseDto returnDto = itemService.returnItemState(itemCode);
+    public void enter(@DestinationVariable String username) throws InterruptedException {
+        ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode);
         System.out.println("username = " + username);
-        System.out.println("returnDto = " + returnDto.getItemName());
+        System.out.println("returnDto = " +returnRespEntity.getStatusCode() );
 
-        template.convertAndSend("/sub/chat/read/"+username,returnDto);
+        template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
     }
 }

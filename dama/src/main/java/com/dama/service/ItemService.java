@@ -2,9 +2,12 @@ package com.dama.service;
 
 import com.dama.model.dto.ItemResponseDto;
 import com.dama.model.dto.request.ItemRequestDto;
+import com.dama.model.dto.response.ItemWebSocketResponseDTO;
 import com.dama.model.entity.Item;
 import com.dama.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,5 +57,23 @@ public class ItemService {
         System.out.println("findItem = " + findItem.getItemName());
         System.out.println("findItem.getId() = " + findItem.getId());
         findItem.returnApiUpdateItemState(itemRequestDto.getItemCode(),itemRequestDto.getItemName(),itemRequestDto.getPrice(),itemRequestDto.getWeight(),itemRequestDto.getLocale());
+    }
+
+    public ResponseEntity<?> findItemStateByItemCodeToWebSocket(String itemCode) throws InterruptedException {
+        long time = System.currentTimeMillis() + 100 * 1000;
+        System.out.println("long = "+time);
+        if (itemCode.equals(null)){
+            wait(time);
+            return new ResponseEntity<>("잠시만 기달려주세요",HttpStatus.OK);
+        }else {
+            Optional<Item> findItem = itemRepository.findByItemCode(itemCode);
+            ItemWebSocketResponseDTO returnDto=new ItemWebSocketResponseDTO();
+            returnDto.setItemCode(findItem.get().getItemCode());
+            returnDto.setItemName(findItem.get().getItemName());
+            returnDto.setLocale(findItem.get().getLocale());
+            returnDto.setPrice(findItem.get().getPrice());
+            returnDto.setWeight(findItem.get().getWeight());
+            return new ResponseEntity<>(returnDto, HttpStatus.OK);
+        }
     }
 }
