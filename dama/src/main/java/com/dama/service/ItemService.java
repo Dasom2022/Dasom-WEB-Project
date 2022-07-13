@@ -4,6 +4,7 @@ import com.dama.model.dto.ItemResponseDto;
 import com.dama.model.dto.request.ItemRequestDto;
 import com.dama.model.dto.response.ItemWebSocketResponseDTO;
 import com.dama.model.entity.Item;
+import com.dama.principal.SecurityUtil;
 import com.dama.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -60,10 +59,7 @@ public class ItemService {
     }
 
     public ResponseEntity<?> findItemStateByItemCodeToWebSocket(String itemCode) throws InterruptedException {
-        long time = 1000;
-        System.out.println("long = "+time);
         if (itemCode == null){
-            Thread.sleep(time);
             return new ResponseEntity<>("잠시만 기달려주세요",HttpStatus.OK);
         }else {
             Optional<Item> findItem = itemRepository.findByItemCode(itemCode);
