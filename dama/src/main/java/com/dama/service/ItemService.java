@@ -60,7 +60,7 @@ public class ItemService {
     }
 
     public ResponseEntity<?> findItemStateByItemCodeToWebSocket(String itemCode) throws InterruptedException {
-        long time = System.currentTimeMillis() + 100 * 1000;
+        long time = 1000;
         System.out.println("long = "+time);
         if (itemCode == null){
             Thread.sleep(time);
