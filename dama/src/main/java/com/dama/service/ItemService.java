@@ -62,17 +62,19 @@ public class ItemService {
     public ResponseEntity<?> findItemStateByItemCodeToWebSocket(String itemCode) throws InterruptedException {
         long time = System.currentTimeMillis() + 100 * 1000;
         System.out.println("long = "+time);
-        if (itemCode.equals(null)){
+        if (itemCode == null){
             wait(time);
             return new ResponseEntity<>("잠시만 기달려주세요",HttpStatus.OK);
         }else {
             Optional<Item> findItem = itemRepository.findByItemCode(itemCode);
             ItemWebSocketResponseDTO returnDto=new ItemWebSocketResponseDTO();
-            returnDto.setItemCode(findItem.get().getItemCode());
-            returnDto.setItemName(findItem.get().getItemName());
-            returnDto.setLocale(findItem.get().getLocale());
-            returnDto.setPrice(findItem.get().getPrice());
-            returnDto.setWeight(findItem.get().getWeight());
+            if (findItem.isPresent()) {
+                returnDto.setItemCode(findItem.get().getItemCode());
+                returnDto.setItemName(findItem.get().getItemName());
+                returnDto.setLocale(findItem.get().getLocale());
+                returnDto.setPrice(findItem.get().getPrice());
+                returnDto.setWeight(findItem.get().getWeight());
+            }
             return new ResponseEntity<>(returnDto, HttpStatus.OK);
         }
     }
