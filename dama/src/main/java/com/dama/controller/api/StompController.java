@@ -47,6 +47,6 @@ public class StompController {
         System.out.println("returnDto = " +returnRespEntity.getStatusCode());
         template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
         itemCode=null;
-        Thread.sleep(3000);
+        Thread.sleep(2500);
     }
 }
