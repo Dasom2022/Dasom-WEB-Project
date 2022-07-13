@@ -63,7 +63,7 @@ public class ItemService {
         long time = System.currentTimeMillis() + 100 * 1000;
         System.out.println("long = "+time);
         if (itemCode == null){
-            wait(time);
+            Thread.sleep(time);
             return new ResponseEntity<>("잠시만 기달려주세요",HttpStatus.OK);
         }else {
             Optional<Item> findItem = itemRepository.findByItemCode(itemCode);
