@@ -60,7 +60,7 @@ public class ItemService {
 
     public ResponseEntity<?> findItemStateByItemCodeToWebSocket(String itemCode) throws InterruptedException {
         if (itemCode == null){
-            return new ResponseEntity<>("잠시만 기달려주세요",HttpStatus.OK);
+            return new ResponseEntity<>("wait",HttpStatus.OK);
         }else {
             Optional<Item> findItem = itemRepository.findByItemCode(itemCode);
             ItemWebSocketResponseDTO returnDto=new ItemWebSocketResponseDTO();
