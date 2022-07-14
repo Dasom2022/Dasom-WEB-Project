@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Stack;
+
 @RestController
 @RequiredArgsConstructor
 @Log4j2
@@ -32,7 +35,9 @@ public class StompController {
 
     @MessageMapping("/api/websocket/itemList/{username}")
     public void enter(@DestinationVariable String username) throws InterruptedException {
-        ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode);
+        HashMap<String,Integer> hashMap=new HashMap<>();
+        hashMap.put(itemCode,hashMap.getOrDefault(itemCode,1));
+        ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,hashMap);
         System.out.println("username = " + username);
         System.out.println("returnDto = " +returnRespEntity.getStatusCode());
         template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);

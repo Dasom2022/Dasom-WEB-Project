@@ -12,9 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -58,19 +56,26 @@ public class ItemService {
         findItem.returnApiUpdateItemState(itemRequestDto.getItemCode(),itemRequestDto.getItemName(),itemRequestDto.getPrice(),itemRequestDto.getWeight(),itemRequestDto.getLocale());
     }
 
-    public ResponseEntity<?> findItemStateByItemCodeToWebSocket(String itemCode) throws InterruptedException {
+    public ResponseEntity<?> findItemStateByItemCodeToWebSocket(String itemCode, HashMap<String, Integer> hashMap) throws InterruptedException {
+
+
         if (itemCode == null){
             return new ResponseEntity<>("wait",HttpStatus.OK);
         }else {
+
             Optional<Item> findItem = itemRepository.findByItemCode(itemCode);
             ItemWebSocketResponseDTO returnDto=new ItemWebSocketResponseDTO();
             if (findItem.isPresent()) {
-                returnDto.setItemCode(findItem.get().getItemCode());
-                returnDto.setItemName(findItem.get().getItemName());
-                returnDto.setLocale(findItem.get().getLocale());
-                returnDto.setPrice(findItem.get().getPrice());
-                returnDto.setWeight(findItem.get().getWeight());
-                returnDto.setCount(1);
+                if (hashMap.containsKey(itemCode)) {
+                    Integer integer = hashMap.get(itemCode);
+                    integer++;
+                    returnDto.setItemCode(findItem.get().getItemCode());
+                    returnDto.setItemName(findItem.get().getItemName());
+                    returnDto.setLocale(findItem.get().getLocale());
+                    returnDto.setPrice(findItem.get().getPrice());
+                    returnDto.setWeight(findItem.get().getWeight());
+                    returnDto.setCount(integer);
+                }
             }
             return new ResponseEntity<>(returnDto, HttpStatus.OK);
         }

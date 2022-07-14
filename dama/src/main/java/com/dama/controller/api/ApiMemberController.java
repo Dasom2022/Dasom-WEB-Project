@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Stack;
 
 @RestController
 @RequestMapping("/api/member/auth")
@@ -69,5 +70,23 @@ public class ApiMemberController {
         return apiMemberStateResponseDto;
     }
 
+    /*@PostMapping("stack")
+    public int controllerForm(@RequestParam("inte") int inte){
+        int count=0;
+        Stack<Integer> stack=new Stack<>();
+        for (int i=1;i<=3;i++){
+            stack.push(i);
+        }
+        System.out.println("stack = " + stack);
+
+        while (true){
+            if (stack.pop()==inte){
+                break;
+            }else {
+                count++;
+            }
+        }
+        return count;
+    }*/
 
 }
