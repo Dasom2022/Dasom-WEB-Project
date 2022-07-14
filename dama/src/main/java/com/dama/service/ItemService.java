@@ -70,6 +70,7 @@ public class ItemService {
                 returnDto.setLocale(findItem.get().getLocale());
                 returnDto.setPrice(findItem.get().getPrice());
                 returnDto.setWeight(findItem.get().getWeight());
+                returnDto.setCount(1);
             }
             return new ResponseEntity<>(returnDto, HttpStatus.OK);
         }

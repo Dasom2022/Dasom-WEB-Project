@@ -13,4 +13,5 @@ public class ItemWebSocketResponseDTO {
     private int price;
     private double weight;
     private String locale;
+    private int count;
 }
