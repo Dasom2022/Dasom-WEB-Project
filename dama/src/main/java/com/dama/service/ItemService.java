@@ -56,27 +56,20 @@ public class ItemService {
         findItem.returnApiUpdateItemState(itemRequestDto.getItemCode(),itemRequestDto.getItemName(),itemRequestDto.getPrice(),itemRequestDto.getWeight(),itemRequestDto.getLocale());
     }
 
-    public ResponseEntity<?> findItemStateByItemCodeToWebSocket(String itemCode, HashMap<String, Integer> hashMap) throws InterruptedException {
-
+    public ResponseEntity<?> findItemStateByItemCodeToWebSocket(String itemCode,int count) throws InterruptedException {
 
         if (itemCode == null){
             return new ResponseEntity<>("wait",HttpStatus.OK);
         }else {
-
             Optional<Item> findItem = itemRepository.findByItemCode(itemCode);
             ItemWebSocketResponseDTO returnDto=new ItemWebSocketResponseDTO();
             if (findItem.isPresent()) {
-                if (hashMap.containsKey(itemCode)) {
-                    System.out.println("count :" +hashMap.get(itemCode));
-                    Integer integer = hashMap.get(itemCode);
-                    integer++;
-                    returnDto.setItemCode(findItem.get().getItemCode());
-                    returnDto.setItemName(findItem.get().getItemName());
-                    returnDto.setLocale(findItem.get().getLocale());
-                    returnDto.setPrice(findItem.get().getPrice());
-                    returnDto.setWeight(findItem.get().getWeight());
-                    returnDto.setCount(integer);
-                }
+                returnDto.setItemCode(findItem.get().getItemCode());
+                returnDto.setItemName(findItem.get().getItemName());
+                returnDto.setLocale(findItem.get().getLocale());
+                returnDto.setPrice(findItem.get().getPrice());
+                returnDto.setWeight(findItem.get().getWeight());
+                returnDto.setCount(count);
             }
             return new ResponseEntity<>(returnDto, HttpStatus.OK);
         }

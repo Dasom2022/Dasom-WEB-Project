@@ -26,6 +26,8 @@ public class StompController {
 
     private static String itemCode;
 
+    private static int count;
+
     HashMap<String,Integer> hashMap=new HashMap<>();
 
     @PostMapping("/api/websocket/state")
@@ -38,7 +40,12 @@ public class StompController {
     public void enter(@DestinationVariable String username) throws InterruptedException {
         hashMap.put(itemCode,hashMap.getOrDefault(itemCode,0));
         System.out.println("hashMap = " + hashMap);
-        ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,hashMap);
+        if (hashMap.containsKey(itemCode)) {
+            System.out.println("count :" + hashMap.get(itemCode));
+            count = hashMap.get(itemCode);
+            count++;
+        }
+        ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,count);
         System.out.println("username = " + username);
         System.out.println("returnDto = " +returnRespEntity.getStatusCode());
         template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
