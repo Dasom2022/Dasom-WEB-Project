@@ -26,8 +26,6 @@ public class StompController {
 
     private static String itemCode;
 
-    private static int count;
-
     HashMap<String,Integer> hashMap=new HashMap<>();
 
     @PostMapping("/api/websocket/state")
@@ -42,9 +40,7 @@ public class StompController {
         System.out.println("hashMap = " + hashMap);
         if (hashMap.containsKey(itemCode)) {
             System.out.println("count :" + hashMap.get(itemCode));
-            count = hashMap.get(itemCode);
-            count++;
-            hashMap.put(itemCode,hashMap.get(itemCode)+count);
+            hashMap.put(itemCode,hashMap.get(itemCode)+1);
         }
         ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,hashMap.get(itemCode));
         System.out.println("username = " + username);
