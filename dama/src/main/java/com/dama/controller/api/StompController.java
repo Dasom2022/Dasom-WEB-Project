@@ -36,7 +36,7 @@ public class StompController {
     @MessageMapping("/api/websocket/itemList/{username}")
     public void enter(@DestinationVariable String username) throws InterruptedException {
         HashMap<String,Integer> hashMap=new HashMap<>();
-        hashMap.put(itemCode,hashMap.getOrDefault(itemCode,1));
+        hashMap.put(itemCode,hashMap.getOrDefault(itemCode,0));
         ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,hashMap);
         System.out.println("username = " + username);
         System.out.println("returnDto = " +returnRespEntity.getStatusCode());

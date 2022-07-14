@@ -67,6 +67,7 @@ public class ItemService {
             ItemWebSocketResponseDTO returnDto=new ItemWebSocketResponseDTO();
             if (findItem.isPresent()) {
                 if (hashMap.containsKey(itemCode)) {
+                    System.out.println("count :" +hashMap.get(itemCode));
                     Integer integer = hashMap.get(itemCode);
                     integer++;
                     returnDto.setItemCode(findItem.get().getItemCode());
