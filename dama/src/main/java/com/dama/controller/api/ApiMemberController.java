@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.Stack;
 
 @RestController
@@ -22,6 +23,8 @@ public class ApiMemberController {
     private final MemberService memberService;
 
     private final JwtService jwtService;
+
+    private final StompController stompController;
 
     @PostMapping("/state")
     public ResponseEntity<ApiMemberStateResponseDto> returnApiMemberState(@RequestParam("refreshToken")String refreshToken){
@@ -44,6 +47,8 @@ public class ApiMemberController {
     public ResponseEntity<String> destroyRefreshToken(@RequestParam("refreshToken")String refreshToken){
         if (refreshToken != null){
             memberService.destroyRefreshToken(refreshToken);
+            HashMap<String, Integer> hashMap = stompController.returnHashmap();
+            hashMap.clear();
             return new ResponseEntity<>("회원이 로그아웃되며 리프레쉬토큰이 증발합니다!",HttpStatus.OK);
         }else {
             return new ResponseEntity<>("회원로그아웃 안됨",HttpStatus.BAD_REQUEST);

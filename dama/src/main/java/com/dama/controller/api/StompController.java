@@ -26,7 +26,7 @@ public class StompController {
 
     private static String itemCode;
 
-    HashMap<String,Integer> hashMap=new HashMap<>();
+    public static HashMap<String,Integer> hashMap=new HashMap<>();
 
     @PostMapping("/api/websocket/state")
     public void state(@RequestBody BeaconDto beaconDto){
@@ -47,5 +47,10 @@ public class StompController {
         System.out.println("returnDto = " +returnRespEntity.getStatusCode());
         template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
         itemCode=null;
+    }
+
+    public HashMap<String, Integer> returnHashmap(){
+
+        return hashMap;
     }
 }
