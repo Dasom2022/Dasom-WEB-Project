@@ -39,7 +39,7 @@ public class QrUtil {
             file.mkdirs();
         }
 
-        String url = "localhost:8080/";
+        String url = "43.200.61.12:3333/";
         //링크 생성
         String codeurl = new String(url.getBytes("UTF-8"), "ISO-8859-1");
         //색상
