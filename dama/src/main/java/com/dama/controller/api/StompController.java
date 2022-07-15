@@ -36,9 +36,7 @@ public class StompController {
 
     @MessageMapping("/api/websocket/itemList/{username}")
     public void enter(@DestinationVariable String username) throws InterruptedException {
-        if (itemCode!=null) {
-            hashMap.put(itemCode, hashMap.getOrDefault(itemCode, 0));
-        }
+        hashMap.put(itemCode, hashMap.getOrDefault(itemCode, 0));
         System.out.println("hashMap = " + hashMap);
         if (hashMap.containsKey(itemCode)) {
             System.out.println("count :" + hashMap.get(itemCode));
