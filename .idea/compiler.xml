@@ -10,5 +10,8 @@
         <module name="dama.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="dama.querydsl" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
