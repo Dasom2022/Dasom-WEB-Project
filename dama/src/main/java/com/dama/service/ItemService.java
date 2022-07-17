@@ -2,17 +2,17 @@ package com.dama.service;
 
 import com.dama.model.dto.ItemResponseDto;
 import com.dama.model.dto.request.ItemRequestDto;
+import com.dama.model.dto.response.ItemWebSocketResponseDTO;
 import com.dama.model.entity.Item;
+import com.dama.principal.SecurityUtil;
 import com.dama.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -54,5 +54,24 @@ public class ItemService {
         System.out.println("findItem = " + findItem.getItemName());
         System.out.println("findItem.getId() = " + findItem.getId());
         findItem.returnApiUpdateItemState(itemRequestDto.getItemCode(),itemRequestDto.getItemName(),itemRequestDto.getPrice(),itemRequestDto.getWeight(),itemRequestDto.getLocale());
+    }
+
+    public ResponseEntity<?> findItemStateByItemCodeToWebSocket(String itemCode,int count) throws InterruptedException {
+
+        if (itemCode == null){
+            return new ResponseEntity<>("wait",HttpStatus.OK);
+        }else {
+            Optional<Item> findItem = itemRepository.findByItemCode(itemCode);
+            ItemWebSocketResponseDTO returnDto=new ItemWebSocketResponseDTO();
+            if (findItem.isPresent()) {
+                returnDto.setItemCode(findItem.get().getItemCode());
+                returnDto.setItemName(findItem.get().getItemName());
+                returnDto.setLocale(findItem.get().getLocale());
+                returnDto.setPrice(findItem.get().getPrice());
+                returnDto.setWeight(findItem.get().getWeight());
+                returnDto.setCount(count);
+            }
+            return new ResponseEntity<>(returnDto, HttpStatus.OK);
+        }
     }
 }

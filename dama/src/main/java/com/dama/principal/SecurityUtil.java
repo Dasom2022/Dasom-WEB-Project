@@ -15,12 +15,12 @@ public class SecurityUtil {
 
     private final MemberService memberService;
 
-    public static String returnLoginMemberInfo(){
+    public String returnLoginMemberInfo(){
         UserDetails loginMember = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return loginMember.getUsername();
     }
 
-    public Member returnMemberInfo(String username){
+    /*public Member returnMemberInfo(String username){
         return memberService.findByUsername(username);
-    }
+    }*/
 }

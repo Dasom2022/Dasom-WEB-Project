@@ -9,13 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class BeaconDto {
-    private String ob_name;
+    private String itemCode;
+/*
     private String beacon;
-
-    public Beacon toEntity(){
-        return Beacon.builder()
-                .obname(ob_name)
-                .beacon(beacon)
-                .build();
-    }
+*/
 }

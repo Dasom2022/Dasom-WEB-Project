@@ -25,6 +25,7 @@ public class Beacon {
     @Column(name = "beacon_count")
     private int count;
 
+
     public void UpdateBeacon(String obname,String beacon){
         this.obname=obname;
         this.beacon=beacon;

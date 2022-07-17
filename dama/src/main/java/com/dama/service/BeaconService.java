@@ -17,7 +17,7 @@ import java.util.Optional;
 public class BeaconService {
     private final BeaconRepository beaconRepository;
 
-    @Transactional
+    /*@Transactional
     public void insertionOrUpdate(BeaconDto beaconDto){
         System.out.println("beaconDto.getOb_name() = " + beaconDto.getOb_name());
         System.out.println("beaconDto = " + beaconDto.getBeacon());
@@ -27,5 +27,5 @@ public class BeaconService {
         }else {
             findObject.get().UpdateBeacon(beaconDto.getOb_name(), beaconDto.getBeacon());
         }
-    }
+    }*/
 }
