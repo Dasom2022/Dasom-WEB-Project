@@ -9,7 +9,7 @@ import com.dama.model.entity.Member;
 import com.dama.service.EmailService;
 import com.dama.service.MemberService;
 import com.dama.principal.UserDetailsImpl;
-import com.dama.service.SmsService;
+//import com.dama.service.SmsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class MemberController {
     private final MemberService memberService;
 
     private final EmailService emailService;
-    private final SmsService smsService;
+//    private final SmsService smsService;
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody SignupDto signupDto, BindingResult result){
         if (result.hasErrors()) {
@@ -150,16 +150,16 @@ public class MemberController {
         List<Member> members = memberService.returnMemberList();
         return new ResponseEntity<>(members,HttpStatus.OK);
     }
-
-    @PostMapping("/smsId")
-    public void findLostId(@RequestParam("phoneNumber") String phoneNumber){
-        smsService.sendId(phoneNumber);
-    }
-
-    @PostMapping("/smsPw")
-    public void findLostPw(@RequestParam("username") String username,@RequestParam("phoneNumber") String phoneNumber){
-        smsService.sendPassword(username,phoneNumber);
-    }
+//
+//    @PostMapping("/smsId")
+//    public void findLostId(@RequestParam("phoneNumber") String phoneNumber){
+//        smsService.sendId(phoneNumber);
+//    }
+//
+//    @PostMapping("/smsPw")
+//    public void findLostPw(@RequestParam("username") String username,@RequestParam("phoneNumber") String phoneNumber){
+//        smsService.sendPassword(username,phoneNumber);
+//    }
 
     @DeleteMapping("/delete")
     public ResponseEntity<String> memberDelete(String username){
