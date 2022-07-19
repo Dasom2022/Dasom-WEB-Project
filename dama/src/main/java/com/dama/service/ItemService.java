@@ -67,7 +67,7 @@ public class ItemService {
                 returnDto.setItemCode(findItem.get().getItemCode());
                 returnDto.setItemName(findItem.get().getItemName());
                 returnDto.setLocale(findItem.get().getLocale());
-                returnDto.setPrice(findItem.get().getPrice());
+                returnDto.setPrice(findItem.get().getPrice()*count);
                 returnDto.setWeight(findItem.get().getWeight());
                 returnDto.setCount(count);
             }
