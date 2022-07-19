@@ -36,7 +36,7 @@ public class KakaoPayService {
         parameters.add("cid", approveRequest.getCid());
         parameters.add("partner_order_id", approveRequest.getPartner_order_id());
         parameters.add("partner_user_id", approveRequest.getPartner_user_id());
-        parameters.add("item_name", approveRequest.getItem_name());
+        parameters.add("item_name", approveRequest.getItem_name()+" 외 "+String.valueOf(stompController.returnHashmap().size()-1)+"개");
         parameters.add("item_code", approveRequest.getItem_code());
         parameters.add("quantity", String.valueOf(stompController.returnHashmap().size()-1));
         parameters.add("total_amount", String.valueOf(approveRequest.getTotal_amount()));
