@@ -1,5 +1,6 @@
 package com.dama.service.social;
 
+import com.dama.controller.api.StompController;
 import com.dama.model.dto.request.kakaopay.ApproveRequest;
 import com.dama.model.dto.request.kakaopay.CompletedRequestDto;
 import com.dama.model.dto.request.kakaopay.ReadyRequest;
@@ -22,6 +23,8 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class KakaoPayService {
 
+    private final StompController stompController;
+
     private final SecurityUtil securityUtil;
 
     private final String ADMIN_KEY="75f98f6d6e46a32d16d274bd51d72eb4";
@@ -35,7 +38,7 @@ public class KakaoPayService {
         parameters.add("partner_user_id", approveRequest.getPartner_user_id());
         parameters.add("item_name", approveRequest.getItem_name());
         parameters.add("item_code", approveRequest.getItem_code());
-        parameters.add("quantity", String.valueOf(approveRequest.getQuantity()));
+        parameters.add("quantity", String.valueOf(stompController.returnHashmap().size()-1));
         parameters.add("total_amount", String.valueOf(approveRequest.getTotal_amount()));
         parameters.add("tax_free_amount", String.valueOf(approveRequest.getTax_free_amount()));
         parameters.add("approval_url", approveRequest.getApproval_url()); // 결제승인시 넘어갈 url

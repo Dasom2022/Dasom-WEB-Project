@@ -32,7 +32,7 @@ public class SmsService {
         HashMap<String, String> params = new HashMap<String, String>();
         String newPw = memberService.findPasswordByUsernameAndPhoneNumber(username, toNumber);
         params.put("to", toNumber);
-        params.put("from", "01062847384");
+        params.put("from", fromNumber);
         params.put("type", "SMS");
         params.put("text", "[newPassword] 새로운 비밀번호 "+newPw+" 가 발급되었습니다.");
         params.put("app_version", "dama 1.0");
@@ -54,7 +54,7 @@ public class SmsService {
         HashMap<String, String> params = new HashMap<String, String>();
         String findId = memberService.findUsernameByPhoneNumber(toNumber);
         params.put("to", toNumber);
-        params.put("from", "01062847384");
+        params.put("from", fromNumber);
         params.put("type", "SMS");
         params.put("text", "[Id] 아이디 찾기 결과: "+findId+" 입니다.");
         params.put("app_version", "dama 1.0"); // application name and version
