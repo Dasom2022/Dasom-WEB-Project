@@ -1,14 +1,14 @@
-//buildscript {
-//    ext {
-//        queryDslVersion = "5.0.0"
-//    }
-//}
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
 
 
 plugins {
     id 'org.springframework.boot' version '2.6.2'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-//    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
     id 'java'
 }
 
@@ -77,18 +77,17 @@ dependencies {
 
     // springfox-swagger-ui
     implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
-//
-//    //querydsl
-//    implementation 'com.querydsl:querydsl-jpa'
-//
-//    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
-//    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+    //querydsl
+    implementation 'com.querydsl:querydsl-jpa'
+
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+        implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 
 
     //qr code
     implementation group: 'com.google.zxing', name: 'javase', version: '3.4.1'
     implementation group: 'com.google.zxing', name: 'core', version: '3.4.1'
-
 
     //jwt
     implementation 'com.auth0:java-jwt:3.18.2'
@@ -99,23 +98,23 @@ dependencies {
 
     //log4j2 security issue
     implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
-//
-//    //querydsl
-//    implementation 'com.querydsl:querydsl-jpa'
-//
-//    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
-//    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+    //querydsl
+    implementation 'com.querydsl:querydsl-jpa'
+
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 
     //oauth
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
     //sms
-//    compile group: 'net.nurigo', name: 'javaSDK', version: '2.2'
-//    implementation files('libs/javaSDK-2.2.jar')
+    compile group: 'net.nurigo', name: 'javaSDK', version: '2.2'
+    implementation files('libs/javaSDK-2.2.jar')
 /*
     implementation files('libs/json-simple-1.1.1.jar')
 */
-//    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(dir: 'libs', include: ['*.jar'])
 
     ////////////////////////////WEBSOCKET//////////////////////////////////
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -132,24 +131,22 @@ test {
 }
 
 //querydsl 추가 시작
-//def querydslDir = "$buildDir/generated/querydsl"
-//
-//querydsl {
-//    jpa = true
-//    querydslSourcesDir = querydslDir
-//}
-//sourceSets {
-//    main.java.srcDir querydslDir
-//}
-//compileQuerydsl{
-//    options.annotationProcessorPath = configurations.querydsl
-//}
-//configurations {
-//    compileOnly {
-//        extendsFrom annotationProcessor
-//    }
-//    querydsl.extendsFrom compileClasspath
-//}
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+sourceSets {
+    main.java.srcDir querydslDir
+}
+compileQuerydsl{
+    options.annotationProcessorPath = configurations.querydsl
+}
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    querydsl.extendsFrom compileClasspath
+}
 //querydsl 추가 끝
-
-
