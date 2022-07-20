@@ -28,6 +28,9 @@ public class StompController {
 
     public static HashMap<String,Integer> hashMap=new HashMap<>();
 
+    private static int totalPrice;
+    private static int totalCount;
+
     @PostMapping("/api/websocket/state")
     public void state(@RequestBody BeaconDto beaconDto){
         System.out.println("ob_name = " + beaconDto.getItemCode());
@@ -35,7 +38,7 @@ public class StompController {
     }
 
     @PostMapping("/api/websocket/weight")
-    public void weight(@RequestParam("weight") double weight){
+public void weight(@RequestParam("weight") double weight){
         System.out.println("weight = " + weight);
     }
 
@@ -52,7 +55,7 @@ public class StompController {
             System.out.println("count :" + hashMap.get(itemCode));
             hashMap.put(itemCode,hashMap.get(itemCode)+1);
         }
-        ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,hashMap.get(itemCode));
+        ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,hashMap.get(itemCode),totalCount,totalPrice);
         System.out.println("username = " + username);
         System.out.println("returnDto = " +returnRespEntity.getStatusCode());
         template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
