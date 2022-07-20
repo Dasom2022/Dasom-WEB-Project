@@ -57,9 +57,11 @@ public void weight(@RequestParam("weight") double weight){
         }
 
         if (itemCode!=null){
+            System.out.println("hashMap = " + hashMap.get(itemCode));
             totalCount+=hashMap.get(itemCode);
             totalPrice+=itemService.returnItemState(itemCode).getPrice();
         }else {
+            totalCount+=0;
             totalPrice+=0;
         }
         ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,hashMap.get(itemCode),totalCount,totalPrice);
@@ -72,5 +74,13 @@ public void weight(@RequestParam("weight") double weight){
     public HashMap<String, Integer> returnHashmap(){
 
         return hashMap;
+    }
+
+    public int returnTotalCount(){
+        return totalCount;
+    }
+
+    public int returnTotalPrice(){
+        return totalPrice;
     }
 }

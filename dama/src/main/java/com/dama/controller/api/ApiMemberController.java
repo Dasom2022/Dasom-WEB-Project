@@ -49,6 +49,10 @@ public class ApiMemberController {
             memberService.destroyRefreshToken(refreshToken);
             HashMap<String, Integer> hashMap = stompController.returnHashmap();
             hashMap.clear();
+            int tC = stompController.returnTotalCount();
+            int tP = stompController.returnTotalPrice();
+            tC=0;
+            tP=0;
             return new ResponseEntity<>("회원이 로그아웃되며 리프레쉬토큰이 증발합니다!",HttpStatus.OK);
         }else {
             return new ResponseEntity<>("회원로그아웃 안됨",HttpStatus.BAD_REQUEST);
