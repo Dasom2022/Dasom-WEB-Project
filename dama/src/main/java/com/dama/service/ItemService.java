@@ -62,8 +62,6 @@ public class ItemService {
             return new ResponseEntity<>("wait",HttpStatus.OK);
         }else {
             Optional<Item> findItem = itemRepository.findByItemCode(itemCode);
-            totalCount+=count;
-            totalPrice+=findItem.get().getPrice();
             ItemWebSocketResponseDTO returnDto=new ItemWebSocketResponseDTO();
             if (findItem.isPresent()) {
                 returnDto.setItemCode(findItem.get().getItemCode());
