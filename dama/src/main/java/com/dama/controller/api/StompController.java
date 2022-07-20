@@ -10,10 +10,10 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.Stack;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,6 +33,16 @@ public class StompController {
         System.out.println("ob_name = " + beaconDto.getItemCode());
         itemCode= beaconDto.getItemCode();
     }
+
+    @PostMapping("/api/websocket/weight")
+    public void weight(@RequestParam("weight") double weight){
+        System.out.println("weight = " + weight);
+    }
+
+    /*@PostMapping("/api/websocket/gps")
+    public void gps(@RequestParam("gps") double weight){
+        System.out.println("weight = " + weight);
+    }*/
 
     @MessageMapping("/api/websocket/itemList/{username}")
     public void enter(@DestinationVariable String username) throws InterruptedException {

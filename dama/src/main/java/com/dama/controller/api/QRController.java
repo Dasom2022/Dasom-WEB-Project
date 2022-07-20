@@ -27,13 +27,13 @@ public class QRController {
 
     @PostMapping("/qr2")
     public void makeQR(@RequestBody QRDTO qrdto) {
+        String filePath="C:/makeqr/";
         try {
+            File file = null;
 
             Member findMember = memberService.findByUsername(qrdto.getUsername());
 
-            File file = null;
-
-            file = new File(qrdto.getFile_path()+"/"+findMember.getId());
+            file = new File(filePath+"/"+findMember.getId());
             if (!file.exists()) {
                 file.mkdirs();
             }
@@ -47,7 +47,7 @@ public class QRController {
             MatrixToImageConfig config = new MatrixToImageConfig(qrColor, 0xFFFFFFFF);
             BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(matrix, config);
 
-            ImageIO.write(qrImage, "jpeg", new File(qrdto.getFile_path() +"/"+findMember.getId()+"/"+ qrdto.getFile_name() + ".jpeg"));
+            ImageIO.write(qrImage, "jpeg", new File(filePath +"/"+findMember.getId()+"/"+ findMember + ".jpeg"));
         } catch (Exception e) {
             e.printStackTrace();
         }

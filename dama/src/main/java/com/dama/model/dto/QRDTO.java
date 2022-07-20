@@ -11,6 +11,4 @@ public class QRDTO {
 
     private String url;
     private String username;
-    private String file_path;
-    private String file_name;
 }
