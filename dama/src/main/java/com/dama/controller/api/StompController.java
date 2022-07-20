@@ -55,7 +55,7 @@ public void weight(@RequestParam("weight") double weight){
             System.out.println("count :" + hashMap.get(itemCode));
             hashMap.put(itemCode,hashMap.get(itemCode)+1);
         }
-
+        System.out.println("itemCode = " + itemCode);
         if (itemCode!=null){
             System.out.println("hashMap = " + hashMap.get(itemCode));
             System.out.println("=======================================================");
