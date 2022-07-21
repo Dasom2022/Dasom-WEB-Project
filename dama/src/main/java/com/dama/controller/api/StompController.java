@@ -49,15 +49,16 @@ public void weight(@RequestParam("weight") double weight){
     @MessageMapping("/api/websocket/itemList/{username}")
     public void enter(@DestinationVariable String username) throws InterruptedException {
         hashMap.put(itemCode, hashMap.getOrDefault(itemCode, 0));
-        System.out.println("hashMap = " + hashMap);
+//        System.out.println("hashMap = " + hashMap);
+        System.out.println("totalCount = " + totalCount);
         if (hashMap.containsKey(itemCode)) {
             System.out.println("count :" + hashMap.get(itemCode));
             hashMap.put(itemCode,hashMap.get(itemCode)+1);
         }
-        System.out.println("itemCode = " + itemCode);
+//        System.out.println("itemCode = " + itemCode);
         if (itemCode!=null){
-            System.out.println("hashMap = " + hashMap.get(itemCode));
-            System.out.println("=======================================================");
+//            System.out.println("hashMap = " + hashMap.get(itemCode));
+//            System.out.println("=======================================================");
             totalCount++;
             totalPrice+=itemService.returnItemState(itemCode).getPrice();
         }else {
