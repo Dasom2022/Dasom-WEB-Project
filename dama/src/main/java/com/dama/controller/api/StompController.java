@@ -25,7 +25,7 @@ public class StompController {
     private final ItemService itemService;
 
     private static String itemCode;
-
+    private static String temp;
     public static HashMap<String,Integer> hashMap=new HashMap<>();
 
     public static int totalPrice;
@@ -60,7 +60,11 @@ public void weight(@RequestParam("weight") double weight){
         if (itemCode!=null){
             System.out.println("hashMap = " + hashMap.get(itemCode));
             System.out.println("=======================================================");
-            totalCount+=hashMap.get(itemCode)-hashMap.get(null);
+            if (temp!=itemCode){
+                totalCount+=hashMap.get(itemCode);
+            }else {
+                totalCount=hashMap.get(itemCode);
+            }
             totalPrice+=itemService.returnItemState(itemCode).getPrice();
         }else {
             totalCount+=0;
