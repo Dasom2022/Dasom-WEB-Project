@@ -31,14 +31,6 @@ public class StompController {
     public static int totalPrice;
     public static int totalCount;
 
-    public int returnTotalCount(int tC){
-        totalCount=tC;
-    }
-
-    public int returnTotalPrice(int tP){
-        totalPrice=tP;
-    }
-
 
     @PostMapping("/api/websocket/state")
     public void state(@RequestBody BeaconDto beaconDto){
@@ -86,5 +78,11 @@ public void weight(@RequestParam("weight") double weight){
         return hashMap;
     }
 
+    public void returnTotalCount(int tC){
+        totalCount=tC;
+    }
 
+    public void returnTotalPrice(int tP){
+        totalPrice=tP;
+    }
 }
