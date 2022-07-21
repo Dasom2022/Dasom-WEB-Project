@@ -65,7 +65,7 @@ public void weight(@RequestParam("weight") double weight){
             temp=hashMap.get(itemCode);
             totalPrice+=itemService.returnItemState(itemCode).getPrice();
         }else {
-            totalCount=0;
+            totalCount+=0;
             totalPrice+=0;
         }
         ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,hashMap.get(itemCode),totalCount,totalPrice);
