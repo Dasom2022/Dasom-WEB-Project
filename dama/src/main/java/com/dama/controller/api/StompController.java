@@ -81,10 +81,12 @@ public void weight(@RequestParam("weight") double weight){
     }
 
     public void returnTotalCount(int tC){
+        System.out.println("tC = " + tC);
         totalCount=tC;
     }
 
     public void returnTotalPrice(int tP){
+        System.out.println("tP = " + tP);
         totalPrice=tP;
     }
 }
