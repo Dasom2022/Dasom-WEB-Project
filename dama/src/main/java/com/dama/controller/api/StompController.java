@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class StompController {
     private final SimpMessagingTemplate template;
 
     private final ItemService itemService;
-
+    private static int temp=0;
     private static String itemCode;
     private static String temp;
     public static HashMap<String,Integer> hashMap=new HashMap<>();
@@ -61,10 +62,11 @@ public void weight(@RequestParam("weight") double weight){
             System.out.println("hashMap = " + hashMap.get(itemCode));
             System.out.println("=======================================================");
             System.out.println("temp = " + temp);
-            totalCount=hashMap.get(124)+hashMap.get(123);
+            totalCount+=hashMap.get(itemCode)-temp;
+            temp=hashMap.get(itemCode);
             totalPrice+=itemService.returnItemState(itemCode).getPrice();
         }else {
-            totalCount+=0;
+            totalCount=0;
             totalPrice+=0;
         }
         ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,hashMap.get(itemCode),totalCount,totalPrice);
