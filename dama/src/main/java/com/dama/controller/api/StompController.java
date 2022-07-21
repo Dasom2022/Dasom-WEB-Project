@@ -60,11 +60,11 @@ public void weight(@RequestParam("weight") double weight){
         if (itemCode!=null){
             System.out.println("hashMap = " + hashMap.get(itemCode));
             System.out.println("=======================================================");
-            if (temp!=itemCode){
-                totalCount+=hashMap.get(itemCode);
+            if (temp==itemCode){
+                totalCount=hashMap.get(itemCode);
                 temp=itemCode;
             }else {
-                totalCount=hashMap.get(itemCode);
+                totalCount+=hashMap.get(itemCode);
             }
             totalPrice+=itemService.returnItemState(itemCode).getPrice();
         }else {
