@@ -26,7 +26,6 @@ public class StompController {
     private final ItemService itemService;
     private static int temp=0;
     private static String itemCode;
-    private static String temp;
     public static HashMap<String,Integer> hashMap=new HashMap<>();
 
     public static int totalPrice;
