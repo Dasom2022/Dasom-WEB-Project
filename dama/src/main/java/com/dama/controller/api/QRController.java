@@ -1,5 +1,8 @@
 package com.dama.controller.api;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.dama.model.dto.QRDTO;
 import com.dama.model.entity.Member;
 import com.dama.service.MemberService;
@@ -9,6 +12,7 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 @RequestMapping("/api")
 @RestController
@@ -24,10 +29,21 @@ import java.io.File;
 public class QRController {
 
     private final MemberService memberService;
+    @Value("${cloud.aws.s3.bucket}")
+    public String bucket;
 
-    @PostMapping("/qr2")
-    public void makeQR(@RequestBody QRDTO qrdto) {
+    public String dirName="MemberQR";
+
+    public String uploadImageUrl;
+
+    public String fileName;
+
+    private final AmazonS3Client amazonS3Client;
+
+    @PostMapping("/qr")
+    public String makeQR(@RequestBody QRDTO qrdto) throws IOException {
         String filePath="C:/makeqr/";
+        fileName=dirName+"/"+memberService.findByUsername(qrdto.getUsername()).getUsername();
         try {
             File file = null;
 
@@ -46,10 +62,15 @@ public class QRController {
 
             MatrixToImageConfig config = new MatrixToImageConfig(qrColor, 0xFFFFFFFF);
             BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(matrix, config);
+            File qrFile = new File(filePath + "/" + findMember.getId() + "/" + findMember + ".jpeg");
+            ImageIO.write(qrImage, "jpeg", qrFile);
 
-            ImageIO.write(qrImage, "jpeg", new File(filePath +"/"+findMember.getId()+"/"+ findMember + ".jpeg"));
+            amazonS3Client.putObject(new PutObjectRequest(bucket,fileName,qrFile).withCannedAcl(CannedAccessControlList.PublicRead));
+            return amazonS3Client.getUrl(bucket,fileName).toString();
+
         } catch (Exception e) {
             e.printStackTrace();
+            throw new IOException();
         }
     }
 }

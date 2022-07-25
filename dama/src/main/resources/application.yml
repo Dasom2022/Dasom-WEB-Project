@@ -57,6 +57,11 @@ coolsms:
   apisecret: ${smsSecret}
   fromnumber: ${fromNumber}
 
+aws:
+  secretsmanager:
+    name: dama
+
+
 cloud:
   aws:
     credentials:
@@ -68,3 +73,4 @@ cloud:
       static: ap-northeast-2
     stack:
       auto: false
+
