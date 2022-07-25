@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -111,7 +112,11 @@ public class Member {
         this.phoneNumber=memberUpdateInfoDto.getPhoneNumber();
     }
 
-    public void insertMemberItemPocket(MemberItemPocketRequestDto m){
-        this.itemList.add(m.toEntity());
+    public void insertMemberItemPocket(List<MemberItemPocketRequestDto> m){
+        List<Item> items=new ArrayList<>();
+        for (int i=0;i<m.size();i++){
+            items.add(m.get(i).toEntity());
+        }
+        this.itemList=items;
     }
 }

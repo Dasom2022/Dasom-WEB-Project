@@ -25,6 +25,8 @@ public class ItemService {
 
     private final MemberService memberService;
 
+    private static String AccessToken;
+
     @Transactional
     public Long saveItem(ItemRequestDto item){
         return itemRepository.save(item.toEntity()).getId();
@@ -83,8 +85,11 @@ public class ItemService {
     }
 
     @Transactional
-    public void insertMemberItemPocket(MemberItemPocketRequestDto m) {
-        Member findMember = memberService.findByAccessToken(m.getAccessToken());
+    public void insertMemberItemPocket(List<MemberItemPocketRequestDto> m) {
+        for (int i=0;i<m.size();i++){
+            AccessToken = m.get(i).getAccessToken();
+        }
+        Member findMember = memberService.findByAccessToken(AccessToken);
         findMember.insertMemberItemPocket(m);
     }
 }

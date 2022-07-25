@@ -88,7 +88,7 @@ public class ItemApiController {
     }
 
     @PostMapping("/memberItemPocket")
-    public void insertMemberItemPocket(@RequestBody MemberItemPocketRequestDto memberItemPocketRequestDto){
+    public void insertMemberItemPocket(@RequestBody List<MemberItemPocketRequestDto> memberItemPocketRequestDto){
         itemService.insertMemberItemPocket(memberItemPocketRequestDto);
     }
 }
