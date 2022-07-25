@@ -1,6 +1,7 @@
 package com.dama.controller.api;
 
 import com.dama.model.dto.response.ApiMemberStateResponseDto;
+import com.dama.model.entity.Item;
 import com.dama.model.entity.Member;
 import com.dama.service.MemberService;
 import com.dama.service.jwt.JwtService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 @RestController
@@ -63,6 +65,13 @@ public class ApiMemberController {
         String findMemberRole = memberService.returnMemberRole(accessToken);
         if (findMemberRole.equals("ADMIN")) return new ResponseEntity<>("관리자가 맞습니다",HttpStatus.OK);
         else return new ResponseEntity<>("관리자가 아니면 접근할 수 없습니다!",HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/memberItemPocket")
+    public ResponseEntity<List<Item>> returnMemberItemPocket(@RequestParam("accessToken") String accessToken){
+        Member findMember = memberService.findByAccessToken(accessToken);
+        List<Item> returnMemberItemPocket = findMember.getItemList();
+        return new ResponseEntity<>(returnMemberItemPocket,HttpStatus.OK);
     }
 
     private ApiMemberStateResponseDto setApiMemberStateResponseDto(Member member,ApiMemberStateResponseDto apiMemberStateResponseDto){

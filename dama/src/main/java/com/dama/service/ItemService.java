@@ -2,8 +2,10 @@ package com.dama.service;
 
 import com.dama.model.dto.ItemResponseDto;
 import com.dama.model.dto.request.ItemRequestDto;
+import com.dama.model.dto.request.MemberItemPocketRequestDto;
 import com.dama.model.dto.response.ItemWebSocketResponseDTO;
 import com.dama.model.entity.Item;
+import com.dama.model.entity.Member;
 import com.dama.principal.SecurityUtil;
 import com.dama.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.*;
 
@@ -19,6 +22,8 @@ import java.util.*;
 @Transactional(readOnly = true)
 public class ItemService {
     private final ItemRepository itemRepository;
+
+    private final MemberService memberService;
 
     @Transactional
     public Long saveItem(ItemRequestDto item){
@@ -75,5 +80,11 @@ public class ItemService {
             }
             return new ResponseEntity<>(returnDto, HttpStatus.OK);
         }
+    }
+
+    @Transactional
+    public void insertMemberItemPocket(MemberItemPocketRequestDto m) {
+        Member findMember = memberService.findByRefreshToken(m.getAccessToken());
+        findMember.insertMemberItemPocket(m);
     }
 }

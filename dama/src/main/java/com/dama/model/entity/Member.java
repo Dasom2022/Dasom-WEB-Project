@@ -1,6 +1,7 @@
 package com.dama.model.entity;
 
 import com.dama.model.dto.MemberUpdateInfoDto;
+import com.dama.model.dto.request.MemberItemPocketRequestDto;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -108,5 +109,9 @@ public class Member {
     public void toUpdateMemberInfo(MemberUpdateInfoDto memberUpdateInfoDto){
         this.nickname=memberUpdateInfoDto.getNickname();
         this.phoneNumber=memberUpdateInfoDto.getPhoneNumber();
+    }
+
+    public void insertMemberItemPocket(MemberItemPocketRequestDto m){
+        this.itemList.add(m.toEntity());
     }
 }

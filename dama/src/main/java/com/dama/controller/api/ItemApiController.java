@@ -2,6 +2,7 @@ package com.dama.controller.api;
 
 import com.dama.model.dto.ItemResponseDto;
 import com.dama.model.dto.request.ItemRequestDto;
+import com.dama.model.dto.request.MemberItemPocketRequestDto;
 import com.dama.model.dto.response.ItemListResponseDto;
 import com.dama.model.dto.response.ItemSearchResponseDto;
 import com.dama.model.entity.Item;
@@ -84,5 +85,10 @@ public class ItemApiController {
             itemService.returnApiUpdateItemState(itemRequestDto);
             return new ResponseEntity<>("아이템 수정 API 성공!", HttpStatus.OK);
         }else return new ResponseEntity<>("관리자가 아니라면 물품을 수정할 수 없습니다",HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/memberItemPocket")
+    public void insertMemberItemPocket(@RequestBody MemberItemPocketRequestDto memberItemPocketRequestDto){
+        itemService.insertMemberItemPocket(memberItemPocketRequestDto);
     }
 }

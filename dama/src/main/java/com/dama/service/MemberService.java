@@ -252,4 +252,8 @@ public class MemberService {
         if (matches) return true;
         else return false;
     }
+
+    public Member findByAccessToken(String accessToken){
+        return memberRepository.findByAccessToken(accessToken).get();
+    }
 }

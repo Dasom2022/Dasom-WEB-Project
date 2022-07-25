@@ -1,5 +1,6 @@
 package com.dama.principal;
 
+import com.dama.model.dto.response.QRLoginResponseDto;
 import com.dama.model.entity.Member;
 import com.dama.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,14 @@ public class SecurityUtil {
     public String returnLoginMemberInfo(){
         UserDetails loginMember = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return loginMember.getUsername();
+    }
+
+    public QRLoginResponseDto returnLoginMemberInfoToQR(){
+        UserDetails loginMember = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        QRLoginResponseDto qrLoginResponseDto=new QRLoginResponseDto();
+        qrLoginResponseDto.setUsername(loginMember.getUsername());
+        qrLoginResponseDto.setPassword(loginMember.getPassword());
+        return qrLoginResponseDto;
     }
 
     /*public Member returnMemberInfo(String username){

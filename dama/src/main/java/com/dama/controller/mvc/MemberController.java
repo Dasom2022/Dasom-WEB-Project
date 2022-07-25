@@ -180,4 +180,5 @@ public class MemberController {
         if (b) return new ResponseEntity<>("비밀번호가 성공적으로 변경되었습니다",HttpStatus.OK);
         else return new ResponseEntity<>("비밀번호 변경 API 실패",HttpStatus.BAD_REQUEST);
     }
+
 }
