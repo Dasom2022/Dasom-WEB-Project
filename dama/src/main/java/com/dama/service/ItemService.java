@@ -84,7 +84,7 @@ public class ItemService {
 
     @Transactional
     public void insertMemberItemPocket(MemberItemPocketRequestDto m) {
-        Member findMember = memberService.findByRefreshToken(m.getAccessToken());
+        Member findMember = memberService.findByAccessToken(m.getAccessToken());
         findMember.insertMemberItemPocket(m);
     }
 }
