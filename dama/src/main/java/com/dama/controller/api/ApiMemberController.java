@@ -70,6 +70,7 @@ public class ApiMemberController {
     @GetMapping("/memberItemPocket")
     public ResponseEntity<List<Item>> returnMemberItemPocket(@RequestParam("accessToken") String accessToken){
         Member findMember = memberService.findByAccessToken(accessToken);
+        System.out.println("findMember = " + findMember.getId());
         List<Item> returnMemberItemPocket = findMember.getItemList();
         return new ResponseEntity<>(returnMemberItemPocket,HttpStatus.OK);
     }
@@ -86,24 +87,5 @@ public class ApiMemberController {
         apiMemberStateResponseDto.setRefreshToken(member.getRefreshToken());
         return apiMemberStateResponseDto;
     }
-
-    /*@PostMapping("stack")
-    public int controllerForm(@RequestParam("inte") int inte){
-        int count=0;
-        Stack<Integer> stack=new Stack<>();
-        for (int i=1;i<=3;i++){
-            stack.push(i);
-        }
-        System.out.println("stack = " + stack);
-
-        while (true){
-            if (stack.pop()==inte){
-                break;
-            }else {
-                count++;
-            }
-        }
-        return count;
-    }*/
 
 }
