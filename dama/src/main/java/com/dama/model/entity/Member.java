@@ -115,10 +115,10 @@ public class Member {
     public void insertMemberItemPocket(List<MemberItemPocketRequestDto> m){
         List<Item> items=new ArrayList<>();
         for (int i=0;i<m.size();i++){
-            items.add(m.get(i).toEntity());
+//            items.add(m.get(i).toEntity());
+            this.itemList.add(m.get(i).toEntity());
         }
         System.out.println("this = " + this.getId());
-        System.out.println("items = " + items);
-        this.itemList=items;
+        System.out.println("this.itemList = " + this.itemList);
     }
 }
