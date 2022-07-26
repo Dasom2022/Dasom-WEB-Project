@@ -72,10 +72,10 @@ public class ApiMemberController {
         Member findMember = memberService.findByAccessToken(accessToken);
         System.out.println("findMember = " + findMember.getId());
         List<Item> returnMemberItemPocket = findMember.getItemList();
-        for (int i=0;i<returnMemberItemPocket.size();i++){
-            System.out.println("itemCode in memberPocket :"+returnMemberItemPocket.get(i).getItemCode());
+        for (Item item : returnMemberItemPocket) {
+            System.out.println("itemCode in memberPocket :" + item.getItemCode());
         }
-        return new ResponseEntity<>(returnMemberItemPocket,HttpStatus.OK);
+        return new ResponseEntity<>(returnMemberItemPocket.get(0),HttpStatus.OK);
     }
 
     private ApiMemberStateResponseDto setApiMemberStateResponseDto(Member member,ApiMemberStateResponseDto apiMemberStateResponseDto){
