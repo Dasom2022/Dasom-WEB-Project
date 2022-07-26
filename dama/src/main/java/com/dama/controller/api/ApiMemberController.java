@@ -68,7 +68,7 @@ public class ApiMemberController {
     }
 
     @GetMapping("/memberItemPocket")
-    public ResponseEntity<List<Item>> returnMemberItemPocket(@RequestParam("accessToken") String accessToken){
+    public ResponseEntity<Item> returnMemberItemPocket(@RequestParam("accessToken") String accessToken){
         Member findMember = memberService.findByAccessToken(accessToken);
         System.out.println("findMember = " + findMember.getId());
         List<Item> returnMemberItemPocket = findMember.getItemList();
