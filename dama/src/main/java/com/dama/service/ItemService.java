@@ -83,6 +83,7 @@ public class ItemService {
 
     @Transactional
     public void insertMemberItemPocket(String accessToken,List<MemberItemPocketRequestDto> m) {
+        System.out.println("accessTokenItemPocket = " + accessToken);
         Member findMember = memberService.findByAccessToken(accessToken);
         findMember.insertMemberItemPocket(m);
     }

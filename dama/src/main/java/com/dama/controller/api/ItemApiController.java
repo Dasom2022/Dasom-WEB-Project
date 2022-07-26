@@ -90,7 +90,9 @@ public class ItemApiController {
 
     @PostMapping("/memberItemPocket")
     public void insertMemberItemPocket(@RequestParam("accessToken")String accessToken, @RequestBody List<MemberItemPocketRequestDto> memberItemPocketRequestDto){
-        System.out.println("memberItemPocketRequestDto = " + memberItemPocketRequestDto);
+        for (int i=0;i<memberItemPocketRequestDto.size();i++){
+            log.info(memberItemPocketRequestDto.get(i).getItemCode());
+        }
         itemService.insertMemberItemPocket(accessToken,memberItemPocketRequestDto);
     }
 }
