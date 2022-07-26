@@ -73,7 +73,7 @@ public class ApiMemberController {
         System.out.println("findMember = " + findMember.getId());
         List<Item> returnMemberItemPocket = findMember.getItemList();
         for (int i=0;i<returnMemberItemPocket.size();i++){
-            returnMemberItemPocket.get(i).getItemCode();
+            System.out.println("itemCode in memberPocket :"+returnMemberItemPocket.get(i).getItemCode());
         }
         return new ResponseEntity<>(returnMemberItemPocket,HttpStatus.OK);
     }
