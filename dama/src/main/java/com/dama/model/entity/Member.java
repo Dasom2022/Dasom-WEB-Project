@@ -112,7 +112,7 @@ public class Member {
         this.phoneNumber=memberUpdateInfoDto.getPhoneNumber();
     }
 
-    public void insertMemberItemPocket(List<MemberItemPocketRequestDto> m){
+    public List<Item> insertMemberItemPocket(List<MemberItemPocketRequestDto> m){
         List<Item> items=new ArrayList<>();
         for (int i=0;i<m.size();i++){
 //            items.add(m.get(i).toEntity());
@@ -120,5 +120,6 @@ public class Member {
         }
         System.out.println("this = " + this.getId());
         System.out.println("this.itemList = " + this.itemList);
+        return this.itemList;
     }
 }

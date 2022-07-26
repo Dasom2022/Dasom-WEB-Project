@@ -82,10 +82,11 @@ public class ItemService {
     }
 
     @Transactional
-    public void insertMemberItemPocket(String accessToken,List<MemberItemPocketRequestDto> m) {
+    public List<Item> insertMemberItemPocket(String accessToken,List<MemberItemPocketRequestDto> m) {
         System.out.println("accessTokenItemPocket = " + accessToken);
         Member findMember = memberService.findByAccessToken(accessToken);
         System.out.println("findMember = " + findMember.getId());
-        findMember.insertMemberItemPocket(m);
+        List<Item> items = findMember.insertMemberItemPocket(m);
+        return items;
     }
 }
