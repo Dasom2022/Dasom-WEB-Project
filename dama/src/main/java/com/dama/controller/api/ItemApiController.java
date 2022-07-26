@@ -89,8 +89,8 @@ public class ItemApiController {
     }
 
     @PostMapping("/memberItemPocket")
-    public void insertMemberItemPocket(@RequestBody List<MemberItemPocketRequestDto> memberItemPocketRequestDto){
+    public void insertMemberItemPocket(@RequestParam("accessToken")String accessToken, @RequestBody List<MemberItemPocketRequestDto> memberItemPocketRequestDto){
         System.out.println("memberItemPocketRequestDto = " + memberItemPocketRequestDto);
-        itemService.insertMemberItemPocket(memberItemPocketRequestDto);
+        itemService.insertMemberItemPocket(accessToken,memberItemPocketRequestDto);
     }
 }

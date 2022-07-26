@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class MemberItemPocketRequestDto {
-    private String accessToken;
     private String itemName;
     private String itemCode;
     private int Count;

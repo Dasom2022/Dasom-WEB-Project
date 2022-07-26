@@ -41,9 +41,9 @@ public class QRController {
 
     public String fileName;
 
-//    public String API_URL="http://43.200.61.12:3333/api/qrCode/loginState/";
+    public String API_URL="http://43.200.61.12:3333/api/qrCode/loginState/";
 
-    public String TEST_API_URL="http://localhost:3333/api/qrCode/loginState/";
+//    public String TEST_API_URL="http://localhost:3333/api/qrCode/loginState/";
 
     private final AmazonS3Client amazonS3Client;
 
@@ -55,14 +55,14 @@ public class QRController {
             File file = null;
 
             Member findMember = memberService.findByUsername(qrdto.getUsername());
-            TEST_API_URL+=qrdto.getUsername();
+            API_URL+=qrdto.getUsername();
             file = new File(filePath+"/"+findMember.getId());
             if (!file.exists()) {
                 file.mkdirs();
             }
 
             QRCodeWriter writer = new QRCodeWriter();
-            String url = new String(TEST_API_URL.getBytes("UTF-8"), "ISO-8859-1");
+            String url = new String(API_URL.getBytes("UTF-8"), "ISO-8859-1");
             BitMatrix matrix = writer.encode(url, BarcodeFormat.QR_CODE, 300, 300);
 
             int qrColor = 0xFF000000;
