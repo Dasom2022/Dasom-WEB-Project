@@ -39,7 +39,8 @@ public class StompController {
     @PostMapping("/api/websocket/weight")
 public void weight(@RequestBody BeaconDto beaconDto){
         System.out.println("hashMap 1111111111111111 = " + hashMap);
-        hashMap.remove(beaconDto.getItemCode());
+        itemCode=beaconDto.getItemCode();
+        hashMap.remove(itemCode);
         System.out.println("hashMap 22222222222222222 = " + hashMap);
     }
 
