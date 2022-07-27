@@ -69,8 +69,14 @@ public class StompController {
             if (hashMap.get(itemCode)==null){
                 itemCountIfZero="itemZero";
             }
-            totalPrice-=itemService.itemPricetoTotalPrice(itemCode);
-            totalCount-=1;
+            if (itemCode!=null) {
+                totalPrice -= itemService.itemPricetoTotalPrice(itemCode);
+                totalCount -= 1;
+            }
+            else {
+                totalCount+=0;
+                totalPrice+=0;
+            }
         }
         i.setTotalPrice(totalPrice);
         i.setTotalCount(totalCount);
