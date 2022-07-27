@@ -63,9 +63,9 @@ public class ItemApiController {
     }
 
     @GetMapping("/itemList")
-    public ResponseEntity<List<Item>> returnItemList(){
-        List<Item> items = itemService.ReturnItemList();
-        return new ResponseEntity<>(items,HttpStatus.OK);
+    public ResponseEntity<ArrayList<ItemListResponseDto>> returnItemList(@RequestParam("accessToken")String accessToken){
+        ArrayList<ItemListResponseDto> AI = itemService.ReturnItemList(accessToken);
+        return new ResponseEntity<>(AI,HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")

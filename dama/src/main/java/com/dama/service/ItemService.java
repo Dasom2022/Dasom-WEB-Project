@@ -3,6 +3,7 @@ package com.dama.service;
 import com.dama.model.dto.ItemResponseDto;
 import com.dama.model.dto.request.ItemRequestDto;
 import com.dama.model.dto.request.MemberItemPocketRequestDto;
+import com.dama.model.dto.response.ItemListResponseDto;
 import com.dama.model.dto.response.ItemWebSocketResponseDTO;
 import com.dama.model.entity.Item;
 import com.dama.model.entity.Member;
@@ -40,10 +41,17 @@ public class ItemService {
         return item;
     }
 
-    public List<Item> ReturnItemList(){
+    public ArrayList<ItemListResponseDto> ReturnItemList(String accessToken){
         List<Item> all = itemRepository.findAll();
-        Collections.reverse(all);
-        return all;
+        ItemListResponseDto i = new ItemListResponseDto();
+        ArrayList<ItemListResponseDto> AI=new ArrayList<>();
+        Member findMember = memberService.findByAccessToken(accessToken);
+        for (Item item:all){
+            ItemListResponseDto itemListResponseDto = setItemListResponseDto(i, item, findMember);
+            AI.add(itemListResponseDto);
+        }
+        Collections.reverse(AI);
+        return AI;
     }
 
     @Transactional
@@ -88,5 +96,17 @@ public class ItemService {
         System.out.println("findMember = " + findMember.getId());
         List<Item> items = findMember.insertMemberItemPocket(m);
         return items;
+    }
+
+    public ItemListResponseDto setItemListResponseDto(ItemListResponseDto itemListResponseDto,Item item,Member member){
+        itemListResponseDto.setItemName(item.getItemName());
+        itemListResponseDto.setItemCode(item.getItemCode());
+        itemListResponseDto.setLocale(item.getLocale());
+        itemListResponseDto.setPrice(item.getPrice());
+        itemListResponseDto.setWeight(item.getWeight());
+        itemListResponseDto.setId(item.getId());
+        itemListResponseDto.setMember(member);
+
+        return itemListResponseDto;
     }
 }
