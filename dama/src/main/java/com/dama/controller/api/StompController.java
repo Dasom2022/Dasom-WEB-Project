@@ -39,10 +39,12 @@ public class StompController {
     @PostMapping("/api/websocket/weight")
 public void weight(@RequestBody BeaconDto beaconDto){
         System.out.println("hashMap 1111111111111111 = " + hashMap);
+        System.out.println("totalPrice = " + totalPrice+"totalCount ="+totalCount);
         itemCode=beaconDto.getItemCode();
         hashMap.remove(itemCode);
         totalPrice-=itemService.itemPricetoTotalPrice(itemCode);
         totalCount-=1;
+        System.out.println("totalPrice = " + totalPrice+"totalCount ="+totalCount);
         System.out.println("hashMap 22222222222222222 = " + hashMap);
     }
 
