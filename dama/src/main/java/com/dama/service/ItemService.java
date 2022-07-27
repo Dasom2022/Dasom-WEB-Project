@@ -68,7 +68,7 @@ public class ItemService {
         findItem.returnApiUpdateItemState(itemRequestDto.getItemCode(),itemRequestDto.getItemName(),itemRequestDto.getPrice(),itemRequestDto.getWeight(),itemRequestDto.getLocale());
     }
 
-    public ResponseEntity<?> findItemStateByItemCodeToWebSocket(String itemCode,int count,int totalCount,int totalPrice) throws InterruptedException {
+    public ResponseEntity<?> findItemStateByItemCodeToWebSocket(String itemCode,int count) throws InterruptedException {
 
         if (itemCode == null){
             return new ResponseEntity<>("wait",HttpStatus.OK);
@@ -82,8 +82,6 @@ public class ItemService {
                 returnDto.setPrice(findItem.get().getPrice()*count);
                 returnDto.setWeight(findItem.get().getWeight());
                 returnDto.setCount(count);
-                returnDto.setTotalCount(totalCount);
-                returnDto.setTotalPrice(totalPrice);
             }
             return new ResponseEntity<>(returnDto, HttpStatus.OK);
         }
