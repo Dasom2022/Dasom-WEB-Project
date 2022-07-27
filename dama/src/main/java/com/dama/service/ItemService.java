@@ -109,4 +109,9 @@ public class ItemService {
 
         return itemListResponseDto;
     }
+
+    public int itemPricetoTotalPrice(String itemCode){
+        Optional<Item> findItem = itemRepository.findByItemCode(itemCode);
+        return findItem.get().getPrice();
+    }
 }
