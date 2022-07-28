@@ -81,7 +81,6 @@ public class StompController {
         template.convertAndSend("/sub/item/weight/"+username,i);
         itemCountIfZero=false;
         itemCode=null;
-        ItemState=true;
     }
 
 
