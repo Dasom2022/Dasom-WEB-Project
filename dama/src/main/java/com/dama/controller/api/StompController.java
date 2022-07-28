@@ -36,7 +36,7 @@ public class StompController {
     @PostMapping("/api/websocket/state")
     public void state(@RequestBody BeaconDto beaconDto){
         System.out.println("ob_name = " + beaconDto.getItemCode());
-//        ItemState=true;
+        ItemState=true;
         itemCode= beaconDto.getItemCode();
     }
 
@@ -47,7 +47,7 @@ public class StompController {
         if (hashMap.get(itemCode)==null){
             itemCountIfZero=true;
         }
-//        ItemState=false;
+        ItemState=false;
     }
 
     /*@PostMapping("/api/websocket/gps")
@@ -64,15 +64,15 @@ public class StompController {
 //        if (ItemState==true){
 
 //        }else if (ItemState==false){
-            if (itemCode!=null) {
+        if (ItemState==false) {
+            if (itemCode != null) {
                 totalPrice -= itemService.itemPricetoTotalPrice(itemCode);
                 totalCount -= 1;
+            } else {
+                totalCount += 0;
+                totalPrice += 0;
             }
-            else {
-                totalCount+=0;
-                totalPrice+=0;
-            }
-
+        }
             if (itemCountIfZero) i.setItemCode(itemCode);
 //        }
         i.setTotalPrice(totalPrice);
@@ -103,13 +103,16 @@ public class StompController {
             System.out.println("returnDto = " +returnRespEntity.getStatusCode());
             template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
         }
-        if (itemCode!=null){
-            totalCount++;
-            totalPrice+=itemService.returnItemState(itemCode).getPrice();
-        }else {
-            totalCount+=0;
-            totalPrice+=0;
+        if (ItemState==true){
+            if (itemCode!=null){
+                totalCount++;
+                totalPrice+=itemService.returnItemState(itemCode).getPrice();
+            }else {
+                totalCount+=0;
+                totalPrice+=0;
+            }
         }
+
         System.out.println("username = " + username);
         itemCode=null;
     }
