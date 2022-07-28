@@ -30,7 +30,7 @@ public class StompController {
     public static int totalPrice;
     public static int totalCount;
     public static boolean ItemState;
-    public static boolean itemCountIfZero;
+    public static boolean itemCountIfZero=false;
 
 
     @PostMapping("/api/websocket/state")
