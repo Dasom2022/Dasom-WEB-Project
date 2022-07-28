@@ -68,11 +68,6 @@ public class StompController {
                 totalPrice+=0;
             }
         }else if (ItemState==false){
-            hashMap.remove(itemCode);
-            if (hashMap.get(itemCode)==null){
-                itemCountIfZero=true;
-                i.setItemCode(itemCode);
-            }
             if (itemCode!=null) {
                 totalPrice -= itemService.itemPricetoTotalPrice(itemCode);
                 totalCount -= 1;
@@ -81,6 +76,11 @@ public class StompController {
                 totalCount+=0;
                 totalPrice+=0;
             }
+            hashMap.remove(itemCode);
+            if (hashMap.get(itemCode)==null){
+                itemCountIfZero=true;
+                i.setItemCode(itemCode);
+            }
         }
         i.setTotalPrice(totalPrice);
         i.setTotalCount(totalCount);
@@ -88,6 +88,7 @@ public class StompController {
         template.convertAndSend("/sub/item/weight/"+username,i);
         itemCountIfZero=false;
         itemCode=null;
+        ItemState=true;
     }
 
 
