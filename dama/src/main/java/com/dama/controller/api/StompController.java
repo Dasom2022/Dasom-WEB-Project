@@ -64,13 +64,10 @@ public class StompController {
 //        if (ItemState==true){
 
 //        }else if (ItemState==false){
-        if (ItemState==false) {
+        if (!ItemState) {
             if (itemCode != null) {
                 totalPrice -= itemService.itemPricetoTotalPrice(itemCode);
                 totalCount -= 1;
-            } else {
-                totalCount += 0;
-                totalPrice += 0;
             }
         }
             if (itemCountIfZero) i.setItemCode(itemCode);
@@ -87,6 +84,7 @@ public class StompController {
 
     @MessageMapping("/api/websocket/itemList/{username}")
     public void enter(@DestinationVariable String username) throws InterruptedException {
+        System.out.println("ItemState = " + ItemState);
         if (/*ItemState==true&&*/itemCode!=null){
             hashMap.put(itemCode, hashMap.getOrDefault(itemCode, 0));
         }
@@ -102,13 +100,10 @@ public class StompController {
             System.out.println("returnDto = " +returnRespEntity.getStatusCode());
             template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
         }
-        if (ItemState==true){
+        if (ItemState){
             if (itemCode!=null){
-                totalCount++;
+                totalCount+=1;
                 totalPrice+=itemService.returnItemState(itemCode).getPrice();
-            }else {
-                totalCount+=0;
-                totalPrice+=0;
             }
         }
 
