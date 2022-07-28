@@ -92,20 +92,22 @@ public class StompController {
 
     @MessageMapping("/api/websocket/itemList/{username}")
     public void enter(@DestinationVariable String username) throws InterruptedException {
-        if (itemCode!=null){
+        if (ItemState==true&&itemCode!=null){
             hashMap.put(itemCode, hashMap.getOrDefault(itemCode, 0));
         }
         System.out.println("itemCode = " + itemCode);
         System.out.println("hashMap = " + hashMap);
-        if (hashMap.containsKey(itemCode)&&itemCode!=null) {
+        if (hashMap.containsKey(itemCode)&&ItemState==true&&itemCode!=null) {
             System.out.println("count :" + hashMap.get(itemCode));
             hashMap.put(itemCode,hashMap.get(itemCode)+1);
         }
-//        System.out.println("itemCode = " + itemCode);
-        ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,hashMap.get(itemCode));
+        System.out.println("itemCode = " + itemCode);
+        if (ItemState==true&&itemCode!=null){
+            ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,hashMap.get(itemCode));
+            System.out.println("returnDto = " +returnRespEntity.getStatusCode());
+            template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
+        }
         System.out.println("username = " + username);
-        System.out.println("returnDto = " +returnRespEntity.getStatusCode());
-        template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
         itemCode=null;
     }
 
