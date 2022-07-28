@@ -57,6 +57,8 @@ public class StompController {
     public void weightStomp(@DestinationVariable String username) throws InterruptedException{
         ItemStompTotalResponseDto i=new ItemStompTotalResponseDto();
         System.out.println("ItemState = " + ItemState);
+        System.out.println("itemCountIfZero = " + itemCountIfZero);
+        System.out.println("itemCode = " + itemCode);
         if (ItemState==true){
             if (itemCode!=null){
                 totalCount++;
@@ -65,7 +67,7 @@ public class StompController {
                 totalCount+=0;
                 totalPrice+=0;
             }
-        }else {
+        }else if (ItemState==false){
             hashMap.remove(itemCode);
             if (hashMap.get(itemCode)==null){
                 itemCountIfZero=true;
