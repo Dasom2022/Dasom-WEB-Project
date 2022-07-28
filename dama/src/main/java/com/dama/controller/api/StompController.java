@@ -66,6 +66,12 @@ public class StompController {
 //        if (ItemState==true){
 
 //        }else if (ItemState==false){
+        if (ItemState){
+            if (itemCode!=null){
+                totalCount+=1;
+                totalPrice+=itemService.returnItemState(itemCode).getPrice();
+            }
+        }
         if (!ItemState) {
             if (itemCode != null&&!hashMap.isEmpty()) {
                 totalPrice -= itemService.itemPricetoTotalPrice(itemCode);
@@ -101,12 +107,6 @@ public class StompController {
             ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,hashMap.get(itemCode));
             System.out.println("returnDto = " +returnRespEntity.getStatusCode());
             template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
-        }
-        if (ItemState){
-            if (itemCode!=null){
-                totalCount+=1;
-                totalPrice+=itemService.returnItemState(itemCode).getPrice();
-            }
         }
 
         System.out.println("username = " + username);
