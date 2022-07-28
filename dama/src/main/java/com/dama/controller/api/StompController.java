@@ -42,10 +42,12 @@ public class StompController {
 
     @PostMapping("/api/websocket/weight")
     public void weight(@RequestBody BeaconDto beaconDto){
-        System.out.println("totalPrice = " + totalPrice+"totalCount ="+totalCount);
         itemCode=beaconDto.getItemCode();
+        hashMap.remove(itemCode);
+        if (hashMap.get(itemCode)==null){
+            itemCountIfZero=true;
+        }
         ItemState=false;
-        System.out.println("totalPrice 22 = " + totalPrice+"totalCount 22 ="+totalCount);
     }
 
     /*@PostMapping("/api/websocket/gps")
@@ -69,7 +71,6 @@ public class StompController {
             }
         }else if (ItemState==false){
             if (itemCode!=null) {
-                hashMap.remove(itemCode);
                 totalPrice -= itemService.itemPricetoTotalPrice(itemCode);
                 totalCount -= 1;
             }
@@ -77,11 +78,8 @@ public class StompController {
                 totalCount+=0;
                 totalPrice+=0;
             }
-            if (hashMap.get(itemCode)==null){
-                itemCountIfZero=true;
-                i.setItemCode(itemCode);
-            }
 
+            if (itemCountIfZero) i.setItemCode(itemCode);
         }
         i.setTotalPrice(totalPrice);
         i.setTotalCount(totalCount);
