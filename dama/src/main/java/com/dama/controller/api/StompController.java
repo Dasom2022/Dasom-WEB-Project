@@ -43,7 +43,9 @@ public class StompController {
     @PostMapping("/api/websocket/weight")
     public void weight(@RequestBody BeaconDto beaconDto){
         itemCode=beaconDto.getItemCode();
-        hashMap.remove(itemCode);
+        if (!hashMap.isEmpty()){
+            hashMap.remove(itemCode);
+        }
         if (hashMap.get(itemCode)==null){
             itemCountIfZero=true;
         }
@@ -65,7 +67,7 @@ public class StompController {
 
 //        }else if (ItemState==false){
         if (!ItemState) {
-            if (itemCode != null) {
+            if (itemCode != null&&!hashMap.isEmpty()) {
                 totalPrice -= itemService.itemPricetoTotalPrice(itemCode);
                 totalCount -= 1;
             }
