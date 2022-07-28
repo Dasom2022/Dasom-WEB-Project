@@ -36,7 +36,7 @@ public class StompController {
     @PostMapping("/api/websocket/state")
     public void state(@RequestBody BeaconDto beaconDto){
         System.out.println("ob_name = " + beaconDto.getItemCode());
-        ItemState=true;
+//        ItemState=true;
         itemCode= beaconDto.getItemCode();
     }
 
@@ -47,7 +47,7 @@ public class StompController {
         if (hashMap.get(itemCode)==null){
             itemCountIfZero=true;
         }
-        ItemState=false;
+//        ItemState=false;
     }
 
     /*@PostMapping("/api/websocket/gps")
@@ -58,18 +58,12 @@ public class StompController {
     @MessageMapping("/api/websocket/itemWeight/{username}")
     public void weightStomp(@DestinationVariable String username) throws InterruptedException{
         ItemStompTotalResponseDto i=new ItemStompTotalResponseDto();
-        System.out.println("ItemState = " + ItemState);
+//        System.out.println("ItemState = " + ItemState);
         System.out.println("itemCountIfZero = " + itemCountIfZero);
         System.out.println("itemCode = " + itemCode);
-        if (ItemState==true){
-            if (itemCode!=null){
-                totalCount++;
-                totalPrice+=itemService.returnItemState(itemCode).getPrice();
-            }else {
-                totalCount+=0;
-                totalPrice+=0;
-            }
-        }else if (ItemState==false){
+//        if (ItemState==true){
+
+//        }else if (ItemState==false){
             if (itemCode!=null) {
                 totalPrice -= itemService.itemPricetoTotalPrice(itemCode);
                 totalCount -= 1;
@@ -80,7 +74,7 @@ public class StompController {
             }
 
             if (itemCountIfZero) i.setItemCode(itemCode);
-        }
+//        }
         i.setTotalPrice(totalPrice);
         i.setTotalCount(totalCount);
         i.setIfZero(itemCountIfZero);
@@ -94,20 +88,27 @@ public class StompController {
 
     @MessageMapping("/api/websocket/itemList/{username}")
     public void enter(@DestinationVariable String username) throws InterruptedException {
-        if (ItemState==true&&itemCode!=null){
+        if (/*ItemState==true&&*/itemCode!=null){
             hashMap.put(itemCode, hashMap.getOrDefault(itemCode, 0));
         }
         System.out.println("itemCode = " + itemCode);
         System.out.println("hashMap = " + hashMap);
-        if (hashMap.containsKey(itemCode)&&ItemState==true&&itemCode!=null) {
+        if (hashMap.containsKey(itemCode)/*&&ItemState==true*/&&itemCode!=null) {
             System.out.println("count :" + hashMap.get(itemCode));
             hashMap.put(itemCode,hashMap.get(itemCode)+1);
         }
         System.out.println("itemCode = " + itemCode);
-        if (ItemState==true&&itemCode!=null){
+        if (/*ItemState==true&&*/itemCode!=null){
             ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,hashMap.get(itemCode));
             System.out.println("returnDto = " +returnRespEntity.getStatusCode());
             template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
+        }
+        if (itemCode!=null){
+            totalCount++;
+            totalPrice+=itemService.returnItemState(itemCode).getPrice();
+        }else {
+            totalCount+=0;
+            totalPrice+=0;
         }
         System.out.println("username = " + username);
         itemCode=null;
