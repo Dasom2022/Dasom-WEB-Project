@@ -30,7 +30,7 @@ public class StompController {
     public static int totalPrice;
     public static int totalCount;
     public static boolean ItemState;
-    public static String itemCountIfZero;
+    public static boolean itemCountIfZero;
 
 
     @PostMapping("/api/websocket/state")
@@ -56,6 +56,7 @@ public class StompController {
     @MessageMapping("/api/websocket/itemWeight/{username}")
     public void weightStomp(@DestinationVariable String username) throws InterruptedException{
         ItemStompTotalResponseDto i=new ItemStompTotalResponseDto();
+        System.out.println("ItemState = " + ItemState);
         if (ItemState==true){
             if (itemCode!=null){
                 totalCount++;
@@ -67,7 +68,8 @@ public class StompController {
         }else {
             hashMap.remove(itemCode);
             if (hashMap.get(itemCode)==null){
-                itemCountIfZero="itemZero";
+                itemCountIfZero=true;
+                i.setItemCode(itemCode);
             }
             if (itemCode!=null) {
                 totalPrice -= itemService.itemPricetoTotalPrice(itemCode);
@@ -82,7 +84,7 @@ public class StompController {
         i.setTotalCount(totalCount);
         i.setIfZero(itemCountIfZero);
         template.convertAndSend("/sub/item/weight/"+username,i);
-        itemCountIfZero="";
+        itemCountIfZero=false;
         itemCode=null;
     }
 
@@ -90,10 +92,12 @@ public class StompController {
 
     @MessageMapping("/api/websocket/itemList/{username}")
     public void enter(@DestinationVariable String username) throws InterruptedException {
-        hashMap.put(itemCode, hashMap.getOrDefault(itemCode, 0));
-
-//        System.out.println("hashMap = " + hashMap);
-        if (hashMap.containsKey(itemCode)) {
+        if (itemCode!=null){
+            hashMap.put(itemCode, hashMap.getOrDefault(itemCode, 0));
+        }
+        System.out.println("itemCode = " + itemCode);
+        System.out.println("hashMap = " + hashMap);
+        if (hashMap.containsKey(itemCode)&&itemCode!=null) {
             System.out.println("count :" + hashMap.get(itemCode));
             hashMap.put(itemCode,hashMap.get(itemCode)+1);
         }
