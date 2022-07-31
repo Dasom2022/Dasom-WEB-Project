@@ -52,10 +52,6 @@ public class StompController {
 //
     }
 
-    /*@PostMapping("/api/websocket/gps")
-    public void gps(@RequestParam("gps") double weight){
-        System.out.println("weight = " + weight);
-    }*/
 
     @MessageMapping("/api/websocket/itemWeight/{username}")
     public void weightStomp(@DestinationVariable String username) throws InterruptedException{
@@ -102,14 +98,15 @@ public class StompController {
         if (hashMap.containsKey(itemCode)&&ItemState&&itemCode!=null) {
 //            System.out.println("count :" + hashMap.get(itemCode));
             hashMap.put(itemCode,hashMap.get(itemCode)+1);
-        }
-        if (hashMap.containsKey(itemCode)&&!ItemState&&itemCode!=null){
+        }else if (!ItemState&&itemCode!=null&&!hashMap.isEmpty()){
+            System.out.println("개수빠짐");
             hashMap.put(itemCode,hashMap.get(itemCode)-1);
         }
-        System.out.println("itemCode = " + itemCode);
+
+//        System.out.println("itemCode = " + itemCode);
         if (ItemState&&itemCode!=null){
             ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,hashMap.get(itemCode));
-            System.out.println("returnDto = " +returnRespEntity.getStatusCode());
+//            System.out.println("returnDto = " +returnRespEntity.getStatusCode());
             template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
         }
 //        System.out.println("username = " + username);
