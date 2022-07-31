@@ -104,7 +104,7 @@ public class StompController {
         }
 
 //        System.out.println("itemCode = " + itemCode);
-        if (ItemState&&itemCode!=null){
+        if (itemCode!=null){
             ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,hashMap.get(itemCode));
 //            System.out.println("returnDto = " +returnRespEntity.getStatusCode());
             template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
