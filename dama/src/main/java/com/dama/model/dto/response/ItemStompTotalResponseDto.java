@@ -10,6 +10,6 @@ import lombok.Setter;
 public class ItemStompTotalResponseDto {
     private int totalCount;
     private int totalPrice;
-    private boolean ifZero;
-    private String itemCode;
+    /*private boolean ifZero;
+    private String itemCode;*/
 }

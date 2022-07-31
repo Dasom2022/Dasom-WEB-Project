@@ -42,14 +42,14 @@ public class StompController {
 
     @PostMapping("/api/websocket/weight")
     public void weight(@RequestBody BeaconDto beaconDto){
-        itemCode=beaconDto.getItemCode();
-        if (!hashMap.isEmpty()){
-            hashMap.remove(itemCode);
-        }
-        if (hashMap.get(itemCode)==null){
-            itemCountIfZero=true;
-        }
         ItemState=false;
+        itemCode=beaconDto.getItemCode();
+//        if (!hashMap.isEmpty()){
+//            hashMap.remove(itemCode);
+//        }
+//        if (hashMap.get(itemCode)==null){
+//            itemCountIfZero=true;
+//
     }
 
     /*@PostMapping("/api/websocket/gps")
@@ -78,13 +78,13 @@ public class StompController {
                 totalCount -= 1;
             }
         }
-            if (itemCountIfZero) i.setItemCode(itemCode);
+//            if (itemCountIfZero) i.setItemCode(itemCode);
 //        }
         i.setTotalPrice(totalPrice);
         i.setTotalCount(totalCount);
-        i.setIfZero(itemCountIfZero);
+//        i.setIfZero(itemCountIfZero);
         template.convertAndSend("/sub/item/weight/"+username,i);
-        itemCountIfZero=false;
+//        itemCountIfZero=false;
         itemCode=null;
     }
 
@@ -96,11 +96,15 @@ public class StompController {
         if (ItemState&&itemCode!=null){
             hashMap.put(itemCode, hashMap.getOrDefault(itemCode, 0));
         }
+
         System.out.println("itemCode = " + itemCode);
         System.out.println("hashMap = " + hashMap);
         if (hashMap.containsKey(itemCode)&&ItemState&&itemCode!=null) {
             System.out.println("count :" + hashMap.get(itemCode));
             hashMap.put(itemCode,hashMap.get(itemCode)+1);
+        }
+        if (hashMap.containsKey(itemCode)&&!ItemState&&itemCode!=null){
+            hashMap.put(itemCode,hashMap.get(itemCode)-1);
         }
         System.out.println("itemCode = " + itemCode);
         if (ItemState&&itemCode!=null){
@@ -108,9 +112,9 @@ public class StompController {
             System.out.println("returnDto = " +returnRespEntity.getStatusCode());
             template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
         }
-
         System.out.println("username = " + username);
         itemCode=null;
+        ItemState=true;
     }
 
     public HashMap<String, Integer> returnHashmap(){
