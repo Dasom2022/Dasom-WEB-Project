@@ -35,7 +35,7 @@ public class StompController {
 
     @PostMapping("/api/websocket/state")
     public void state(@RequestBody BeaconDto beaconDto){
-        System.out.println("ob_name = " + beaconDto.getItemCode());
+//        System.out.println("ob_name = " + beaconDto.getItemCode());
         ItemState=true;
         itemCode= beaconDto.getItemCode();
     }
@@ -61,8 +61,8 @@ public class StompController {
     public void weightStomp(@DestinationVariable String username) throws InterruptedException{
         ItemStompTotalResponseDto i=new ItemStompTotalResponseDto();
 //        System.out.println("ItemState = " + ItemState);
-        System.out.println("itemCountIfZero = " + itemCountIfZero);
-        System.out.println("itemCode = " + itemCode);
+//        System.out.println("itemCountIfZero = " + itemCountIfZero);
+//        System.out.println("itemCode = " + itemCode);
 //        if (ItemState==true){
 
 //        }else if (ItemState==false){
@@ -97,10 +97,10 @@ public class StompController {
             hashMap.put(itemCode, hashMap.getOrDefault(itemCode, 0));
         }
 
-        System.out.println("itemCode = " + itemCode);
-        System.out.println("hashMap = " + hashMap);
+//        System.out.println("itemCode = " + itemCode);
+//        System.out.println("hashMap = " + hashMap);
         if (hashMap.containsKey(itemCode)&&ItemState&&itemCode!=null) {
-            System.out.println("count :" + hashMap.get(itemCode));
+//            System.out.println("count :" + hashMap.get(itemCode));
             hashMap.put(itemCode,hashMap.get(itemCode)+1);
         }
         if (hashMap.containsKey(itemCode)&&!ItemState&&itemCode!=null){
@@ -112,7 +112,7 @@ public class StompController {
             System.out.println("returnDto = " +returnRespEntity.getStatusCode());
             template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
         }
-        System.out.println("username = " + username);
+//        System.out.println("username = " + username);
         itemCode=null;
         ItemState=true;
     }
