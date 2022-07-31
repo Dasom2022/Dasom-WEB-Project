@@ -93,17 +93,17 @@ public class StompController {
     @MessageMapping("/api/websocket/itemList/{username}")
     public void enter(@DestinationVariable String username) throws InterruptedException {
         System.out.println("ItemState = " + ItemState);
-        if (/*ItemState==true&&*/itemCode!=null){
+        if (ItemState&&itemCode!=null){
             hashMap.put(itemCode, hashMap.getOrDefault(itemCode, 0));
         }
         System.out.println("itemCode = " + itemCode);
         System.out.println("hashMap = " + hashMap);
-        if (hashMap.containsKey(itemCode)/*&&ItemState==true*/&&itemCode!=null) {
+        if (hashMap.containsKey(itemCode)&&ItemState&&itemCode!=null) {
             System.out.println("count :" + hashMap.get(itemCode));
             hashMap.put(itemCode,hashMap.get(itemCode)+1);
         }
         System.out.println("itemCode = " + itemCode);
-        if (/*ItemState==true&&*/itemCode!=null){
+        if (ItemState&&itemCode!=null){
             ResponseEntity<?> returnRespEntity = itemService.findItemStateByItemCodeToWebSocket(itemCode,hashMap.get(itemCode));
             System.out.println("returnDto = " +returnRespEntity.getStatusCode());
             template.convertAndSend("/sub/chat/read/"+username,returnRespEntity);
