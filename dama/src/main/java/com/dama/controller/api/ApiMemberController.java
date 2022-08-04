@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 
+@CrossOrigin(origins = "http://43.200.61.12:3333")
 @RestController
 @RequestMapping("/api/member/auth")
 @RequiredArgsConstructor
