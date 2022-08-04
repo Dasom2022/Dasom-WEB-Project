@@ -28,7 +28,7 @@ public class AuthController {
 
     private static String KAKAO_TOKEN_URI="https://kauth.kakao.com/oauth/token";
 
-    private static String REDIRECT_URL="http://localhost:3000/dasom-project/auth/kakao";
+    private static String REDIRECT_URL="http://54.180.55.37:3000/dasom-project/auth/kakao";
 
     private static String GRANTTYPE="authorization_code";
 

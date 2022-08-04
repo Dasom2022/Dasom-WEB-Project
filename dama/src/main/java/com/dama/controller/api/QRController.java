@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
@@ -28,8 +29,6 @@ import java.io.IOException;
 @RestController
 @RequiredArgsConstructor
 public class QRController {
-
-    private final SecurityUtil securityUtil;
 
     private final MemberService memberService;
     @Value("${cloud.aws.s3.bucket}")
@@ -84,7 +83,10 @@ public class QRController {
     @GetMapping("/qrCode/loginState/{username}")
     public ResponseEntity<QRLoginResponseDto> getSecurityContextHolderToQR(@PathVariable("username")String username){
 
-        QRLoginResponseDto qrLoginResponseDto = securityUtil.returnLoginMemberInfoToQR();
+        Member findMember = memberService.findByUsername(username);
+        QRLoginResponseDto qrLoginResponseDto=new QRLoginResponseDto();
+        qrLoginResponseDto.setUsername(findMember.getUsername());
+        qrLoginResponseDto.setPassword(findMember.getPassword());
 
         return new ResponseEntity<>(qrLoginResponseDto, HttpStatus.OK);
     }
