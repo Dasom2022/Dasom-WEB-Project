@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@CrossOrigin(origins = "http://43.200.61.12:3333")
+@CrossOrigin(origins = {"http://43.200.61.12:3333","http://54.180.55.37:3000"})
 @RequiredArgsConstructor
 public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
