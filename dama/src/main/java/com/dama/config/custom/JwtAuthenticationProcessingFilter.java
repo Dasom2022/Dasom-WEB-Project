@@ -42,6 +42,10 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         if(request.getRequestURI().equals(NO_CHECK_URL)) {
             filterChain.doFilter(request, response);
             return;//안해주면 아래로 내려가서 계속 필터를 진행해버림
+        }else {
+            System.out.println("request = " + request.getRequestURI());
+            System.out.println("response = " + response.getStatus());
+            System.out.println("request = " + request.getHeader("Access-Control-Allow-Origin"));
         }
 
         String refreshToken = jwtService
