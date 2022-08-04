@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins ="http://54.180.55.37:3000")
 @RestController
 @Log4j2
 @RequiredArgsConstructor

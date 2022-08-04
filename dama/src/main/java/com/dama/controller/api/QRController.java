@@ -40,6 +40,8 @@ public class QRController {
 
     public String fileName;
 
+    public static String password;
+
     public String API_URL="http://43.200.61.12:3333/api/qrCode/loginState/";
 
 //    public String TEST_API_URL="http://localhost:3333/api/qrCode/loginState/";
@@ -49,6 +51,7 @@ public class QRController {
     @PostMapping("/qr")
     public String makeQR(@RequestBody QRDTO qrdto) throws IOException {
         String filePath="C:/makeqr/";
+        password=qrdto.getPassword();
         fileName=dirName+"/"+memberService.findByUsername(qrdto.getUsername()).getUsername();
         try {
             File file = null;
@@ -86,7 +89,7 @@ public class QRController {
         Member findMember = memberService.findByUsername(username);
         QRLoginResponseDto qrLoginResponseDto=new QRLoginResponseDto();
         qrLoginResponseDto.setUsername(findMember.getUsername());
-        qrLoginResponseDto.setPassword(findMember.getPassword());
+        qrLoginResponseDto.setPassword(password);
 
         return new ResponseEntity<>(qrLoginResponseDto, HttpStatus.OK);
     }
