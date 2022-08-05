@@ -35,8 +35,8 @@ public class KakaoPayService {
         parameters.add("cid", approveRequest.getCid());
         parameters.add("partner_order_id", approveRequest.getPartner_order_id());
         parameters.add("partner_user_id", approveRequest.getPartner_user_id());
-        int count = stompController.returnHashmap().size() - 1;
-        if (count <=1){
+        int count = stompController.returnTotalCount() - 1;
+        if (count <=0){
             parameters.add("item_name", approveRequest.getItem_name());
         }else {
             parameters.add("item_name", approveRequest.getItem_name()+" 외 "+ count +"개");

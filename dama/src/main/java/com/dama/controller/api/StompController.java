@@ -11,11 +11,9 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -133,5 +131,8 @@ public class StompController {
     public void returnTotalPrice(int tP){
         System.out.println("tP = " + tP);
         totalPrice=tP;
+    }
+    public int returnTotalCount(){
+        return totalCount;
     }
 }
