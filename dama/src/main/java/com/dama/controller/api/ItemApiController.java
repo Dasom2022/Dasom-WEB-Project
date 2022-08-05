@@ -68,6 +68,7 @@ public class ItemApiController {
     @GetMapping("/itemList")
     public ResponseEntity<List<Item>>returnItemList(@RequestParam("accessToken")String accessToken){
         boolean tokenValid = jwtService.isTokenValid(accessToken);
+        System.out.println("tokenValid = " + tokenValid);
         if (tokenValid){
             List<Item> returnItemList = itemService.ReturnItemList();
             return new ResponseEntity<>(returnItemList,HttpStatus.OK);
@@ -79,7 +80,7 @@ public class ItemApiController {
     @DeleteMapping("/delete")
     public ResponseEntity<String> returnApiItemDelete(@RequestParam("id") Long id,@RequestParam("accessToken") String accessToken){
         String findMemberRole = memberService.returnMemberRole(accessToken);
-        if (findMemberRole.equals("ADMIN")) {
+        if (findMemberRole.equals("ROLE_ADMIN")) {
             itemService.returnApiDeleteItem(id);
             return new ResponseEntity<>("아이템 삭제 API 성공!", HttpStatus.OK);
         }else return new ResponseEntity<>("관리자가 아니라면 물품을 삭제할 수 없습니다",HttpStatus.BAD_REQUEST);
