@@ -11,6 +11,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -35,7 +36,11 @@ public class KakaoPayService {
         parameters.add("partner_order_id", approveRequest.getPartner_order_id());
         parameters.add("partner_user_id", approveRequest.getPartner_user_id());
         int count = stompController.returnHashmap().size() - 1;
-        parameters.add("item_name", approveRequest.getItem_name()+" 외 "+ count +"개");
+        if (count <=1){
+            parameters.add("item_name", approveRequest.getItem_name());
+        }else {
+            parameters.add("item_name", approveRequest.getItem_name()+" 외 "+ count +"개");
+        }
         parameters.add("item_code", approveRequest.getItem_code());
         parameters.add("quantity", String.valueOf(stompController.returnHashmap().size()-1));
         parameters.add("total_amount", String.valueOf(approveRequest.getTotal_amount()));
