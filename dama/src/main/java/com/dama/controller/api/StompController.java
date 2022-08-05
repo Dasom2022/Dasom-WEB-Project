@@ -30,8 +30,7 @@ public class StompController {
     public static int totalPrice;
     public static int totalCount;
     public static boolean ItemState;
-    public static boolean itemCountIfZero=false;
-
+    public static boolean LoginToQr=false;
 
     @PostMapping("/api/websocket/state")
     public void state(@RequestBody BeaconDto beaconDto){
@@ -52,6 +51,10 @@ public class StompController {
 //
     }
 
+    @PostMapping("/api/camera/qr")
+    public void qrCamera(){
+        LoginToQr=true;
+    }
 
     @MessageMapping("/api/websocket/itemWeight/{username}")
     public void weightStomp(@DestinationVariable String username) throws InterruptedException{
@@ -114,6 +117,9 @@ public class StompController {
         ItemState=true;
     }
 
+    /*@MessageMapping("/api/camera/qrLogin/{username}")
+    public
+*/
     public HashMap<String, Integer> returnHashmap(){
 
         return hashMap;
