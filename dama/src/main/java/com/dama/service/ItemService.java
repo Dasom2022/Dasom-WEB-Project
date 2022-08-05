@@ -41,20 +41,10 @@ public class ItemService {
         return item;
     }
 
-    public ArrayList<ItemListResponseDto> ReturnItemList(String accessToken){
+    public List<Item> ReturnItemList(){
         List<Item> all = itemRepository.findAll();
-        System.out.println("all = " + all);
-        ItemListResponseDto i = new ItemListResponseDto();
-        ArrayList<ItemListResponseDto> AI=new ArrayList<>();
-        ArrayList<ItemListResponseDto> itemListResponseDto=new ArrayList<>();
-        Member findMember = memberService.findByAccessToken(accessToken);
-        for (Item item:all){
-            System.out.println("item = " + item);
-            itemListResponseDto= setItemListResponseDto(i, item, findMember, AI);
-        }
-        System.out.println("itemListResponseDto = " + itemListResponseDto);
-        Collections.reverse(itemListResponseDto);
-        return itemListResponseDto;
+        Collections.reverse(all);
+        return all;
     }
 
     @Transactional

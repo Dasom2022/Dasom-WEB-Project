@@ -9,6 +9,7 @@ import com.dama.model.entity.Item;
 import com.dama.service.ItemService;
 import com.dama.principal.UserDetailsImpl;
 import com.dama.service.MemberService;
+import com.dama.service.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,8 @@ public class ItemApiController {
     private final ItemService itemService;
 
     private final MemberService memberService;
+
+    private final JwtService jwtService;
 
     @PostMapping("/state")
     public ResponseEntity<ItemResponseDto> returnItemState(@RequestParam("itemCode")String itemCode){
@@ -63,9 +66,14 @@ public class ItemApiController {
     }
 
     @GetMapping("/itemList")
-    public ResponseEntity<ArrayList<ItemListResponseDto>> returnItemList(@RequestParam("accessToken")String accessToken){
-        ArrayList<ItemListResponseDto> AI = itemService.ReturnItemList(accessToken);
-        return new ResponseEntity<>(AI,HttpStatus.OK);
+    public ResponseEntity<List<Item> returnItemList(@RequestParam("accessToken")String accessToken){
+        boolean tokenValid = jwtService.isTokenValid(accessToken);
+        if (tokenValid){
+            List<Item> returnItemList = itemService.ReturnItemList();
+            return new ResponseEntity<>(returnItemList,HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/delete")
