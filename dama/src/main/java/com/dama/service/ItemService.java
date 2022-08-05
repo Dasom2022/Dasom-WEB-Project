@@ -43,13 +43,16 @@ public class ItemService {
 
     public ArrayList<ItemListResponseDto> ReturnItemList(String accessToken){
         List<Item> all = itemRepository.findAll();
+        System.out.println("all = " + all);
         ItemListResponseDto i = new ItemListResponseDto();
         ArrayList<ItemListResponseDto> AI=new ArrayList<>();
         Member findMember = memberService.findByAccessToken(accessToken);
         for (Item item:all){
+            System.out.println("item = " + item);
             ItemListResponseDto itemListResponseDto = setItemListResponseDto(i, item, findMember);
             AI.add(itemListResponseDto);
         }
+        System.out.println("AI = " + AI);
         Collections.reverse(AI);
         return AI;
     }
