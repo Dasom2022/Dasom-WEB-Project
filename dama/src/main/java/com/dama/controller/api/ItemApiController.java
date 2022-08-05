@@ -66,7 +66,7 @@ public class ItemApiController {
     }
 
     @GetMapping("/itemList")
-    public ResponseEntity<List<Item> returnItemList(@RequestParam("accessToken")String accessToken){
+    public ResponseEntity<List<Item>>returnItemList(@RequestParam("accessToken")String accessToken){
         boolean tokenValid = jwtService.isTokenValid(accessToken);
         if (tokenValid){
             List<Item> returnItemList = itemService.ReturnItemList();
