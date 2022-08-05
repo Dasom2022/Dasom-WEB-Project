@@ -80,7 +80,7 @@ public class ItemApiController {
     @DeleteMapping("/delete")
     public ResponseEntity<String> returnApiItemDelete(@RequestParam("id") String id,@RequestParam("accessToken") String accessToken){
         String findMemberRole = memberService.returnMemberRole(accessToken);
-        if (findMemberRole.equals("ROLE_ADMIN")) {
+        if (findMemberRole.equals("ADMIN")) {
             itemService.returnApiDeleteItem(Long.parseLong(id));
             return new ResponseEntity<>("아이템 삭제 API 성공!", HttpStatus.OK);
         }else return new ResponseEntity<>("관리자가 아니라면 물품을 삭제할 수 없습니다",HttpStatus.BAD_REQUEST);
