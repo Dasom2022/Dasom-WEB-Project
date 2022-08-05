@@ -46,15 +46,15 @@ public class ItemService {
         System.out.println("all = " + all);
         ItemListResponseDto i = new ItemListResponseDto();
         ArrayList<ItemListResponseDto> AI=new ArrayList<>();
+        ArrayList<ItemListResponseDto> itemListResponseDto=new ArrayList<>();
         Member findMember = memberService.findByAccessToken(accessToken);
         for (Item item:all){
             System.out.println("item = " + item);
-            ItemListResponseDto itemListResponseDto = setItemListResponseDto(i, item, findMember);
-            AI.add(itemListResponseDto);
+            itemListResponseDto= setItemListResponseDto(i, item, findMember, AI);
         }
-        System.out.println("AI = " + AI);
-        Collections.reverse(AI);
-        return AI;
+        System.out.println("itemListResponseDto = " + itemListResponseDto);
+        Collections.reverse(itemListResponseDto);
+        return itemListResponseDto;
     }
 
     @Transactional
@@ -99,16 +99,17 @@ public class ItemService {
         return items;
     }
 
-    public ItemListResponseDto setItemListResponseDto(ItemListResponseDto itemListResponseDto,Item item,Member member){
+    public ArrayList<ItemListResponseDto> setItemListResponseDto(ItemListResponseDto itemListResponseDto,Item item,Member member,ArrayList<ItemListResponseDto> AI){
         itemListResponseDto.setItemName(item.getItemName());
         itemListResponseDto.setItemCode(item.getItemCode());
         itemListResponseDto.setLocale(item.getLocale());
         itemListResponseDto.setPrice(item.getPrice());
-        itemListResponseDto.setWeight(item.getWeight());
         itemListResponseDto.setId(item.getId());
+        itemListResponseDto.setWeight(item.getWeight());
         itemListResponseDto.setMember(member);
+        AI.add(itemListResponseDto);
 
-        return itemListResponseDto;
+        return AI;
     }
 
     public int itemPricetoTotalPrice(String itemCode){
