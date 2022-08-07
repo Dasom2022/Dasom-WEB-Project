@@ -9,6 +9,7 @@ import com.dama.service.ItemService;
 import com.dama.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -128,11 +129,11 @@ public class StompController {
     {
         if(LoginToQr){
             QRLoginStompResponseDTO qrLoginStompResponseDTO=new QRLoginStompResponseDTO();
-            QRLoginStompResponseDTO returnDTO = setQRLoginStomp(qrLoginStompResponseDTO, QR_LOGIN_USERNAME);
+            ResponseEntity<QRLoginStompResponseDTO> returnDTO = setQRLoginStomp(qrLoginStompResponseDTO, QR_LOGIN_USERNAME);
             template.convertAndSend("/sub/is/qrLogin",returnDTO);
         }else {
             QRLoginStompResponseDTO qrLoginStompResponseDTO=new QRLoginStompResponseDTO();
-            QRLoginStompResponseDTO returnDTO = setQRLoginStompNull(qrLoginStompResponseDTO);
+            ResponseEntity<QRLoginStompResponseDTO> returnDTO = setQRLoginStompNull(qrLoginStompResponseDTO);
             template.convertAndSend("/sub/is/qrLogin",returnDTO);
         }
         LoginToQr=false;
@@ -156,7 +157,7 @@ public class StompController {
     public int returnTotalCount(){
         return totalCount;
     }
-    public QRLoginStompResponseDTO setQRLoginStomp(QRLoginStompResponseDTO qrLoginStompResponseDTO,String username){
+    public ResponseEntity<QRLoginStompResponseDTO> setQRLoginStomp(QRLoginStompResponseDTO qrLoginStompResponseDTO,String username){
         Member findMember = memberService.findByUsername(QR_LOGIN_USERNAME);
         qrLoginStompResponseDTO.setEmail(findMember.getEmail());
         qrLoginStompResponseDTO.setAccessToken(findMember.getAccessToken());
@@ -164,15 +165,15 @@ public class StompController {
         qrLoginStompResponseDTO.setUsername(username);
         qrLoginStompResponseDTO.setSocialType(findMember.getSocialType().toString());
         qrLoginStompResponseDTO.setLoginToQr(LoginToQr);
-        return qrLoginStompResponseDTO;
+        return new ResponseEntity<>(qrLoginStompResponseDTO, HttpStatus.OK);
     }
-    public QRLoginStompResponseDTO setQRLoginStompNull(QRLoginStompResponseDTO qrLoginStompResponseDTO){
+    public ResponseEntity<QRLoginStompResponseDTO> setQRLoginStompNull(QRLoginStompResponseDTO qrLoginStompResponseDTO){
         qrLoginStompResponseDTO.setEmail(null);
         qrLoginStompResponseDTO.setAccessToken(null);
         qrLoginStompResponseDTO.setRefreshToken(null);
         qrLoginStompResponseDTO.setUsername(null);
         qrLoginStompResponseDTO.setSocialType(null);
         qrLoginStompResponseDTO.setLoginToQr(LoginToQr);
-        return qrLoginStompResponseDTO;
+        return new ResponseEntity<>(qrLoginStompResponseDTO,HttpStatus.OK);
     }
 }
