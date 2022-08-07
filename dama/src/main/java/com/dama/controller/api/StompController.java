@@ -129,7 +129,11 @@ public class StompController {
         if(LoginToQr){
             QRLoginStompResponseDTO qrLoginStompResponseDTO=new QRLoginStompResponseDTO();
             QRLoginStompResponseDTO returnDTO = setQRLoginStomp(qrLoginStompResponseDTO, QR_LOGIN_USERNAME);
-            template.convertAndSend("/sub/is/qrLogin/"+QR_LOGIN_USERNAME,returnDTO);
+            template.convertAndSend("/sub/is/qrLogin",returnDTO);
+        }else {
+            QRLoginStompResponseDTO qrLoginStompResponseDTO=new QRLoginStompResponseDTO();
+            QRLoginStompResponseDTO returnDTO = setQRLoginStompNull(qrLoginStompResponseDTO);
+            template.convertAndSend("/sub/is/qrLogin",returnDTO);
         }
         LoginToQr=false;
         QR_LOGIN_USERNAME="";
@@ -159,6 +163,15 @@ public class StompController {
         qrLoginStompResponseDTO.setRefreshToken(findMember.getRefreshToken());
         qrLoginStompResponseDTO.setUsername(username);
         qrLoginStompResponseDTO.setSocialType(findMember.getSocialType().toString());
+        qrLoginStompResponseDTO.setLoginToQr(LoginToQr);
+        return qrLoginStompResponseDTO;
+    }
+    public QRLoginStompResponseDTO setQRLoginStompNull(QRLoginStompResponseDTO qrLoginStompResponseDTO){
+        qrLoginStompResponseDTO.setEmail(null);
+        qrLoginStompResponseDTO.setAccessToken(null);
+        qrLoginStompResponseDTO.setRefreshToken(null);
+        qrLoginStompResponseDTO.setUsername(null);
+        qrLoginStompResponseDTO.setSocialType(null);
         qrLoginStompResponseDTO.setLoginToQr(LoginToQr);
         return qrLoginStompResponseDTO;
     }
