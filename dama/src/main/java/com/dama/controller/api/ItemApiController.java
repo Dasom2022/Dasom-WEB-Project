@@ -54,16 +54,6 @@ public class ItemApiController {
         }else return new ResponseEntity<>("관리자가 아니면 물품을 등록할 수 없습니다",HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping("/search")
-    public ResponseEntity<ItemSearchResponseDto> searchItem(@RequestParam("itemName")String itemName){
-        Item item = itemService.searchItem(itemName);
-        ItemSearchResponseDto itemSearchResponseDto=new ItemSearchResponseDto();
-        itemSearchResponseDto.setItemName(itemName);
-        itemSearchResponseDto.setLocale(item.getLocale());
-        itemSearchResponseDto.setPrice(item.getPrice());
-        itemSearchResponseDto.setWeight(item.getWeight());
-        return new ResponseEntity<>(itemSearchResponseDto,HttpStatus.OK);
-    }
 
     @GetMapping("/itemList")
     public ResponseEntity<List<Item>>returnItemList(@RequestParam("accessToken")String accessToken){
@@ -105,4 +95,12 @@ public class ItemApiController {
         List<Item> items = itemService.insertMemberItemPocket(accessToken, memberItemPocketRequestDto);
         return items;
     }
+
+    @GetMapping("/itemSearch")
+    public ResponseEntity<?> itemSearch(){
+        ArrayList<ItemSearchResponseDto> searchResponseDto=new ArrayList<>();
+        ArrayList<ItemSearchResponseDto> returnDTO = itemService.itemSearch(searchResponseDto);
+        return new ResponseEntity<>(returnDTO,HttpStatus.OK);
+    }
+
 }

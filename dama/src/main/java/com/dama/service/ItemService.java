@@ -4,6 +4,7 @@ import com.dama.model.dto.ItemResponseDto;
 import com.dama.model.dto.request.ItemRequestDto;
 import com.dama.model.dto.request.MemberItemPocketRequestDto;
 import com.dama.model.dto.response.ItemListResponseDto;
+import com.dama.model.dto.response.ItemSearchResponseDto;
 import com.dama.model.dto.response.ItemWebSocketResponseDTO;
 import com.dama.model.entity.Item;
 import com.dama.model.entity.Member;
@@ -105,5 +106,17 @@ public class ItemService {
     public int itemPricetoTotalPrice(String itemCode){
         Optional<Item> findItem = itemRepository.findByItemCode(itemCode);
         return findItem.get().getPrice();
+    }
+
+    public ArrayList<ItemSearchResponseDto> itemSearch(ArrayList<ItemSearchResponseDto> searchResponseDto) {
+        List<Item> all = itemRepository.findAll();
+        for (int i=0;i<all.size();i++){
+            ItemSearchResponseDto d=new ItemSearchResponseDto();
+            d.setItemName(all.get(i).getItemName());
+            d.setPrice(all.get(i).getPrice());
+            d.setLocale(all.get(i).getLocale());
+            searchResponseDto.add(d);
+        }
+        return searchResponseDto;
     }
 }
