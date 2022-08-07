@@ -2,7 +2,11 @@ package com.dama.controller.api;
 
 import com.dama.model.dto.BeaconDto;
 import com.dama.model.dto.response.ItemStompTotalResponseDto;
+import com.dama.model.dto.response.QRLoginResponseDto;
+import com.dama.model.dto.response.QRLoginStompResponseDTO;
+import com.dama.model.entity.Member;
 import com.dama.service.ItemService;
+import com.dama.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +33,9 @@ public class StompController {
     public static int totalCount;
     public static boolean ItemState;
     public static boolean LoginToQr=false;
+    public static String QR_LOGIN_USERNAME;
+
+    private final MemberService memberService;
 
     @PostMapping("/api/websocket/state")
     public void state(@RequestBody BeaconDto beaconDto){
@@ -50,7 +57,8 @@ public class StompController {
     }
 
     @PostMapping("/api/camera/qr")
-    public void qrCamera(){
+    public void qrCamera(@RequestBody QRLoginResponseDto qrLoginResponseDto){
+        QR_LOGIN_USERNAME=qrLoginResponseDto.getUsername();
         LoginToQr=true;
     }
 
@@ -115,9 +123,18 @@ public class StompController {
         ItemState=true;
     }
 
-    /*@MessageMapping("/api/camera/qrLogin/{username}")
-    public
-*/
+    @MessageMapping("/api/camera/qrLogin")
+    public void itIsQrLogin() throws InterruptedException
+    {
+        if(LoginToQr){
+            QRLoginStompResponseDTO qrLoginStompResponseDTO=new QRLoginStompResponseDTO();
+            QRLoginStompResponseDTO returnDTO = setQRLoginStomp(qrLoginStompResponseDTO, QR_LOGIN_USERNAME);
+            template.convertAndSend("/sub/is/qrLogin/"+QR_LOGIN_USERNAME,returnDTO);
+        }
+        LoginToQr=false;
+        QR_LOGIN_USERNAME="";
+    }
+
     public HashMap<String, Integer> returnHashmap(){
 
         return hashMap;
@@ -134,5 +151,15 @@ public class StompController {
     }
     public int returnTotalCount(){
         return totalCount;
+    }
+    public QRLoginStompResponseDTO setQRLoginStomp(QRLoginStompResponseDTO qrLoginStompResponseDTO,String username){
+        Member findMember = memberService.findByUsername(QR_LOGIN_USERNAME);
+        qrLoginStompResponseDTO.setEmail(findMember.getEmail());
+        qrLoginStompResponseDTO.setAccessToken(findMember.getAccessToken());
+        qrLoginStompResponseDTO.setRefreshToken(findMember.getRefreshToken());
+        qrLoginStompResponseDTO.setUsername(username);
+        qrLoginStompResponseDTO.setSocialType(findMember.getSocialType().toString());
+        qrLoginStompResponseDTO.setLoginToQr(LoginToQr);
+        return qrLoginStompResponseDTO;
     }
 }
