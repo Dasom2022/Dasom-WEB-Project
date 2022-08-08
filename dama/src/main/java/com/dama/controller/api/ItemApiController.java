@@ -1,5 +1,6 @@
 package com.dama.controller.api;
 
+import com.dama.controller.mvc.MemberController;
 import com.dama.model.dto.ItemResponseDto;
 import com.dama.model.dto.request.ItemRequestDto;
 import com.dama.model.dto.request.MemberItemPocketRequestDto;
@@ -31,6 +32,8 @@ public class ItemApiController {
     private final MemberService memberService;
 
     private final JwtService jwtService;
+
+    private final MemberController memberController;
 
     @PostMapping("/state")
     public ResponseEntity<ItemResponseDto> returnItemState(@RequestParam("itemCode")String itemCode){
@@ -93,6 +96,7 @@ public class ItemApiController {
             log.info(memberItemPocketRequestDto.get(i).getItemCode());
         }
         List<Item> items = itemService.insertMemberItemPocket(accessToken, memberItemPocketRequestDto);
+        memberController.memberItemList(accessToken,items);
         return items;
     }
 

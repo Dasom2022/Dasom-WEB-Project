@@ -5,6 +5,7 @@ import com.dama.model.dto.MemberUpdateInfoDto;
 import com.dama.model.dto.SignupDto;
 import com.dama.model.dto.request.PutItemRequestDto;
 import com.dama.model.dto.response.PutItemResponseDto;
+import com.dama.model.entity.Item;
 import com.dama.model.entity.Member;
 import com.dama.service.EmailService;
 import com.dama.service.MemberService;
@@ -20,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.ValidationException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +37,7 @@ public class MemberController {
     private final JwtService jwtService;
     private final EmailService emailService;
     private final SmsService smsService;
+    private static final List<Item> memberList=new ArrayList<>();
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody SignupDto signupDto, BindingResult result){
         if (result.hasErrors()) {
@@ -184,12 +187,17 @@ public class MemberController {
     }
 
     @GetMapping("/memberItemList")
-    public ResponseEntity<?> memberItemList(@RequestParam("accessToken") String accessToken){
+    public ResponseEntity<?> memberItemList(@RequestParam("accessToken") String accessToken,List<Item> items){
         if (jwtService.isTokenValid(accessToken)){
             Member findMember = memberService.findByAccessToken(accessToken);
-            return new ResponseEntity<>(findMember.getItemList(),HttpStatus.OK);
+            memberList.add((Item) items);
+            return new ResponseEntity<>(memberList,HttpStatus.OK);
         }else {
             return new ResponseEntity<>(null,HttpStatus.OK);
         }
+    }
+
+    public List<Item> removeListMemberItem(){
+        return memberList;
     }
 }
