@@ -190,7 +190,9 @@ public class MemberController {
     public ResponseEntity<?> memberItemList(@RequestParam("accessToken") String accessToken,List<Item> items){
         if (jwtService.isTokenValid(accessToken)){
             Member findMember = memberService.findByAccessToken(accessToken);
-            memberList.add((Item) items);
+            for (int i=0;i<items.size();i++){
+                memberList.add(items.get(i));
+            }
             return new ResponseEntity<>(memberList,HttpStatus.OK);
         }else {
             return new ResponseEntity<>(null,HttpStatus.OK);
