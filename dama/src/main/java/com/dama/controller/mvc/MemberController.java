@@ -10,6 +10,7 @@ import com.dama.service.EmailService;
 import com.dama.service.MemberService;
 import com.dama.principal.UserDetailsImpl;
 import com.dama.service.SmsService;
+import com.dama.service.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ import java.util.Map;
 public class MemberController {
 
     private final MemberService memberService;
-
+    private final JwtService jwtService;
     private final EmailService emailService;
     private final SmsService smsService;
     @PostMapping("/signup")
@@ -182,4 +183,13 @@ public class MemberController {
         else return new ResponseEntity<>("비밀번호 변경 API 실패",HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping("/memberItemList")
+    public ResponseEntity<?> memberItemList(@RequestParam("accessToken") String accessToken){
+        if (jwtService.isTokenValid(accessToken)){
+            Member findMember = memberService.findByAccessToken(accessToken);
+            return new ResponseEntity<>(findMember.getItemList(),HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(null,HttpStatus.OK);
+        }
+    }
 }

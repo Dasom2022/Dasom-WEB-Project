@@ -72,7 +72,7 @@ public class StompController {
 //        if (ItemState==true){
 
 //        }else if (ItemState==false){
-        if (ItemState){
+          if (ItemState){
             if (itemCode!=null){
                 totalCount+=1;
                 totalPrice+=itemService.returnItemState(itemCode).getPrice();
