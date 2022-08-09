@@ -187,13 +187,13 @@ public class MemberController {
     }
 
     @GetMapping("/memberItemList")
-    public ResponseEntity<?> memberItemList(@RequestParam("accessToken") String accessToken,List<Item> items){
+    public ResponseEntity<?> memberItemList(@RequestParam("accessToken") String accessToken){
         if (jwtService.isTokenValid(accessToken)){
 //            Member findMember = memberService.findByAccessToken(accessToken);
             /*for (int i=0;i<items.size();i++){
                 memberList.add(items.get(i));
             }*/
-            return new ResponseEntity<>(items,HttpStatus.OK);
+            return new ResponseEntity<>(memberList,HttpStatus.OK);
         }else {
             return new ResponseEntity<>(null,HttpStatus.OK);
         }
@@ -201,5 +201,11 @@ public class MemberController {
 
     public List<Item> removeListMemberItem(){
         return memberList;
+    }
+
+    public void returnCheckList(List<Item> items){
+        for (int i=0;i<items.size();i++){
+            memberList.add(items.get(i));
+        }
     }
 }

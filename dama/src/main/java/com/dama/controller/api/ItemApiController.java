@@ -96,7 +96,7 @@ public class ItemApiController {
             log.info(memberItemPocketRequestDto.get(i).getItemCode());
         }
         List<Item> items = itemService.insertMemberItemPocket(accessToken, memberItemPocketRequestDto);
-        memberController.memberItemList(accessToken,items);
+        memberController.returnCheckList(items);
         return items;
     }
 
