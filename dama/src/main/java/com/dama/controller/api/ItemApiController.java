@@ -7,6 +7,7 @@ import com.dama.model.dto.request.MemberItemPocketRequestDto;
 import com.dama.model.dto.response.ItemListResponseDto;
 import com.dama.model.dto.response.ItemSearchResponseDto;
 import com.dama.model.entity.Item;
+import com.dama.model.entity.Member;
 import com.dama.service.ItemService;
 import com.dama.principal.UserDetailsImpl;
 import com.dama.service.MemberService;
@@ -96,7 +97,8 @@ public class ItemApiController {
             log.info(memberItemPocketRequestDto.get(i).getItemCode());
         }
         List<Item> items = itemService.insertMemberItemPocket(accessToken, memberItemPocketRequestDto);
-        memberController.returnCheckList(items);
+        Member findMember = memberService.findByAccessToken(accessToken);
+        memberController.returnCheckList(items,findMember);
         return items;
     }
 

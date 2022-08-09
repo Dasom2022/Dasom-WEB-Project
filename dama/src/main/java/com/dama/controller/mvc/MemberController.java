@@ -4,6 +4,7 @@ package com.dama.controller.mvc;
 import com.dama.model.dto.MemberUpdateInfoDto;
 import com.dama.model.dto.SignupDto;
 import com.dama.model.dto.request.PutItemRequestDto;
+import com.dama.model.dto.response.ItemCheckListResponseDto;
 import com.dama.model.dto.response.PutItemResponseDto;
 import com.dama.model.entity.Item;
 import com.dama.model.entity.Member;
@@ -37,7 +38,7 @@ public class MemberController {
     private final JwtService jwtService;
     private final EmailService emailService;
     private final SmsService smsService;
-    private static final List<Item> memberList=new ArrayList<>();
+    private static final List<ItemCheckListResponseDto> checkList=new ArrayList<>();
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody SignupDto signupDto, BindingResult result){
         if (result.hasErrors()) {
@@ -193,19 +194,17 @@ public class MemberController {
             /*for (int i=0;i<items.size();i++){
                 memberList.add(items.get(i));
             }*/
-            return new ResponseEntity<>(memberList,HttpStatus.OK);
+            return new ResponseEntity<>(checkList,HttpStatus.OK);
         }else {
             return new ResponseEntity<>(null,HttpStatus.OK);
         }
     }
 
-    public List<Item> removeListMemberItem(){
-        return memberList;
+    public List<ItemCheckListResponseDto> removeListMemberItem(){
+        return checkList;
     }
 
-    public void returnCheckList(List<Item> items){
-        for (int i=0;i<items.size();i++){
-            memberList.add(items.get(i));
-        }
+    public void returnCheckList(List<Item> items,Member member){
+        memberService.setMemberCheckList(items,checkList,member);
     }
 }

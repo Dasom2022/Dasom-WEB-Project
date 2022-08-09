@@ -1,6 +1,7 @@
 package com.dama.controller.api;
 
 import com.dama.model.dto.BeaconDto;
+import com.dama.model.dto.request.BeaconRequestDTO;
 import com.dama.model.dto.response.ItemStompTotalResponseDto;
 import com.dama.model.dto.response.QRLoginResponseDto;
 import com.dama.model.dto.response.QRLoginStompResponseDTO;
@@ -61,6 +62,12 @@ public class StompController {
     public void qrCamera(@RequestBody QRLoginResponseDto qrLoginResponseDto){
         QR_LOGIN_USERNAME=qrLoginResponseDto.getUsername();
         LoginToQr=true;
+    }
+
+
+    @PostMapping("/api/websocket/beacon")
+    public void webSocketBeacon(@RequestBody BeaconRequestDTO beaconRequestDTO){
+        System.out.println("beaconRequestDTO = " + beaconRequestDTO.getBeacon());
     }
 
     @MessageMapping("/api/websocket/itemWeight/{username}")
@@ -139,6 +146,8 @@ public class StompController {
         LoginToQr=false;
         QR_LOGIN_USERNAME="";
     }
+
+
 
     public HashMap<String, Integer> returnHashmap(){
 

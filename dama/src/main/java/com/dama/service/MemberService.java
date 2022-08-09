@@ -4,7 +4,9 @@ import com.dama.model.dto.MemberUpdateInfoDto;
 import com.dama.model.dto.SignupDto;
 import com.dama.model.dto.request.PutItemRequestDto;
 import com.dama.model.dto.request.UserRequestDto;
+import com.dama.model.dto.response.ItemCheckListResponseDto;
 import com.dama.model.dto.response.PutItemResponseDto;
+import com.dama.model.entity.Item;
 import com.dama.model.entity.Member;
 import com.dama.model.entity.Role;
 import com.dama.model.entity.SocialType;
@@ -255,5 +257,20 @@ public class MemberService {
 
     public Member findByAccessToken(String accessToken){
         return memberRepository.findByAccessToken(accessToken).get();
+    }
+
+    public List<ItemCheckListResponseDto> setMemberCheckList(List<Item> items, List<ItemCheckListResponseDto> itemCheckListResponseDto,Member member){
+        for (int i=0;i<items.size();i++){
+            ItemCheckListResponseDto itemCheckList=new ItemCheckListResponseDto();
+            itemCheckList.setId(items.get(i).getId());
+            itemCheckList.setItemCode(items.get(i).getItemCode());
+            itemCheckList.setItemName(items.get(i).getItemName());
+            itemCheckList.setLocale(items.get(i).getLocale());
+            itemCheckList.setPrice(items.get(i).getPrice());
+            itemCheckList.setWeight(items.get(i).getWeight());
+            itemCheckList.setMember(member);
+            itemCheckListResponseDto.add(itemCheckList);
+        }
+        return itemCheckListResponseDto;
     }
 }
