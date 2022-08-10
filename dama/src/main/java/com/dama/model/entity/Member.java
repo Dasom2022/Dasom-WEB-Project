@@ -116,7 +116,7 @@ public class Member {
         List<Item> items=new ArrayList<>();
         for (int i=0;i<m.size();i++){
 //            items.add(m.get(i).toEntity());
-            System.out.println("m.get(i).getItemLocale() = " + m.get(i).getItemLocale());
+            System.out.println("m.get(i).getItemLocale() = " + m.get(i).getLocale());
             this.itemList.add(m.get(i).toEntity());
         }
         System.out.println("this = " + this.getId());
