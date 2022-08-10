@@ -36,6 +36,8 @@ public class StompController {
     public static boolean ItemState;
     public static boolean LoginToQr=false;
     public static String QR_LOGIN_USERNAME;
+    public static String BEACON_LOCALE;
+    public static boolean BEACON_HERE=false;
 
     private final MemberService memberService;
 
@@ -68,6 +70,8 @@ public class StompController {
     @PostMapping("/api/websocket/beacon")
     public void webSocketBeacon(@RequestBody BeaconRequestDTO beaconRequestDTO){
         System.out.println("beaconRequestDTO = " + beaconRequestDTO.getBeacon());
+        BEACON_LOCALE=beaconRequestDTO.getBeacon();
+        BEACON_HERE=true;
     }
 
     @MessageMapping("/api/websocket/itemWeight/{username}")
@@ -147,7 +151,17 @@ public class StompController {
         QR_LOGIN_USERNAME="";
     }
 
-
+    @MessageMapping("/api/beacon/locale/{username}")
+    public void beaconLocale(@DestinationVariable String username){
+        log.info("username beacon ={}",username);
+        log.info("beacon locale ={}",BEACON_LOCALE);
+        if (BEACON_HERE){
+            template.convertAndSend("/sub/api/beacon/locale/"+username,BEACON_LOCALE);
+        }else {
+            template.convertAndSend("/sub/api/beacon/locale/"+username,"NOT_BEACON");
+        }
+        BEACON_HERE=false;
+    }
 
     public HashMap<String, Integer> returnHashmap(){
 

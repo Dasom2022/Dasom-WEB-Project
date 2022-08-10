@@ -3,6 +3,7 @@ package com.dama.service;
 import com.dama.model.dto.ItemResponseDto;
 import com.dama.model.dto.request.ItemRequestDto;
 import com.dama.model.dto.request.MemberItemPocketRequestDto;
+import com.dama.model.dto.response.ItemCheckListResponseDto;
 import com.dama.model.dto.response.ItemListResponseDto;
 import com.dama.model.dto.response.ItemSearchResponseDto;
 import com.dama.model.dto.response.ItemWebSocketResponseDTO;
@@ -119,4 +120,10 @@ public class ItemService {
         }
         return searchResponseDto;
     }
+
+    /*public void setCheckListCount(List<ItemCheckListResponseDto> c){
+        for (int i=0;i<c.size();i++){
+
+        }
+    }*/
 }

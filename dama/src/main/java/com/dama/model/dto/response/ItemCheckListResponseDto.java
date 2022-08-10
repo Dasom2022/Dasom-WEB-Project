@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
+import java.util.HashMap;
 
 @Getter
 @Setter
@@ -19,4 +20,5 @@ public class ItemCheckListResponseDto {
     private double weight;
     private String locale;
     private Member member;
+    private HashMap<String, Integer> hashMap;
 }

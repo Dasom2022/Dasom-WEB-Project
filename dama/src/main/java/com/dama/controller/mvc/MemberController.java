@@ -9,6 +9,7 @@ import com.dama.model.dto.response.PutItemResponseDto;
 import com.dama.model.entity.Item;
 import com.dama.model.entity.Member;
 import com.dama.service.EmailService;
+import com.dama.service.ItemService;
 import com.dama.service.MemberService;
 import com.dama.principal.UserDetailsImpl;
 import com.dama.service.SmsService;
@@ -37,6 +38,7 @@ public class MemberController {
     private final MemberService memberService;
     private final JwtService jwtService;
     private final EmailService emailService;
+    private final ItemService itemService;
     private final SmsService smsService;
     private static final List<ItemCheckListResponseDto> checkList=new ArrayList<>();
     @PostMapping("/signup")
@@ -194,6 +196,7 @@ public class MemberController {
             /*for (int i=0;i<items.size();i++){
                 memberList.add(items.get(i));
             }*/
+
             return new ResponseEntity<>(checkList,HttpStatus.OK);
         }else {
             return new ResponseEntity<>(null,HttpStatus.OK);
