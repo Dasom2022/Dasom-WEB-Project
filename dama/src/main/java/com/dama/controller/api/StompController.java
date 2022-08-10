@@ -37,7 +37,7 @@ public class StompController {
     public static boolean ItemState;
     public static boolean LoginToQr=false;
     public static String QR_LOGIN_USERNAME;
-    public static BeaconResponseDto BEACON_LOCALE;
+    public static String BEACON_LOCALE;
     public static boolean BEACON_HERE=false;
 
     private final MemberService memberService;
@@ -71,7 +71,7 @@ public class StompController {
     @PostMapping("/api/websocket/beacon")
     public void webSocketBeacon(@RequestBody BeaconRequestDTO beaconRequestDTO){
         System.out.println("beaconRequestDTO = " + beaconRequestDTO.getBeacon());
-        BEACON_LOCALE.setBeacon(BEACON_LOCALE.getBeacon());;
+        BEACON_LOCALE=beaconRequestDTO.getBeacon();
         BEACON_HERE=true;
     }
 
@@ -153,18 +153,21 @@ public class StompController {
     }
 
     @MessageMapping("/api/beacon/locale/{username}")
-    public void beaconLocale(@DestinationVariable String username){
+    public void beaconLocale(@DestinationVariable String username) {
         log.info("username beacon ={}",username);
         log.info("beacon locale ={}",BEACON_LOCALE);
+        BeaconResponseDto beaconResponseDto=new BeaconResponseDto();
         if (BEACON_HERE){
-            ResponseEntity<BeaconResponseDto> res=new ResponseEntity<>(BEACON_LOCALE,HttpStatus.OK);
+            beaconResponseDto.setBeacon(BEACON_LOCALE);
+            ResponseEntity<BeaconResponseDto> res=new ResponseEntity<>(beaconResponseDto,HttpStatus.OK);
             template.convertAndSend("/sub/api/beacon/locale/"+username,res);
         }else {
-            BEACON_LOCALE.setBeacon("NOT_BEACON");
-            ResponseEntity<BeaconResponseDto> res=new ResponseEntity<>(BEACON_LOCALE,HttpStatus.OK);
-            template.convertAndSend("/sub/api/beacon/locale/"+username,res);
+            beaconResponseDto.setBeacon("NOT_BEACON");
+            ResponseEntity<BeaconResponseDto> res = new ResponseEntity<>(beaconResponseDto, HttpStatus.OK);
+            template.convertAndSend("/sub/api/beacon/locale/" + username, res);
         }
         BEACON_HERE=false;
+        BEACON_LOCALE=null;
     }
 
     public HashMap<String, Integer> returnHashmap(){
