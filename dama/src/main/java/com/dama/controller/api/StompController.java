@@ -162,7 +162,9 @@ public class StompController {
             ResponseEntity<BeaconResponseDto> res=new ResponseEntity<>(beaconResponseDto,HttpStatus.OK);
             template.convertAndSend("/sub/api/beacon/locale/"+username,res);
         }else {
-            beaconResponseDto.setBeacon("NOT_BEACON");
+            if (BEACON_LOCALE==null){
+                beaconResponseDto.setBeacon("NOT_BEACON");
+            }
             ResponseEntity<BeaconResponseDto> res = new ResponseEntity<>(beaconResponseDto, HttpStatus.OK);
             template.convertAndSend("/sub/api/beacon/locale/" + username, res);
         }
