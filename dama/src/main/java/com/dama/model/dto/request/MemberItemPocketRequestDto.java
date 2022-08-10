@@ -13,7 +13,7 @@ public class MemberItemPocketRequestDto {
     private String itemCode;
     private int Count;
     private int price;
-    private String itemLocale;
+    private String locale;
     private double weight;
 
     public Item toEntity(){
@@ -22,7 +22,7 @@ public class MemberItemPocketRequestDto {
                 .itemCode(itemCode)
                 .price(price)
                 .weight(weight)
-                .locale(itemLocale)
+                .locale(locale)
                 .build();
     }
 }
