@@ -2,6 +2,7 @@ package com.dama.controller.api;
 
 import com.dama.model.dto.BeaconDto;
 import com.dama.model.dto.request.BeaconRequestDTO;
+import com.dama.model.dto.response.BeaconResponseDto;
 import com.dama.model.dto.response.ItemStompTotalResponseDto;
 import com.dama.model.dto.response.QRLoginResponseDto;
 import com.dama.model.dto.response.QRLoginStompResponseDTO;
@@ -36,7 +37,7 @@ public class StompController {
     public static boolean ItemState;
     public static boolean LoginToQr=false;
     public static String QR_LOGIN_USERNAME;
-    public static String BEACON_LOCALE;
+    public static BeaconResponseDto BEACON_LOCALE;
     public static boolean BEACON_HERE=false;
 
     private final MemberService memberService;
@@ -70,7 +71,7 @@ public class StompController {
     @PostMapping("/api/websocket/beacon")
     public void webSocketBeacon(@RequestBody BeaconRequestDTO beaconRequestDTO){
         System.out.println("beaconRequestDTO = " + beaconRequestDTO.getBeacon());
-        BEACON_LOCALE=beaconRequestDTO.getBeacon();
+        BEACON_LOCALE.setBeacon(BEACON_LOCALE.getBeacon());;
         BEACON_HERE=true;
     }
 
@@ -156,7 +157,8 @@ public class StompController {
         log.info("username beacon ={}",username);
         log.info("beacon locale ={}",BEACON_LOCALE);
         if (BEACON_HERE){
-            template.convertAndSend("/sub/api/beacon/locale/"+username,BEACON_LOCALE);
+            ResponseEntity<BeaconResponseDto> res=new ResponseEntity<>(BEACON_LOCALE,HttpStatus.OK);
+            template.convertAndSend("/sub/api/beacon/locale/"+username,res);
         }else {
             template.convertAndSend("/sub/api/beacon/locale/"+username,"NOT_BEACON");
         }
