@@ -45,12 +45,14 @@ public class StompController {
     @PostMapping("/api/websocket/state")
     public void state(@RequestBody BeaconDto beaconDto){
 //        System.out.println("ob_name = " + beaconDto.getItemCode());
+        System.out.println("물품담음" );
         ItemState=true;
         itemCode= beaconDto.getItemCode();
     }
 
     @PostMapping("/api/websocket/weight")
     public void weight(@RequestBody BeaconDto beaconDto){
+        System.out.println("물품빠짐" );
         ItemState=false;
         itemCode=beaconDto.getItemCode();
 //        if (!hashMap.isEmpty()){
