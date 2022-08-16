@@ -33,6 +33,9 @@ public class Item {
     @ManyToOne
     private Category category;
 
+    @Column(name = "imgUrl")
+    private String imgUrl;
+
     @ManyToOne
     private Member member;
 
@@ -44,7 +47,7 @@ public class Item {
         this.locale = locale;
     }*/
     @Builder
-    public Item(Long id, String itemName, String itemCode, int price, double weight, String locale, Category category) {
+    public Item(Long id, String itemName, String itemCode, int price, double weight, String locale, Category category,String imgUrl) {
         this.id = id;
         this.itemName = itemName;
         this.itemCode = itemCode;
@@ -52,6 +55,7 @@ public class Item {
         this.weight = weight;
         this.locale = locale;
         this.category = category;
+        this.imgUrl=imgUrl;
     }
 
     public void returnApiUpdateItemState(String itemCode,String itemName,int price,double weight,String locale){

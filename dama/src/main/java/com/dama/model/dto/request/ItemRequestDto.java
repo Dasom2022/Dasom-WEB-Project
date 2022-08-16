@@ -5,6 +5,7 @@ import com.dama.model.entity.Item;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
@@ -27,6 +28,10 @@ public class ItemRequestDto {
 
     private Category category;
 
+    private MultipartFile image;
+
+    private String imgUrl;
+
     public Item toEntity(){
         return Item.builder()
                 .id(id)
@@ -36,6 +41,7 @@ public class ItemRequestDto {
                 .weight(weight)
                 .locale(locale)
                 .category(category)
+                .imgUrl(imgUrl)
                 .build();
 
     }

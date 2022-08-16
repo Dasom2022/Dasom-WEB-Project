@@ -11,4 +11,6 @@ public class ItemResponseDto {
     private String locale;
     private int price;
     private double weight;
+    private String itemCode;
+    private String imgUrl;
 }

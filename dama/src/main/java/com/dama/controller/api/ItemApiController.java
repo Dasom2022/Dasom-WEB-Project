@@ -11,8 +11,10 @@ import com.dama.model.entity.Member;
 import com.dama.service.ItemService;
 import com.dama.principal.UserDetailsImpl;
 import com.dama.service.MemberService;
+import com.dama.service.S3Uploader;
 import com.dama.service.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +38,8 @@ public class ItemApiController {
 
     private final MemberController memberController;
 
+    private final S3Uploader s3Uploader;
+    private final StompController stompController;
     @PostMapping("/state")
     public ResponseEntity<ItemResponseDto> returnItemState(@RequestParam("itemCode")String itemCode){
         System.out.println("itemCode = " + itemCode);
@@ -48,9 +52,12 @@ public class ItemApiController {
         return userDetails.returnMember().getRole().toString();
     }
 
+    @SneakyThrows
     @PostMapping("/register")
     public ResponseEntity<?> registerItem(@RequestBody ItemRequestDto itemRequestDto,@RequestParam("accessToken") String accessToken){
         System.out.println("itemRequestDto = " + itemRequestDto.getItemName());
+        String itemImgUrl = s3Uploader.upload(itemRequestDto.getImage(), "item");
+        itemRequestDto.setImgUrl(itemImgUrl);
         String findMemberRole = memberService.returnMemberRole(accessToken);
         if (findMemberRole.equals("ADMIN")){
             itemService.saveItem(itemRequestDto);
