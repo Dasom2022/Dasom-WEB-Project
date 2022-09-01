@@ -28,7 +28,7 @@ public class ItemRequestDto {
 
     private Category category;
 
-    private MultipartFile image;
+//    private MultipartFile image;
 
     private String imgUrl;
 
@@ -41,7 +41,7 @@ public class ItemRequestDto {
                 .weight(weight)
                 .locale(locale)
                 .category(category)
-                .imgUrl(imgUrl)
+//                .imgUrl(imgUrl)
                 .build();
 
     }

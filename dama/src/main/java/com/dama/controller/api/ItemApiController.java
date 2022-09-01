@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +55,9 @@ public class ItemApiController {
 
     @SneakyThrows
     @PostMapping("/register")
-    public ResponseEntity<?> registerItem(@RequestBody ItemRequestDto itemRequestDto,@RequestParam("accessToken") String accessToken){
+    public ResponseEntity<?> registerItem(@RequestBody ItemRequestDto itemRequestDto, @RequestParam("accessToken") String accessToken, @RequestParam("image")MultipartFile image) {
         System.out.println("itemRequestDto = " + itemRequestDto.getItemName());
-        String itemImgUrl = s3Uploader.upload(itemRequestDto.getImage(), "item");
+        String itemImgUrl = s3Uploader.upload(image, "item");
         itemRequestDto.setImgUrl(itemImgUrl);
         String findMemberRole = memberService.returnMemberRole(accessToken);
         if (findMemberRole.equals("ADMIN")){
