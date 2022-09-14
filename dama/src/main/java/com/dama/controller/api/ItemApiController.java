@@ -55,10 +55,10 @@ public class ItemApiController {
 
     @SneakyThrows
     @PostMapping("/register")
-    public ResponseEntity<?> registerItem(@RequestBody ItemRequestDto itemRequestDto, @RequestParam("accessToken") String accessToken, @RequestParam("image")MultipartFile image) {
+    public ResponseEntity<?> registerItem(@RequestBody ItemRequestDto itemRequestDto, @RequestParam("accessToken") String accessToken/*, @RequestParam("image")MultipartFile image*/) {
         System.out.println("itemRequestDto = " + itemRequestDto.getItemName());
-        String itemImgUrl = s3Uploader.upload(image, "item");
-        itemRequestDto.setImgUrl(itemImgUrl);
+//        String itemImgUrl = s3Uploader.upload(image, "item");
+//        itemRequestDto.setImgUrl(itemImgUrl);
         String findMemberRole = memberService.returnMemberRole(accessToken);
         if (findMemberRole.equals("ADMIN")){
             itemService.saveItem(itemRequestDto);

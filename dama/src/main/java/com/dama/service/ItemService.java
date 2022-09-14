@@ -34,7 +34,7 @@ public class ItemService {
 
     public ItemResponseDto returnItemState(String itemCode){
         Item item = itemRepository.findByItemCode(itemCode).get();
-        ItemResponseDto itemResponseDto=new ItemResponseDto(item.getItemName(),item.getLocale(),item.getPrice(),item.getWeight(),item.getItemCode(),item.getImgUrl());
+        ItemResponseDto itemResponseDto=new ItemResponseDto(item.getItemName(),item.getLocale(),item.getPrice(),item.getWeight(),item.getItemCode()/*,item.getImgUrl()*/);
         return itemResponseDto;
     }
 

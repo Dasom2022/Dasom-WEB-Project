@@ -30,7 +30,7 @@ public class ItemRequestDto {
 
 //    private MultipartFile image;
 
-    private String imgUrl;
+//    private String imgUrl;
 
     public Item toEntity(){
         return Item.builder()

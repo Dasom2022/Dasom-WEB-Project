@@ -12,5 +12,5 @@ public class ItemResponseDto {
     private int price;
     private double weight;
     private String itemCode;
-    private String imgUrl;
+//    private String imgUrl;
 }
