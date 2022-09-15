@@ -24,15 +24,13 @@ public class ChatMessageDto {
 
     private MessageType messageType;
 
-    private int chatRoomUserCount;
 
     @Builder
-    public ChatMessageDto(Long id, String writer, String message, String chatTime, ChatRoom chatRoom, MessageType messageType, int chatRoomUserCount){
+    public ChatMessageDto(Long id, String writer, String message, String chatTime, ChatRoom chatRoom, MessageType messageType){
         this.id=id;
         this.writer=writer;
         this.message=message;
         this.chatTime=chatTime;
-        this.chatRoomUserCount=chatRoomUserCount;
         this.messageType=messageType;
     }
 

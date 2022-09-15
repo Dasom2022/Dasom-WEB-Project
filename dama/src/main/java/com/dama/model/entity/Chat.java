@@ -37,16 +37,13 @@ public class Chat {
     @Enumerated(EnumType.STRING)
     private MessageType messageType;
 
-    private int chatRoomUserCount;
-
     @Builder
-    public Chat(Long id, String chatTime, ChatRoom chatRoom, String  writer, String message,int chatRoomUserCount) {
+    public Chat(Long id, String chatTime, ChatRoom chatRoom, String  writer, String message) {
         this.id = id;
         this.chatTime = chatTime;
         this.chatRoom = chatRoom;
         this.writer = writer;
         this.message = message;
-        this.chatRoomUserCount=chatRoomUserCount;
     }
 
     public ChatMessageDto toDto(){
@@ -56,7 +53,6 @@ public class Chat {
                 .message(message)
                 .chatTime(chatTime)
                 .messageType(messageType)
-                .chatRoomUserCount(chatRoomUserCount)
                 .build();
     }
 

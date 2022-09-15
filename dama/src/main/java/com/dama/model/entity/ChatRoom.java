@@ -23,22 +23,13 @@ public class ChatRoom {
     @OneToMany(mappedBy = "chatRoom",cascade = CascadeType.ALL)
     private List<Chat> messages=new ArrayList<>();
 
-    private int userLimit;
-
-    private int countUser;
-
     @Builder
-    public ChatRoom(Long id, String name, String roomCode, int userLimit, int countUser) {
+    public ChatRoom(Long id, String name, String roomCode) {
         this.id = id;
         this.name=name;
         this.roomCode = roomCode;
-        this.userLimit=userLimit;
-        this.countUser=countUser;
     }
 
-    public void toUpdateCountUser(int countUser){
-        this.countUser=countUser;
-    }
     /*
     private Set<WebSocketSession> sessions = new HashSet<>();
 */
