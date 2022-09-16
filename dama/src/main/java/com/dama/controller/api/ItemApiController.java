@@ -2,6 +2,7 @@ package com.dama.controller.api;
 
 import com.dama.controller.mvc.MemberController;
 import com.dama.model.dto.ItemResponseDto;
+import com.dama.model.dto.request.ItemPutByCodeDto;
 import com.dama.model.dto.request.ItemRequestDto;
 import com.dama.model.dto.request.MemberItemPocketRequestDto;
 import com.dama.model.dto.response.ItemListResponseDto;
@@ -51,6 +52,11 @@ public class ItemApiController {
     @GetMapping("/register")
     public String returnUserRole(@AuthenticationPrincipal UserDetailsImpl userDetails){
         return userDetails.returnMember().getRole().toString();
+    }
+
+    @PostMapping("/itemCodePutItem")
+    public void putItemByCode(@RequestBody ItemPutByCodeDto itemPutByCodeDto){
+        itemService.findItemByItemCode(itemPutByCodeDto.getItemCode());
     }
 
     @SneakyThrows
@@ -117,4 +123,9 @@ public class ItemApiController {
         return new ResponseEntity<>(returnDTO,HttpStatus.OK);
     }
 
+    @GetMapping("/itemListPutByCode")
+    public ResponseEntity<List<Item>> getItemListPutByCodeApi(){
+        List<Item> itemListByCode = itemService.getItemListByCode();
+        return new ResponseEntity<>(itemListByCode,HttpStatus.OK);
+    }
 }

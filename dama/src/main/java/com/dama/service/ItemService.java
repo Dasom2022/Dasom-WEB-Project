@@ -24,6 +24,9 @@ import java.util.*;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ItemService {
+
+    public static List<Item> itemListByCode =new ArrayList<>();
+
     private final ItemRepository itemRepository;
 
     private final MemberService memberService;
@@ -120,6 +123,16 @@ public class ItemService {
         }
         return searchResponseDto;
     }
+
+    public void findItemByItemCode(String itemCode) {
+        Optional<Item> findItem = itemRepository.findByItemCode(itemCode);
+        itemListByCode.add(findItem.get());
+    }
+
+    public List<Item> getItemListByCode(){
+        return itemListByCode;
+    }
+
 
     /*public void setCheckListCount(List<ItemCheckListResponseDto> c){
         for (int i=0;i<c.size();i++){
