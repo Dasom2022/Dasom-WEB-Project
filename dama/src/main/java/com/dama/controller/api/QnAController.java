@@ -29,7 +29,7 @@ public class QnAController {
 
     @PostMapping("/second")
     public ResponseEntity<?> getSecondQnaReturnAPi(@RequestParam("secondQ") String secondQ){
-        if (secondQ=="change"){
+        if (secondQ.equals("0")){
             List<String> changeList=new ArrayList<>();
             changeList.add("비밀번호 안바꿔줌");
             changeList.add("아이디도 안바꿔줌");
