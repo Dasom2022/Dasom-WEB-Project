@@ -6,7 +6,6 @@ import com.dama.model.dto.request.ItemPutByCodeDto;
 import com.dama.model.dto.request.ItemRequestDto;
 import com.dama.model.dto.request.MemberItemPocketRequestDto;
 import com.dama.model.dto.response.ItemCodeByPuteResponseDTO;
-import com.dama.model.dto.response.ItemListResponseDto;
 import com.dama.model.dto.response.ItemSearchResponseDto;
 import com.dama.model.entity.Item;
 import com.dama.model.entity.Member;
@@ -22,7 +21,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -136,7 +134,7 @@ public class ItemApiController {
         System.out.println(itemListByCode.size());
         System.out.println(hashMap);
         itemCodeByPuteResponseDTO.setItemList(itemListByCode);
-        itemCodeByPuteResponseDTO.setHashMap(hashMap);
+//        itemCodeByPuteResponseDTO.setHashMap(hashMap);
         return new ResponseEntity<>(itemCodeByPuteResponseDTO,HttpStatus.OK);
     }
 }
