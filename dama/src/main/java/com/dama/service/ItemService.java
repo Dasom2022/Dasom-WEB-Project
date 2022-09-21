@@ -130,7 +130,6 @@ public class ItemService {
     }
 
     public List<Item> getItemListByCode(){
-        for (Item:)
         return itemListByCode;
     }
 
