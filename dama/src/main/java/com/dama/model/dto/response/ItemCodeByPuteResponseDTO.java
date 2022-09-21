@@ -13,5 +13,5 @@ import java.util.List;
 @NoArgsConstructor
 public class ItemCodeByPuteResponseDTO {
     private List<Item> itemList;
-//    private HashMap<String,Integer> hashMap;
+    private HashMap<String,Integer> hashMap;
 }

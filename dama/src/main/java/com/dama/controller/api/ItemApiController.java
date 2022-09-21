@@ -134,7 +134,7 @@ public class ItemApiController {
         System.out.println(itemListByCode.size());
         System.out.println(hashMap);
         itemCodeByPuteResponseDTO.setItemList(itemListByCode);
-//        itemCodeByPuteResponseDTO.setHashMap(hashMap);
+        itemCodeByPuteResponseDTO.setHashMap(hashMap);
         return new ResponseEntity<>(itemCodeByPuteResponseDTO,HttpStatus.OK);
     }
 }
