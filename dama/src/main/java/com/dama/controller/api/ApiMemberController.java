@@ -4,6 +4,7 @@ import com.dama.controller.mvc.MemberController;
 import com.dama.model.dto.response.ApiMemberStateResponseDto;
 import com.dama.model.entity.Item;
 import com.dama.model.entity.Member;
+import com.dama.service.ItemService;
 import com.dama.service.MemberService;
 import com.dama.service.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,8 @@ public class ApiMemberController {
 
     private final MemberController memberController;
 
+    private final ItemService itemService;
+
     @PostMapping("/state")
     public ResponseEntity<ApiMemberStateResponseDto> returnApiMemberState(@RequestParam("refreshToken")String refreshToken){
         Member member = memberService.returnApiMemberState(refreshToken);
@@ -58,6 +61,7 @@ public class ApiMemberController {
             stompController.returnTotalCount(0);
             stompController.returnTotalPrice(0);
             memberController.removeListMemberItem().clear();
+            itemService.getItemListByCode().clear();
             return new ResponseEntity<>("회원이 로그아웃되며 리프레쉬토큰이 증발합니다!",HttpStatus.OK);
         }else {
             return new ResponseEntity<>("회원로그아웃 안됨",HttpStatus.BAD_REQUEST);
