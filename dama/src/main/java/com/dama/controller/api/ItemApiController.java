@@ -5,6 +5,7 @@ import com.dama.model.dto.ItemResponseDto;
 import com.dama.model.dto.request.ItemPutByCodeDto;
 import com.dama.model.dto.request.ItemRequestDto;
 import com.dama.model.dto.request.MemberItemPocketRequestDto;
+import com.dama.model.dto.response.ItemCodeByPuteResponseDTO;
 import com.dama.model.dto.response.ItemListResponseDto;
 import com.dama.model.dto.response.ItemSearchResponseDto;
 import com.dama.model.entity.Item;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -124,8 +126,15 @@ public class ItemApiController {
     }
 
     @GetMapping("/itemListPutByCode")
-    public ResponseEntity<List<Item>> getItemListPutByCodeApi(){
+    public ResponseEntity<?> getItemListPutByCodeApi(){
         List<Item> itemListByCode = itemService.getItemListByCode();
-        return new ResponseEntity<>(itemListByCode,HttpStatus.OK);
+        HashMap<String,Integer> hashMap=new HashMap<>();
+        for (int i=0;i<itemListByCode.size();i++){
+            hashMap.put(itemListByCode.get(i).getItemCode(),hashMap.getOrDefault(itemListByCode.get(i).getItemCode(),0)+1);
+        }
+        ItemCodeByPuteResponseDTO itemCodeByPuteResponseDTO=new ItemCodeByPuteResponseDTO();
+        itemCodeByPuteResponseDTO.setItemList(itemListByCode);
+        itemCodeByPuteResponseDTO.setHashMap(hashMap);
+        return new ResponseEntity<>(itemCodeByPuteResponseDTO,HttpStatus.OK);
     }
 }
