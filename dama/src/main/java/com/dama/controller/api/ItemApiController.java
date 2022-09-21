@@ -133,6 +133,8 @@ public class ItemApiController {
             hashMap.put(itemListByCode.get(i).getItemCode(),hashMap.getOrDefault(itemListByCode.get(i).getItemCode(),0)+1);
         }
         ItemCodeByPuteResponseDTO itemCodeByPuteResponseDTO=new ItemCodeByPuteResponseDTO();
+        System.out.println(itemListByCode.size());
+        System.out.println(hashMap);
         itemCodeByPuteResponseDTO.setItemList(itemListByCode);
         itemCodeByPuteResponseDTO.setHashMap(hashMap);
         return new ResponseEntity<>(itemCodeByPuteResponseDTO,HttpStatus.OK);
