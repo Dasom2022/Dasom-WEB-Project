@@ -6,6 +6,7 @@ import com.dama.model.dto.response.BeaconResponseDto;
 import com.dama.model.dto.response.ItemStompTotalResponseDto;
 import com.dama.model.dto.response.QRLoginResponseDto;
 import com.dama.model.dto.response.QRLoginStompResponseDTO;
+import com.dama.model.entity.Item;
 import com.dama.model.entity.Member;
 import com.dama.service.ItemService;
 import com.dama.service.MemberService;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -86,9 +88,14 @@ public class StompController {
 //        if (ItemState==true){
 
 //        }else if (ItemState==false){
-          if (ItemState){
-            if (itemCode!=null){
+        List<Item> itemListByCode = itemService.getItemListByCode();
+        if (ItemState){
+            if (itemCode!=null&&!itemListByCode.isEmpty()){
                 totalCount+=1;
+                totalCount+=itemListByCode.size();
+                for (int x=0;x<itemListByCode.size();x++){
+                    totalPrice+=itemListByCode.get(x).getPrice();
+                }
                 totalPrice+=itemService.returnItemState(itemCode).getPrice();
             }
         }
