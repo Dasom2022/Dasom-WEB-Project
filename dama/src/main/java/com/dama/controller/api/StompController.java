@@ -41,6 +41,8 @@ public class StompController {
 
     private final MemberService memberService;
 
+    private static int weightSensor;
+
     @PostMapping("/api/websocket/state")
     public void state(@RequestBody BeaconDto beaconDto){
 //        System.out.println("ob_name = " + beaconDto.getItemCode());
@@ -64,7 +66,7 @@ public class StompController {
 
     @PostMapping("/api/sensor/w")
     public void weightSensor(@RequestBody WeightSensorDto sensorDto){
-        int weightSensor = sensorDto.getWeightSensor();
+        weightSensor = sensorDto.getWeightSensor();
         if (weightSensor==1){
             ws=true;
         }
@@ -131,6 +133,7 @@ public class StompController {
         if (ws){
             hashMap.clear();
             ws=false;
+            weightSensor=0;
         }
 //        System.out.println("itemCode = " + itemCode);
 //        System.out.println("hashMap = " + hashMap);
