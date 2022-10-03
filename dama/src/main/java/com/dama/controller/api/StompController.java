@@ -2,10 +2,7 @@ package com.dama.controller.api;
 
 import com.dama.model.dto.BeaconDto;
 import com.dama.model.dto.request.BeaconRequestDTO;
-import com.dama.model.dto.response.BeaconResponseDto;
-import com.dama.model.dto.response.ItemStompTotalResponseDto;
-import com.dama.model.dto.response.QRLoginResponseDto;
-import com.dama.model.dto.response.QRLoginStompResponseDTO;
+import com.dama.model.dto.response.*;
 import com.dama.model.entity.Item;
 import com.dama.model.entity.Member;
 import com.dama.service.ItemService;
@@ -30,7 +27,7 @@ import java.util.List;
 public class StompController {
 
     private final SimpMessagingTemplate template;
-
+    private static boolean ws=false;
     private final ItemService itemService;
     private static String itemCode;
     public static HashMap<String,Integer> hashMap=new HashMap<>();
@@ -63,6 +60,14 @@ public class StompController {
 //        if (hashMap.get(itemCode)==null){
 //            itemCountIfZero=true;
 //
+    }
+
+    @PostMapping("/api/sensor/w")
+    public void weightSensor(@RequestBody WeightSensorDto sensorDto){
+        int weightSensor = sensorDto.getWeightSensor();
+        if (weightSensor==1){
+            ws=true;
+        }
     }
 
     @PostMapping("/api/camera/qr")
@@ -123,7 +128,10 @@ public class StompController {
         if (ItemState&&itemCode!=null){
             hashMap.put(itemCode, hashMap.getOrDefault(itemCode, 0));
         }
-
+        if (ws){
+            hashMap.clear();
+            ws=false;
+        }
 //        System.out.println("itemCode = " + itemCode);
 //        System.out.println("hashMap = " + hashMap);
         if (hashMap.containsKey(itemCode)&&ItemState&&itemCode!=null) {
