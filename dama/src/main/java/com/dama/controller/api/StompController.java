@@ -114,6 +114,10 @@ public class StompController {
         }
 //            if (itemCountIfZero) i.setItemCode(itemCode);
 //        }
+        System.out.println("totalCount={}"+totalCount);
+        System.out.println("==========================");
+        System.out.println("totalPrice={}"+totalPrice);
+
         i.setTotalPrice(totalPrice);
         i.setTotalCount(totalCount);
 //        i.setIfZero(itemCountIfZero);

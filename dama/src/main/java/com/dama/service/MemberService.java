@@ -237,7 +237,9 @@ public class MemberService {
     @Transactional
     public void destroyRefreshToken(String refreshToken) {
         Optional<Member> findMember = memberRepository.findByRefreshToken(refreshToken);
-        findMember.get().destroyRefreshToken();
+        if(findMember.isPresent()){
+            findMember.get().destroyRefreshToken();
+        }
     }
 
     public String returnMemberRole(String accessToken) {
