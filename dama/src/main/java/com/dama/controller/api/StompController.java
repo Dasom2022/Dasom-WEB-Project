@@ -93,7 +93,7 @@ public class StompController {
 //        System.out.println("itemCountIfZero = " + itemCountIfZero);
 //        System.out.println("itemCode = " + itemCode);
 //        if (ItemState==true){
-
+        System.out.println(itemCode);
 //        }else if (ItemState==false){
         List<Item> itemListByCode = itemService.getItemListByCode();
         if (ItemState){
@@ -134,11 +134,11 @@ public class StompController {
         if (ItemState&&itemCode!=null){
             hashMap.put(itemCode, hashMap.getOrDefault(itemCode, 0));
         }
-        if (ws){
+        /*if (ws){
             hashMap.clear();
             ws=false;
             weightSensor=0;
-        }
+        }*/
 //        System.out.println("itemCode = " + itemCode);
 //        System.out.println("hashMap = " + hashMap);
         if (hashMap.containsKey(itemCode)&&ItemState&&itemCode!=null) {
