@@ -97,12 +97,12 @@ public class StompController {
 //        }else if (ItemState==false){
         List<Item> itemListByCode = itemService.getItemListByCode();
         if (ItemState){
-            if (itemCode!=null&&!itemListByCode.isEmpty()){
+            if (itemCode!=null/*&&!itemListByCode.isEmpty()*/){
                 totalCount+=1;
-                totalCount+=itemListByCode.size();
+                /*totalCount+=itemListByCode.size();
                 for (int x=0;x<itemListByCode.size();x++){
                     totalPrice+=itemListByCode.get(x).getPrice();
-                }
+                }*/
                 totalPrice+=itemService.returnItemState(itemCode).getPrice();
             }
         }
