@@ -103,12 +103,16 @@ public class StompController {
                 for (int x=0;x<itemListByCode.size();x++){
                     totalPrice+=itemListByCode.get(x).getPrice();
                 }*/
-                totalPrice+=itemService.returnItemState(itemCode).getPrice();
+                int price = itemService.returnItemState(itemCode).getPrice();
+                System.out.println(price);
+                totalPrice+=price;
             }
         }
         if (!ItemState) {
             if (itemCode != null&&!hashMap.isEmpty()) {
-                totalPrice -= itemService.itemPricetoTotalPrice(itemCode);
+                int price = itemService.itemPricetoTotalPrice(itemCode);
+                System.out.println(price);
+                totalPrice -= price;
                 totalCount -= 1;
             }
         }
