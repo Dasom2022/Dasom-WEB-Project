@@ -30,7 +30,7 @@
 
 ### 배포 & 툴 <br/>
 <div>
-  <img src="https://img.shields.io/badge/EC2-FF9900?style=for-the-badge&logo=EC2&logoColor=white"/>
+  <img src="https://img.shields.io/badge/amazonec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white"/>
   <img src="https://img.shields.io/badge/Intellij IDEA-000000?style=for-the-badge&logo=Intellij IDEA&logoColor=white"/>
 </div>
 <br/>
